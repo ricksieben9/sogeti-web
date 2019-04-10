@@ -12,13 +12,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-import {UsersService} from './service/users.service';
+import { UsersService } from './service/users.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { DispenserComponent } from './dispenser/dispenser.component';
-import { DetailsComponent } from './dispenser/details/details.component';
-import { EditComponent } from './dispenser/edit/edit.component';
-import { CreateComponent } from './dispenser/create/create.component';
-import { DispensersComponent } from './pages/dispensers/dispensers.component';
+import { DispenserComponent } from './pages/dispenser/dispenser.component';
 
 
 @NgModule({
@@ -36,11 +32,7 @@ import { DispensersComponent } from './pages/dispensers/dispensers.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    DispenserComponent,
-    DetailsComponent,
-    EditComponent,
-    CreateComponent,
-    DispensersComponent
+    DispenserComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

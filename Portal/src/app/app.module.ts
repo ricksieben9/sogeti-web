@@ -18,6 +18,7 @@ import { DispenserComponent } from './dispenser/dispenser.component';
 import { DetailsComponent } from './dispenser/details/details.component';
 import { EditComponent } from './dispenser/edit/edit.component';
 import { CreateComponent } from './dispenser/create/create.component';
+import { DispensersComponent } from './pages/dispensers/dispensers.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { CreateComponent } from './dispenser/create/create.component';
     DispenserComponent,
     DetailsComponent,
     EditComponent,
-    CreateComponent
+    CreateComponent,
+    DispensersComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

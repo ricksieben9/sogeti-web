@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { CreateDispenserComponent } from './pages/dispenser/create-dispenser/create-dispenser.component'
+import { CreateDispenserComponent } from './pages/dispenser/create-dispenser/create-dispenser.component';
 
 const routes: Routes = [
   {

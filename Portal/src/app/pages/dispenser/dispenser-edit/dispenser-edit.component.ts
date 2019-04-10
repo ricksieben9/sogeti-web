@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dispenser-edit',
@@ -16,14 +17,14 @@ export class DispenserEditComponent implements OnInit {
     console.log(this.selectedDispenserId);
   }
 
-  dispenserOptions = [ "hoofdtoediener", "toediener"];
+  dispenserOptions = [ "", "hoofdtoediener", "toediener"];
   selectedDispenserId;
   selectedDispenser = {
     "id" : 1,
     "name" : "Arjun Autar",
     "email" : "asautar@avans.nl",
-    "role" : "hoofdverzorger"
+    "role" : "hoofdtoediener"
   }; 
 
-  testValue = true;
+  selectedRole;
 }

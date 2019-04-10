@@ -6,7 +6,9 @@ import {intake_moment_medicines} from "./intake_moment_medicines";
 
 
 @Entity("intake_moment",{schema:"asautar_db" } )
+@Index("fk_intake_moment_Receiver1_idx",["receiver_id",])
 @Index("fk_Intake_moment_Priority1_idx",["priority_number",])
+@Index("fk_Intake_moment_User1_idx",["dispenser",])
 export class intake_moment {
 
     @PrimaryGeneratedColumn({
@@ -57,6 +59,6 @@ export class intake_moment {
 
    
     @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    intake_moment_mediciness:intake_moment_medicines[];
+    intake_moment_medicines:intake_moment_medicines[];
     
 }

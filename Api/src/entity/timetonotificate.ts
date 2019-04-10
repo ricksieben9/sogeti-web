@@ -15,6 +15,6 @@ export class timetonotificate {
 
    
     @OneToMany(type=>priority, priority=>priority.time_to_notificate,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    prioritys:priority[];
+    priority:priority[];
     
 }

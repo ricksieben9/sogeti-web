@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {ReceiverService} from '../../service/receiver.service';
 
 @Component({
   selector: 'app-receivers',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiversComponent implements OnInit {
 
-  constructor() { }
+  list: any;
+  modalRef: BsModalRef;
+
+  constructor(private receiverService: ReceiverService, private modalService: BsModalService) { }
+
+  openModalAdd(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  // getReceivers() {
+  //   const receiverObservable = this.receiverService.getAllReceivers();
+  //   receiverObservable.subscribe((userData: any[]) => {
+  //     console.log(userData);
+  //     this.list = userData['response'];
+  //   });
+  // }
 
   ngOnInit() {
+  //  this.getReceivers();
   }
 
 }

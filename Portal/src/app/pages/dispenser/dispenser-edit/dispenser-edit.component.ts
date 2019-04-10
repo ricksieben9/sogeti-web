@@ -27,4 +27,8 @@ export class DispenserEditComponent implements OnInit {
   }; 
 
   selectedRole;
+
+  editRole() {
+    console.log("edit role")
+  }
 }

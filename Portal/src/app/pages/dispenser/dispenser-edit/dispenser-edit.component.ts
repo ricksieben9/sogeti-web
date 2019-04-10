@@ -12,4 +12,6 @@ export class DispenserEditComponent implements OnInit {
   ngOnInit() {
   }
 
+  dispenserOptions = [ "hoofdtoediener", "toediener"];
+
 }

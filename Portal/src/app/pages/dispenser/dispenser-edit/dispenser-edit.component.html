@@ -17,12 +17,12 @@
         </div>
         <div class="card-body">
           <h2>{{ selectedDispenser.name }}</h2>
-          <form>
+          <form [formGroup]="form">
             <div class="form-group mt-2">
               <h4>Huidige rol: {{selectedDispenser.role}}</h4>
               <label for="role" class="mt-2">Wijzig rol</label>
-              <select class="form-control" id="role">
-                <option *ngFor="let option of dispenserOptions">{{option}}</option>
+              <select formControlName="editRole" class="form-control" id="role">
+                <option *ngFor="let option of dispenserOptions" value="{{option}}">{{option}}</option>
               </select>
             </div>
           </form>

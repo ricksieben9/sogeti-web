@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -27,7 +28,8 @@ import { DispenserEditComponent } from './pages/dispenser/dispenser-edit/dispens
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(), 
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dispenser-edit',
@@ -10,7 +11,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class DispenserEditComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private location: Location) { }
+  form: FormGroup;
+
+  constructor(private route: ActivatedRoute, private location: Location) { 
+    this.form = new FormGroup({
+      editRole: new FormControl(null)
+    });
+  }
 
   ngOnInit() {
     this.selectedDispenserId = +this.route.snapshot.paramMap.get('id');
@@ -29,6 +36,8 @@ export class DispenserEditComponent implements OnInit {
   selectedRole;
 
   editRole() {
-    console.log("edit role")
+    console.log("edit role");
+    this.selectedRole = this.form.get('editRole').value;
+    this.location.back();
   }
 }

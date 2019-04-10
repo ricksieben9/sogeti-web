@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'dispensers/createDispenser', 
     component: CreateDispenserComponent 
   }, 
-  { path: 'dispensers/editDispenser', 
+  { path: 'dispensers/editDispenser/:id', 
     component: DispenserEditComponent 
   }, {
     path: '',

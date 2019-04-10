@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import {UsersService} from './service/users.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { DispenserComponent } from './dispenser/dispenser.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    DispenserComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

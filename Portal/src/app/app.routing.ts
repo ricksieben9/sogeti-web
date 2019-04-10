@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { CreateDispenserComponent } from './pages/dispenser/create-dispenser/create-dispenser.component';
+import { DispenserEditComponent } from './pages/dispenser/dispenser-edit/dispenser-edit.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
   }, 
   { path: 'dispensers/createDispenser', 
     component: CreateDispenserComponent 
+  }, 
+  { path: 'dispensers/editDispenser', 
+    component: DispenserEditComponent 
   }, {
     path: '',
     component: AdminLayoutComponent,

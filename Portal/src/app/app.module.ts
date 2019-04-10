@@ -15,6 +15,9 @@ import { ComponentsModule } from './components/components.module';
 import {UsersService} from './service/users.service';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DispenserComponent } from './dispenser/dispenser.component';
+import { DetailsComponent } from './dispenser/details/details.component';
+import { EditComponent } from './dispenser/edit/edit.component';
+import { CreateComponent } from './dispenser/create/create.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { DispenserComponent } from './dispenser/dispenser.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    DispenserComponent
+    DispenserComponent,
+    DetailsComponent,
+    EditComponent,
+    CreateComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

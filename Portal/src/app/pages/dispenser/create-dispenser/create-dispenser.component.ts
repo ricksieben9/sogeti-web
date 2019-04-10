@@ -12,4 +12,29 @@ export class CreateDispenserComponent implements OnInit {
   ngOnInit() {
   }
 
+  users = [ 
+    {
+    "id" : 1,
+    "name" : "Arjun Autar",
+    "email" : "asautar@avans.nl"
+  },
+  {
+    "id" : 2,
+    "name" : "Arjun Autar",
+    "email" : "asautar@avans.nl"
+  },
+  {
+    "id" : 3,
+    "name" : "Kenny Tu",
+    "email" : "ktu@avans.nl"
+  },
+  {
+    "id" : 4,
+    "name" : "Kenny Tu",
+    "email" : "ktu@avans.nl"
+  }
+];
+
+dispenserOptions = [ "hoofdtoediener", "toediener"];
+
 }

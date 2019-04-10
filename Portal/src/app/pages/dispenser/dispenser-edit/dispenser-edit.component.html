@@ -16,13 +16,13 @@
           <h3 class="mb-0">Details</h3>
         </div>
         <div class="card-body">
-          <h2>Naam persoon</h2>
+          <h2>{{ selectedDispenser.name }}</h2>
           <form>
             <div class="form-group">
               <label for="role">Wijzig rol:</label>
               <select class="form-control" id="role">
                 <option></option>
-                <option *ngFor="let option of dispenserOptions">{{option}}</option>
+                <option *ngFor="let option of dispenserOptions" ng-selected="option = selectedDispenser.role">{{option}}</option>
               </select>
             </div>
           </form>

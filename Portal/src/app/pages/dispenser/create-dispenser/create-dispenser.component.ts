@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-dispenser',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateDispenserComponent implements OnInit {
 
-  constructor() { }
+  constructor( private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -36,5 +37,6 @@ export class CreateDispenserComponent implements OnInit {
 ];
 
 dispenserOptions = [ "hoofdtoediener", "toediener"];
+private heroesUrl = 'https://localhost:8080/dispensers/create';  // URL to web api
 
 }

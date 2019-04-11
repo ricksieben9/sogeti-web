@@ -10,7 +10,8 @@ import {ReceiverService} from '../../service/receiver.service';
 export class ReceiversComponent implements OnInit {
 
   list: any;
-  // Receiver Receiver = new Receiver();
+  receiver: Receiver = new Receiver();
+  errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
 
   constructor(private receiverService: ReceiverService, private modalService: BsModalService) { }
@@ -27,12 +28,31 @@ export class ReceiversComponent implements OnInit {
     });
   }
 
+  onSave() {
+    !this.receiver.name ? this.errorMsg.name = 'Naam vereist' : '';
+    if (!this.receiver.name) {
+      return;
+    } else {
+      console.log('else');
+      this.receiverService.addReceiver(this.receiver).subscribe(res => {
+        this.getReceivers();
+        this.modalRef.hide();
+        console.log(res);
+      }, error => {
+         console.log(error);
+       });
+    }
+  }
+
   ngOnInit() {
     this.getReceivers();
   }
+}
 
-  // class Receiver {
-  //   id: string;
-  //   name: string;
-  // }
+class Receiver {
+  name: string;
+}
+
+class ErrorMsg {
+  name: string;
 }

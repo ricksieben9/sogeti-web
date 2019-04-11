@@ -21,8 +21,8 @@ export class ReceiverService {
 
   }
 
-  addReceiver() {
-
+  addReceiver(receiver: Receiver): Observable<Receiver> {
+    return this.http.post<Receiver>('http://localhost:3000/receiver/', receiver);
   }
 
   updateReceiver() {

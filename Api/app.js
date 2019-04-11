@@ -14,8 +14,8 @@ var users = require('./routes/users');
 
 var app = express();
 
-var funcs = require("./db_connection.ts");
-console.log(funcs.test())
+// var funcs = require("./db_connection.ts");
+// console.log(funcs.test())
 // test connection
 // var typeorm = require("typeorm");
 // var log_category = require("./models/entities/log_category");
@@ -39,7 +39,7 @@ console.log(funcs.test())
 //   var category1 = {
 //     name: "toedienmoment"
 //   };
-//   var logCategoryRepository = connection.getRepository("log_category");
+//   //var logCategoryRepository = connection.getRepository("log_category");
 
 // }).catch(error => console.log(error));
 // test connection

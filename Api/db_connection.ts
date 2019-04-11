@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-//import {log_category} from "./models/entities/log_category";
+// import {createConnection} from "typeorm";
+// //import {log_category} from "./models/entities/log_category";
 
 export function test() {
     return "test";

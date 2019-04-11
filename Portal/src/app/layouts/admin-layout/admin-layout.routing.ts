@@ -9,6 +9,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { from } from 'rxjs';
 import { CreateDispenserComponent } from 'src/app/pages/dispenser/create-dispenser/create-dispenser.component';
+import {ReceiversComponent} from '../../pages/receivers/receivers.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -18,5 +19,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dispensers/create',  component: CreateDispenserComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'users',          component: UsersComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'maps',           component: MapsComponent },
+    {path: 'receivers',       component: ReceiversComponent}
 ];

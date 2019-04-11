@@ -25,6 +25,7 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Naam</th>
+                <th scope="col"></th>
                 <!--<th scope="col">Role</th>-->
               </tr>
               </thead>
@@ -37,6 +38,9 @@
                 </th>
                 <td>
                   {{item.name}}
+                </td>
+                <td>
+                  <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
                 </td>
               </tr>
               </tbody>
@@ -63,6 +67,23 @@
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="receiver.name">
       <p class="text-danger">{{errorMsg.name}}</p>
       <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #alter>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aanpassen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label for="name">Naam</label>
+      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="receiver.name">
+      <p class="text-danger">{{errorMsg.name}}</p>
+      <button class="btn btn-primary" (click)="onAlter()" >Opslaan</button>
     </form>
   </div>
 </ng-template>

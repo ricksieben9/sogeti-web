@@ -20,6 +20,11 @@ export class ReceiversComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  openModalAlter(template: TemplateRef<any>, rec: Receiver) {
+    this.receiver = rec;
+    this.modalRef = this.modalService.show(template);
+  }
+
   getReceivers() {
     const receiverObservable = this.receiverService.getAllReceivers();
     receiverObservable.subscribe((userData: any[]) => {
@@ -33,7 +38,6 @@ export class ReceiversComponent implements OnInit {
     if (!this.receiver.name) {
       return;
     } else {
-      console.log('else');
       this.receiverService.addReceiver(this.receiver).subscribe(res => {
         this.getReceivers();
         this.modalRef.hide();
@@ -47,9 +51,25 @@ export class ReceiversComponent implements OnInit {
   ngOnInit() {
     this.getReceivers();
   }
+
+  onAlter() {
+    !this.receiver.name ? this.errorMsg.name = 'Naam vereist' : '';
+    if (!this.receiver.name) {
+      return;
+    } else {
+      this.receiverService.updateReceiver(this.receiver).subscribe(res => {
+        this.getReceivers();
+        this.modalRef.hide();
+        console.log(res);
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
 }
 
 class Receiver {
+  id: string;
   name: string;
 }
 

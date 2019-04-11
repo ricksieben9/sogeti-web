@@ -49,14 +49,13 @@ class ReceiverController {
         const receiverRepository = getRepository(receiver);
         try {
             await receiverRepository.save(Receiver);
-            res.send(Receiver.name);
         } catch (e) {
             res.status(409).send("receivername already in use");
             return;
         }
 
         //If all ok, send 201 response
-        res.status(201).send("Receiver created");
+        res.status(201).send({"response": "Receiver created"});
     };
 
     static editReceiver = async (req: Request, res: Response) => {
@@ -66,13 +65,11 @@ class ReceiverController {
         //Get values from the body
         const receiverName = req.body;
 
-        console.log(receiverName);
-
         //Try to find receiver on database
         const receiverRepository = getRepository(receiver);
         let Receiver;
         try {
-            Receiver = await receiverRepository.findOneOrFail(id);
+            Receiver = await receiverRepository.findOne(id);
         } catch (error) {
             //If not found, send a 404 response
             res.status(404).send("Receiver not found");
@@ -97,7 +94,7 @@ class ReceiverController {
             return;
         }
         //After all send a 204 (no content, but accepted) response
-        res.status(204).send();
+        res.status(204).send({"response": "Receiver updated"});
     };
 
     static deleteReceiver = async (req: Request, res: Response) => {

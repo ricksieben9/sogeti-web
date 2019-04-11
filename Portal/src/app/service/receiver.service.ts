@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 interface Receiver {
+  id: string;
   name: string;
 }
 
@@ -25,7 +26,10 @@ export class ReceiverService {
     return this.http.post<Receiver>('http://localhost:3000/receiver/', receiver);
   }
 
-  updateReceiver() {
-
+  updateReceiver(receiver: Receiver): Observable<Receiver> {
+    return this.http.patch<Receiver>(
+      'http://localhost:3000/receiver/' + receiver.id,
+      receiver
+    );
   }
 }

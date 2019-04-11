@@ -38,6 +38,10 @@ export class DispenserEditComponent implements OnInit {
   editRole() {
     console.log("edit role");
     this.selectedRole = this.form.get('editRole').value;
+    this.back();
+  }
+
+  back() {
     this.location.back();
   }
 }

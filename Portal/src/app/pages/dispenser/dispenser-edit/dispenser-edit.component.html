@@ -13,6 +13,7 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
+          <button class="btn btn-info mb-4" (click)="back()">Terug</button>
           <h3 class="mb-0">Details</h3>
         </div>
         <div class="card-body">
@@ -26,9 +27,9 @@
               </select>
             </div>
           </form>
+          <button class="btn btn-success" (click)="editRole()">Opslaan</button>
           <div class="card-footer py-4">
             <div>
-              <button class="btn btn-info" (click)="editRole()">Opslaan</button>
             </div>
           </div>
         </div>

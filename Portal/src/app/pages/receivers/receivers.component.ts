@@ -17,11 +17,15 @@ export class ReceiversComponent implements OnInit {
   constructor(private receiverService: ReceiverService, private modalService: BsModalService) { }
 
   openModalAdd(template: TemplateRef<any>) {
+    this.errorMsg = new ErrorMsg();
+    this.receiver = new Receiver();
     this.modalRef = this.modalService.show(template);
   }
 
   openModalAlter(template: TemplateRef<any>, rec: Receiver) {
-    this.receiver = rec;
+    this.errorMsg = new ErrorMsg();
+    this.receiver.id = rec.id;
+    this.receiver.name = rec.name;
     this.modalRef = this.modalService.show(template);
   }
 
@@ -44,6 +48,7 @@ export class ReceiversComponent implements OnInit {
         console.log(res);
       }, error => {
          console.log(error);
+         this.errorMsg.name = error.error['response'];
        });
     }
   }
@@ -63,6 +68,7 @@ export class ReceiversComponent implements OnInit {
         console.log(res);
       }, error => {
         console.log(error);
+        this.errorMsg.name = error.error['response'];
       });
     }
   }

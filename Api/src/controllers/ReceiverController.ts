@@ -50,7 +50,7 @@ class ReceiverController {
         try {
             await receiverRepository.save(Receiver);
         } catch (e) {
-            res.status(409).send("receivername already in use");
+            res.status(409).send({"response": "Naam is al in gebruik."});
             return;
         }
 
@@ -90,7 +90,7 @@ class ReceiverController {
             await receiverRepository.save(Receiver);
             res.send(Receiver);
         } catch (e) {
-            res.status(409).send("receivername already in use");
+            res.status(409).send({"response": "Naam is al in gebruik."});
             return;
         }
         //After all send a 204 (no content, but accepted) response

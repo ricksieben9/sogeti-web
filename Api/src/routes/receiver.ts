@@ -22,7 +22,7 @@ router.post("/",ReceiverController.newReceiver);
 //Edit one user
 router.patch(
     "/:id([0-9]+)",
-    [checkJwt, checkRole(["ADMIN"])],
+   // [checkJwt, checkRole(["ADMIN"])],
     ReceiverController.editReceiver
 );
 

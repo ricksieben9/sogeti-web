@@ -17,12 +17,13 @@ class ReceiverController {
 
     static getOneById = async (req: Request, res: Response) => {
         //Get the ID from the url
-        const id: number = 7;
+        const id: number = req.params.id;
 
         //Get the receiver from database
         const receiverRepository = getRepository(receiver);
         try {
             const Receiver = await receiverRepository.createQueryBuilder().select(["id", "name"]).where({id: id}).getRawMany();
+            res.send(Receiver);
 
         } catch (error) {
             res.status(404).send("Receiver not found");
@@ -35,7 +36,7 @@ class ReceiverController {
         let Receiver = new receiver();
 
 
-        Receiver.name = receivername;
+        Receiver.name = receivername['name'];
 
         //Validade if the parameters are ok
         const errors = await validate(Receiver);
@@ -48,6 +49,7 @@ class ReceiverController {
         const receiverRepository = getRepository(receiver);
         try {
             await receiverRepository.save(Receiver);
+            res.send(Receiver.name);
         } catch (e) {
             res.status(409).send("receivername already in use");
             return;
@@ -64,6 +66,8 @@ class ReceiverController {
         //Get values from the body
         const receiverName = req.body;
 
+        console.log(receiverName);
+
         //Try to find receiver on database
         const receiverRepository = getRepository(receiver);
         let Receiver;
@@ -76,7 +80,8 @@ class ReceiverController {
         }
 
         //Validate the new values on model
-        Receiver.receivername = receiverName;
+        Receiver.name = receiverName['name'];
+        console.log(Receiver.receivername);
         const errors = await validate(Receiver);
         if (errors.length > 0) {
             res.status(400).send(errors);
@@ -86,6 +91,7 @@ class ReceiverController {
         //Try to safe, if fails, that means receivername already in use
         try {
             await receiverRepository.save(Receiver);
+            res.send(Receiver);
         } catch (e) {
             res.status(409).send("receivername already in use");
             return;

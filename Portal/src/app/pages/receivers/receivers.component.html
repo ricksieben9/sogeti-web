@@ -41,6 +41,7 @@
                 </td>
                 <td>
                   <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
+                  <button class="btn btn-danger" (click)="openModalDelete(delete, item)" >Verwijderen</button>
                 </td>
               </tr>
               </tbody>
@@ -84,6 +85,23 @@
       <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="receiver.name">
       <p class="text-danger">{{errorMsg.name}}</p>
       <button class="btn btn-primary" (click)="onAlter()" >Opslaan</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Verwijderen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label>Weet u zeker dat u {{receiver.name}} wilt verwijderen</label>
+      <br>
+      <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
+      <button class="btn btn-danger" (click)="deleteRec(receiver)" >Verwijderen!</button>
     </form>
   </div>
 </ng-template>

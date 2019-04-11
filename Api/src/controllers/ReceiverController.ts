@@ -100,7 +100,7 @@ class ReceiverController {
     static deleteReceiver = async (req: Request, res: Response) => {
         //Get the ID from the url
         const id = req.params.id;
-
+        console.log('TESTTEST');
         const receiverRepository = getRepository(receiver);
         let Receiver: receiver;
         try {

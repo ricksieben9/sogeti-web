@@ -6,27 +6,27 @@ import { checkRole } from "../middlewares/checkRole";
 
 const router = Router();
 
-//Get all users
+//Get all receivers
 router.get("/", ReceiverController.listAll);
 
-// Get one user
+// Get one receiver
 router.get(
     "/:id([0-9]+)",
     //[checkJwt, checkRole(["ADMIN"])],
     ReceiverController.getOneById
 );
 
-//Create a new user
+//Create a new receiver
 router.post("/",ReceiverController.newReceiver);
 
-//Edit one user
+//Edit one receiver
 router.patch(
     "/:id([0-9]+)",
    // [checkJwt, checkRole(["ADMIN"])],
     ReceiverController.editReceiver
 );
 
-//Delete one user
+//Delete one receiver
 router.delete(
     "/:id([0-9]+)",
    // [checkJwt, checkRole(["ADMIN"])],

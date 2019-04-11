@@ -5,17 +5,16 @@ import {medicine} from "./medicine";
 
 @Entity("intake_moment_medicines",{schema:"asautar_db" } )
 @Index("fk_Intake_moment_has_Medicine_Medicine1_idx",["medicine_id",])
-@Index("fk_Intake_moment_has_Medicine_Intake_moment1_idx",["intake_moment_id",])
 export class intake_moment_medicines {
 
    
-    @ManyToOne(type=>intake_moment, intake_moment=>intake_moment.intake_moment_mediciness,{ primary:true, nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>intake_moment, intake_moment=>intake_moment.intake_moment_medicines,{ primary:true, nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager: true })
     @JoinColumn({ name:'intake_moment_id'})
     intake_moment_id:intake_moment | null;
 
 
    
-    @ManyToOne(type=>medicine, medicine=>medicine.intake_moment_mediciness,{ primary:true, nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>medicine, medicine=>medicine.intake_moment_medicines,{ primary:true, nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager: true })
     @JoinColumn({ name:'medicine_id'})
     medicine_id:medicine | null;
 

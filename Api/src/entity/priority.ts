@@ -17,14 +17,14 @@ export class priority {
         
 
    
-    @ManyToOne(type=>timetonotificate, timetonotificate=>timetonotificate.prioritys,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>timetonotificate, timetonotificate=>timetonotificate.priority,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'time_to_notificate'})
     time_to_notificate:timetonotificate | null;
 
 
    
     @OneToMany(type=>group_dispensers, group_dispensers=>group_dispensers.priority,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    group_dispenserss:group_dispensers[];
+    group_dispensers:group_dispensers[];
     
 
    

@@ -5,6 +5,7 @@ import {user} from "./user";
 
 @Entity("log",{schema:"asautar_db" } )
 @Index("fk_Log_Log_category1_idx",["category",])
+@Index("fk_Log_User1_idx",["user_id",])
 export class log {
 
     @PrimaryGeneratedColumn({

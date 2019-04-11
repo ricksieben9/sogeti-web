@@ -35,6 +35,7 @@ export class DispenserComponent implements OnInit {
 class User {
 name: string;
 email: string;
+roles_role: string;
 } 
  
 

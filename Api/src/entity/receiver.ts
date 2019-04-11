@@ -18,7 +18,6 @@ export class receiver {
     intake_moments:intake_moment[];
     
 
-   
     @ManyToMany(type=>group, group=>group.receivers)
     groups:group[];
     

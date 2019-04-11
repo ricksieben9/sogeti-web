@@ -18,16 +18,16 @@ export class ReceiversComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  // getReceivers() {
-  //   const receiverObservable = this.receiverService.getAllReceivers();
-  //   receiverObservable.subscribe((userData: any[]) => {
-  //     console.log(userData);
-  //     this.list = userData['response'];
-  //   });
-  // }
+  getReceivers() {
+    const receiverObservable = this.receiverService.getAllReceivers();
+    receiverObservable.subscribe((userData: any[]) => {
+      console.log(userData);
+      this.list = userData['response'];
+    });
+  }
 
   ngOnInit() {
-  //  this.getReceivers();
+    this.getReceivers();
   }
 
 }

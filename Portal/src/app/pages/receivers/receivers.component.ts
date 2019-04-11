@@ -10,6 +10,7 @@ import {ReceiverService} from '../../service/receiver.service';
 export class ReceiversComponent implements OnInit {
 
   list: any;
+  // Receiver Receiver = new Receiver();
   modalRef: BsModalRef;
 
   constructor(private receiverService: ReceiverService, private modalService: BsModalService) { }
@@ -22,7 +23,7 @@ export class ReceiversComponent implements OnInit {
     const receiverObservable = this.receiverService.getAllReceivers();
     receiverObservable.subscribe((userData: any[]) => {
       console.log(userData);
-      this.list = userData['response'];
+      this.list = userData;
     });
   }
 
@@ -30,4 +31,8 @@ export class ReceiversComponent implements OnInit {
     this.getReceivers();
   }
 
+  // class Receiver {
+  //   id: string;
+  //   name: string;
+  // }
 }

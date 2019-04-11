@@ -14,7 +14,7 @@ export class ReceiverService {
   constructor(private http: HttpClient) { }
 
   getAllReceivers(): Observable<Receiver[]> {
-    return this.http.get<Receiver[]>('http://localhost:4001/api/v1/receivers/');
+    return this.http.get<Receiver[]>('http://localhost:3000/receiver/');
   }
 
   getReceiver() {

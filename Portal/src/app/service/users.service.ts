@@ -23,6 +23,11 @@ export class UsersService {
     return this.http.get<User[]>('http://localhost:4001/api/v1/users/')
   }
 
+  getUsersByRoles(roles): Observable<User[]> {
+    let url = "http://localhost:3000/user/roles/?roles=" + JSON.stringify(roles);
+    return this.http.get<User[]>(url);
+  }
+
   getUser(name: string): Observable<User> {
     return this.http.get<User>('http://localhost:4001/api/v1/users/' + name)
   }

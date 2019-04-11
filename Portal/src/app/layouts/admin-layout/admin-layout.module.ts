@@ -14,6 +14,8 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DispenserEditComponent } from 'src/app/pages/dispenser/dispenser-edit/dispenser-edit.component';
+import { CreateDispenserComponent } from 'src/app/pages/dispenser/create-dispenser/create-dispenser.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -23,7 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
@@ -31,7 +34,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TablesComponent,
     UsersComponent,
     DispenserComponent,
-    MapsComponent
+    MapsComponent,
+    DispenserEditComponent,
+    CreateDispenserComponent
   ]
 })
 

@@ -8,11 +8,21 @@ const router = Router();
 //Get all users
 router.get("/", [checkJwt],checkRole(["ADMIN"]), UserController.listAll);
 
+//Get users by role
+//router.get("/:role", [checkJwt],checkRole(["ADMIN"]), UserController.getByRole);
+
 // Get one user
 router.get(
     "/:id([0-9]+)",
     [checkJwt, checkRole(["ADMIN"])],
     UserController.getOneById
+);
+
+// Get users by roles
+router.get(
+    "/roles",
+    //[checkJwt, checkRole(["ADMIN"])],
+    UserController.getByRoles
 );
 
 //Create a new user

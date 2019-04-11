@@ -13,7 +13,7 @@ import * as bcrypt from "bcryptjs";
 export class user {
 
    
-    @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager:true })
     @JoinColumn({ name:'roles_role'})
     roles_role:roles | null;
 

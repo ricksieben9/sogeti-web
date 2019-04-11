@@ -1,8 +1,8 @@
-import {Request, Response} from "express";
-import {getManager, getRepository} from "typeorm";
-import {validate} from "class-validator";
+import { Request, Response } from "express";
+import { getManager, getRepository } from "typeorm";
+import { validate } from "class-validator";
 
-import {user} from "../entity/user";
+import { user } from "../entity/user";
 
 class UserController {
 
@@ -15,6 +15,25 @@ class UserController {
         res.send(users);
     };
 
+    static getByRoles = async (req: Request, res: Response) => {
+        //Get the parameters in JSON from the url
+        const roles = JSON.parse(req.query.roles);
+
+        //Get the user from database
+        const userRepository = getRepository(user);
+        try {
+            const User = await userRepository.createQueryBuilder()
+                .select(["name", "roles_role", "email", "id"])
+                .where("roles_role IN (:role)", { role: roles.roleList })
+                .getRawMany();
+
+            res.send(User);
+
+        } catch (error) {
+            res.status(404).send("User not found");
+        }
+    };
+
     static getOneById = async (req: Request, res: Response) => {
         //Get the ID from the url
         const id: number = req.params.id;
@@ -22,7 +41,7 @@ class UserController {
         //Get the user from database
         const userRepository = getRepository(user);
         try {
-            const User = await userRepository.createQueryBuilder().select(["id", "username", "role"]).where({id: id}).getRawMany();
+            const User = await userRepository.createQueryBuilder().select(["id", "username", "role"]).where({ id: id }).getRawMany();
 
         } catch (error) {
             res.status(404).send("User not found");
@@ -31,7 +50,7 @@ class UserController {
 
     static newUser = async (req: Request, res: Response) => {
         //Get parameters from the body
-        let {username, password, role} = req.body;
+        let { username, password, role } = req.body;
         let User = new user();
         User.email = username;
         User.password = password;
@@ -65,7 +84,7 @@ class UserController {
         const id = req.params.id;
 
         //Get values from the body
-        const {username, role} = req.body;
+        const { username, role } = req.body;
 
         //Try to find user on database
         const userRepository = getRepository(user);

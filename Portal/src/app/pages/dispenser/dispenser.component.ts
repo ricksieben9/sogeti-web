@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UsersService } from 'src/app/service/users.service';
+
 
 @Component({
   selector: 'app-dispenser',
@@ -7,36 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DispenserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() {
+    this.getDispensers();
   }
 
-  dispensers = [ 
-    {
-    "id" : 1,
-    "name" : "Arjun Autar",
-    "email" : "asautar@avans.nl",
-    "role" : "hoofdverzorger"
-  },
-  {
-    "id" : 2,
-    "name" : "Arjun Autar",
-    "email" : "asautar@avans.nl",
-    "role" : "hoofdverzorger"
-  },
-  {
-    "id" : 3,
-    "name" : "Kenny Tu",
-    "email" : "ktu@avans.nl",
-    "role" : "hoofdverzorger"
-  },
-  {
-    "id" : 4,
-    "name" : "Kenny Tu",
-    "email" : "ktu@avans.nl",
-    "role" : "hoofdverzorger"
+  dispensers;
+
+  getDispensers() {
+   let roles = { roleList: ["Dispenser", "MainDispenser"] };
+    // this.dispensers = this.usersService.getUsersByRoles(roles)
+    // console.log(this.dispensers);
+
+    const userObservable = this.usersService.getUsersByRoles(roles);
+    userObservable.subscribe((userData: any[]) => {
+      console.log(userData);
+      this.dispensers = userData;
+    });
   }
-]
 
 }
+ 
+class User {
+name: string;
+email: string;
+} 
+ 
+

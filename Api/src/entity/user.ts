@@ -1,28 +1,29 @@
 import {BaseEntity,Column,Entity,Index,JoinColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 import {roles} from "./roles";
-import {person} from "./person";
 import {group_dispensers} from "./group_dispensers";
 import {intake_moment} from "./intake_moment";
 import {log} from "./log";
+import * as bcrypt from "bcryptjs";
+
 
 
 @Entity("user",{schema:"asautar_db" } )
 @Index("email_UNIQUE",["email",],{unique:true})
 @Index("fk_Person_Roles_idx",["roles_role",])
-@Index("PRIMARY",["person_id",])
 export class user {
 
    
-    @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' , eager: true})
+    @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'roles_role'})
     roles_role:roles | null;
 
 
-   
-    @OneToOne(type=>person, person=>person.user,{ primary:true, nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION',  eager: true})
-    @JoinColumn({ name:'person_id'})
-    person_id:person | null;
-
+    @PrimaryGeneratedColumn({
+        type:"int", 
+        name:"id"
+        })
+    id:number;
+        
 
     @Column("varchar",{ 
         nullable:false,
@@ -41,9 +42,17 @@ export class user {
     password:string;
         
 
+    @Column("varchar",{ 
+        nullable:false,
+        length:45,
+        name:"name"
+        })
+    name:string;
+        
+
    
-    @OneToMany(type=>group_dispensers, group_dispensers=>group_dispensers.person_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    group_dispenserss:group_dispensers[];
+    @OneToMany(type=>group_dispensers, group_dispensers=>group_dispensers.user_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
+    group_dispensers:group_dispensers[];
     
 
    
@@ -54,5 +63,12 @@ export class user {
    
     @OneToMany(type=>log, log=>log.user_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
     logs:log[];
-    
+
+    hashPassword() {
+        this.password = bcrypt.hashSync(this.password);
+    }
+
+    checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+        return bcrypt.compareSync(unencryptedPassword, this.password);
+    }
 }

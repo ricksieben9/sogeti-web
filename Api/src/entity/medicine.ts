@@ -45,6 +45,6 @@ export class medicine {
 
    
     @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.medicine_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    intake_moment_mediciness:intake_moment_medicines[];
+    intake_moment_medicines:intake_moment_medicines[];
     
 }

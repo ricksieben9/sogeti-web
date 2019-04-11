@@ -23,7 +23,7 @@ export class group {
 
    
     @OneToMany(type=>group_dispensers, group_dispensers=>group_dispensers.groups_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
-    group_dispenserss:group_dispensers[];
+    group_dispensers:group_dispensers[];
     
 
    

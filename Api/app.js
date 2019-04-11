@@ -1,3 +1,4 @@
+require('typescript-require');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -13,31 +14,34 @@ var users = require('./routes/users');
 
 var app = express();
 
+var funcs = require("./db_connection.ts");
+console.log(funcs.test())
 // test connection
-var typeorm = require("typeorm");
-var log_category = require("./models/entities/log_category");
-var EntitySchema = typeorm.EntitySchema;
-typeorm.createConnection({
-  type: "mysql",
-  host: "databases.aii.avans.nl",
-  port: 3306,
-  username: "asautar",
-  password: "Ab12345",
-  database: "asautar_db",
-  entities: [
-    new EntitySchema(require("./models/entities/log_category").log_category)
-  ],
-  synchronize: true,
-  logging: false
-}).then(connection => {
-  // here you can start to work with your entities
-  console.log("connection succeeded");
-  var category1 = {
-    name: "toedienmoment"
-  };
-  //var logCategoryRepository = connection.getRepository("log_category");
+// var typeorm = require("typeorm");
+// var log_category = require("./models/entities/log_category");
+// console.log(log_category.log_category)
+// var EntitySchema = typeorm.EntitySchema;
+// typeorm.createConnection({
+//   type: "mysql",
+//   host: "databases.aii.avans.nl",
+//   port: 3306,
+//   username: "asautar",
+//   password: "Ab12345",
+//   database: "asautar_db",
+//   entities: [
+//     log_category
+//   ],
+//   synchronize: true,
+//   logging: false
+// }).then(connection => {
+//   // here you can start to work with your entities
+//   console.log("connection succeeded");
+//   var category1 = {
+//     name: "toedienmoment"
+//   };
+//   var logCategoryRepository = connection.getRepository("log_category");
 
-}).catch(error => console.log(error));
+// }).catch(error => console.log(error));
 // test connection
 
 // view engine setup

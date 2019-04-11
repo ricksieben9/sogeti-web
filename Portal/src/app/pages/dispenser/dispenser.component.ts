@@ -19,7 +19,7 @@ export class DispenserComponent implements OnInit {
   dispensers;
 
   getDispensers() {
-   let roles = { roleList: ["Dispenser", "MainDispenser"] };
+   let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
     // this.dispensers = this.usersService.getUsersByRoles(roles)
     // console.log(this.dispensers);
 

@@ -20,7 +20,7 @@
           <h2>{{ selectedDispenser.name }}</h2>
           <form [formGroup]="form">
             <div class="form-group mt-2">
-              <h4>Huidige rol: {{selectedDispenser.role}}</h4>
+              <h4>Huidige rol: {{selectedDispenser.roles_role}}</h4>
               <label for="role" class="mt-2">Wijzig rol</label>
               <select formControlName="editRole" class="form-control" id="role">
                 <option *ngFor="let option of dispenserOptions" value="{{option}}">{{option}}</option>

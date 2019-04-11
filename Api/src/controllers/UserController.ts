@@ -41,10 +41,10 @@ class UserController {
         //Get the user from database
         const userRepository = getRepository(user);
         try {
-            const User = await userRepository.createQueryBuilder().select(["id", "username", "role"]).where({ id: id }).getRawMany();
-
+            const User = await userRepository.createQueryBuilder().select(["id", "name", "roles_role", "email"]).where({ id: id }).getRawMany();
+            res.send(User);
         } catch (error) {
-            res.status(404).send("User not found");
+            res.status(404).send({"error": "User not found"});
         }
     };
 
@@ -84,13 +84,14 @@ class UserController {
         const id = req.params.id;
 
         //Get values from the body
-        const { username, role } = req.body;
+        const { name, roles_role, email } = req.body;
+        console.log(name);
 
         //Try to find user on database
         const userRepository = getRepository(user);
         let User;
         try {
-            User = await userRepository.findOneOrFail(id);
+            User = await userRepository.findOne(id);
         } catch (error) {
             //If not found, send a 404 response
             res.status(404).send("User not found");
@@ -98,8 +99,9 @@ class UserController {
         }
 
         //Validate the new values on model
-        User.username = username;
-        User.role = role;
+        User.name = name;
+        User.roles_role = roles_role;
+        User.email = email;
         const errors = await validate(User);
         if (errors.length > 0) {
             res.status(400).send(errors);
@@ -109,12 +111,13 @@ class UserController {
         //Try to safe, if fails, that means username already in use
         try {
             await userRepository.save(User);
+            
         } catch (e) {
             res.status(409).send("username already in use");
             return;
         }
         //After all send a 204 (no content, but accepted) response
-        res.status(204).send();
+        res.status(204).send({"response": "User updated"});
     };
 
     static deleteUser = async (req: Request, res: Response) => {

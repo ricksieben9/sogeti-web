@@ -12,7 +12,10 @@ import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 
 interface User {
-  name: string
+  name: string,
+  id: string,
+  roles_role: string,
+  email: string
 }
 
 @Injectable()
@@ -28,6 +31,11 @@ export class UsersService {
     return this.http.get<User[]>(url);
   }
 
+  getUserById(id: any): Observable<User[]> {
+    console.log("id = " + id)
+    return this.http.get<User[]>("http://localhost:3000/user/" + id);
+  }
+
   getUser(name: string): Observable<User> {
     return this.http.get<User>('http://localhost:4001/api/v1/users/' + name)
   }
@@ -36,11 +44,12 @@ export class UsersService {
     return this.http.post<User>('http://localhost:4001/api/v1/users/data/', user)
   }
 
-  updateUser(user: User): Observable<void> {
-    return this.http.put<void>(
-      'http://localhost:8000/api/cats/' + user.name,
+  updateUser(user: User): Observable<User> {
+    console.log("user = " + user.roles_role)
+    return this.http.patch<User>(
+      'http://localhost:3000/user/' + user.id,
       user
-    )
+    );
   }
 
   deleteUser(name: string) {

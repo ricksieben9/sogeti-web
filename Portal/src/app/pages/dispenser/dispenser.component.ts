@@ -11,6 +11,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class DispenserComponent implements OnInit {
 
+  user: User = new User();
+  errorMsg : ErrorMsg = new  ErrorMsg();
+
   constructor(private usersService: UsersService, private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -39,6 +42,10 @@ export class DispenserComponent implements OnInit {
   }
 
   SaveDispenser() {
+    this.errorMsg.name = this.errorMsg.email = this.errorMsg.roles_role = '';
+    !this.user.name ? this.errorMsg.name = 'Naam vereist': '';
+    !this.user.email ? this.errorMsg.email = 'E-mail vereist': '';
+    !this.user.roles_role ? this.errorMsg.roles_role = 'Rol vereist': '';
     console.log("newUser:" + this.newUser.name);
     return;
   }
@@ -49,5 +56,11 @@ name: string;
 email: string;
 roles_role: string;
 } 
+
+class ErrorMsg {
+  name: string;
+  email: string;
+  roles_role: string;
+}
  
 

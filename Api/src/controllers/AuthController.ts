@@ -6,6 +6,7 @@ import { validate } from "class-validator";
 
 import { user } from "../entity/user";
 import config from "../config/config";
+import {roles} from "../entity/roles";
 
 class AuthController {
     static login = async (req: Request, res: Response) => {
@@ -14,12 +15,14 @@ class AuthController {
         if (!(username && password)) {
             res.status(400).send();
         }
-
+        let role;
         //Get user from database
         const userRepository = getRepository(user);
         let User: user;
         try {
-            User = await userRepository.findOneOrFail({ where: { username } });
+            User = await userRepository.findOne({ where: { username } });
+            role = User.roles_role.role;
+
         } catch (error) {
             res.status(401).send();
         }
@@ -36,9 +39,9 @@ class AuthController {
             config.jwtSecret,
             { expiresIn: "1h" }
         );
-
+        console.log(role);
         //Send the jwt in the response
-        res.send(token);
+        res.send({username,token, role});
     };
 
     static changePassword = async (req: Request, res: Response) => {
@@ -79,5 +82,7 @@ class AuthController {
 
         res.status(204).send();
     };
+
 }
+
 export default AuthController;

@@ -1,10 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import {Routes, RouterModule} from '@angular/router';
+
+import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
+import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {Role} from './_models/role';
 import {LoginComponent} from './auth/login/login.component';
@@ -12,22 +10,33 @@ import {LoginComponent} from './auth/login/login.component';
 const appRoutes: Routes = [
   {
     path: '',
-    component: AuthLayoutComponent,
-    canActivate: [AuthGuard]
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
-    path: 'admin',
+    path: '',
     component: AdminLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }
+    ],
     canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] }
   },
   {
-    path: 'login',
-    component: LoginComponent
-  },
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
+      }
+    ],
 
+  },
   // otherwise redirect to home
-  { path: '**', redirectTo: '/dashboard' }
+  {path: '**', redirectTo: 'dashboard'}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

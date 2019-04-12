@@ -5,11 +5,13 @@ import { UsersComponent } from '../../pages/users/users.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
+import {AuthGuard} from '../../_guards/auth.guard';
+import {Role} from '../../_models/role';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'tables',         component: TablesComponent },
-    { path: 'users',          component: UsersComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'dashboard',      component: DashboardComponent, data: { roles: [Role.Admin] }  },
+    { path: 'user-profile',   component: UserProfileComponent, data: { roles: [Role.Admin] } },
+    { path: 'tables',         component: TablesComponent, data: { roles: [Role.Admin] }  },
+    { path: 'users',          component: UsersComponent, data: { roles: [Role.Admin] }  },
+    { path: 'maps',           component: MapsComponent, data: { roles: [Role.Admin] }  }
 ];

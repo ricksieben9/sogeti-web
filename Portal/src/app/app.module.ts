@@ -35,8 +35,7 @@ import {LoginComponent} from './auth/login/login.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent,
-    LoginComponent
+    AuthLayoutComponent
   ],
   providers: [UsersService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

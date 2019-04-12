@@ -42,10 +42,9 @@ export class DispenserComponent implements OnInit {
   }
 
   SaveDispenser() {
-    this.errorMsg.name = this.errorMsg.email = this.errorMsg.roles_role = '';
+    this.errorMsg.name = this.errorMsg.email = '';
     !this.user.name ? this.errorMsg.name = 'Naam vereist': '';
     !this.user.email ? this.errorMsg.email = 'E-mail vereist': '';
-    !this.user.roles_role ? this.errorMsg.roles_role = 'Rol vereist': '';
     console.log("newUser:" + this.newUser.name);
     return;
   }

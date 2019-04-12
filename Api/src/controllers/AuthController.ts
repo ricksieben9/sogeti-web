@@ -20,7 +20,7 @@ class AuthController {
         const userRepository = getRepository(user);
         let User: user;
         try {
-            User = await userRepository.findOne({ where: { username } });
+            User = await userRepository.findOne({ where: { email:username } });
             role = User.roles_role.role;
 
         } catch (error) {

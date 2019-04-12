@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot , ActivatedRoute} from '@angular/router';
 
 import { AuthenticationService } from '../service/authentication.service';
 
@@ -7,6 +7,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private authenticationService: AuthenticationService
   ) { }
 
@@ -14,7 +15,7 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
       // check if route is restricted by role
-      if (route.children[0].data.roles && route.children[0].data.roles.indexOf(currentUser.role) === -1) {
+      if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
         // role not authorised so redirect to home page
         this.router.navigate(['/dashboard']);
         return false;

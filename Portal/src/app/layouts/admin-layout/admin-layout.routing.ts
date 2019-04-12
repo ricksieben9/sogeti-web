@@ -9,7 +9,7 @@ import {AuthGuard} from '../../_guards/auth.guard';
 import {Role} from '../../_models/role';
 
 export const AdminLayoutRoutes: Routes = [
-    { path: 'dashboard',      component: DashboardComponent, data: { roles: [Role.Admin] }  },
+    { path: 'dashboard',      component: DashboardComponent, },
     { path: 'user-profile',   component: UserProfileComponent, data: { roles: [Role.Admin] } },
     { path: 'tables',         component: TablesComponent, data: { roles: [Role.Admin] }  },
     { path: 'users',          component: UsersComponent, data: { roles: [Role.Admin] }  },

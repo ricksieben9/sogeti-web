@@ -23,6 +23,7 @@ const appRoutes: Routes = [
       }
     ],
     canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] }
   },
   {
     path: '',

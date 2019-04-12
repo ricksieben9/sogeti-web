@@ -11,6 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class DispenserComponent implements OnInit {
 
+  users: User[];
   user: User = new User();
   errorMsg : ErrorMsg = new  ErrorMsg();
 
@@ -47,6 +48,11 @@ export class DispenserComponent implements OnInit {
     !this.user.email ? this.errorMsg.email = 'E-mail vereist': '';
     console.log("newUser:" + this.newUser.name);
     return;
+  }
+
+  delete(user: User): void {
+    this.users = this.users.filter(u => u !== user);
+    this.usersService.deleteUser(user).subscribe();
   }
 }
  

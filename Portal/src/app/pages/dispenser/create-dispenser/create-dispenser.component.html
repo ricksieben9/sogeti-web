@@ -66,10 +66,10 @@
         </div>
         <div class="modal-body">
           <form>
-            <label for="name">naam</label>
+            <label for="name">Naam</label>
             <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name">
             <p class="text-danger">{{errorMsg.name}}</p>
-            <label for="email">e-mail</label>
+            <label for="email">E-mail</label>
             <input type="text" class="form-control" id="email" name="email" [(ngModel)]="user.email">
             <p class="text-danger">{{errorMsg.email}}</p>
             <button class="btn btn-primary" (click)="onSave()">Opslaan</button>

@@ -6,7 +6,9 @@ import { checkRole } from "../middlewares/checkRole";
 const router = Router();
 
 //Get all users
-router.get("/", [checkJwt],checkRole(["ADMIN"]), UserController.listAll);
+router.get("/",
+    //[checkJwt],checkRole(["ADMIN"]),
+    UserController.listAll);
 
 // Get one user
 router.get(

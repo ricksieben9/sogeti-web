@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
 
     const userObservable = this.usersService.getAll();
     userObservable.subscribe((userData: any[]) => {
-      this.list = userData['response'];
+      this.list = userData;
     });
   }
 

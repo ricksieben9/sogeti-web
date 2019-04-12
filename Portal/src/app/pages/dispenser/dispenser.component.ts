@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsersService } from 'src/app/service/users.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dispenser',
@@ -15,7 +16,7 @@ export class DispenserComponent implements OnInit {
   user: User = new User();
   errorMsg : ErrorMsg = new  ErrorMsg();
 
-  constructor(private usersService: UsersService, private modalService: BsModalService) { }
+  constructor(private usersService: UsersService, private modalService: BsModalService, private router: Router) { }
 
   ngOnInit() {
     this.getDispensers();
@@ -50,16 +51,40 @@ export class DispenserComponent implements OnInit {
     return;
   }
 
-  delete(user: User): void {
-    this.users = this.users.filter(u => u !== user);
-    this.usersService.deleteUser(user).subscribe();
+  // delete(user: User): void {
+  //   console.log("Delete component button " + user.id);
+
+  //   console.log(user);
+
+  //   this.usersService.deleteUser(user.id).subscribe(res => {
+  //     console.log(res);
+  //     this.back();
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
+
+  delete(user: User) {
+    console.log(user);
+    this.usersService.deleteUser(user).subscribe(res => {
+      this.getDispensers();
+      console.log(res);
+    }, error => {
+      console.log(error);
+      this.errorMsg.name = error.error['response'];
+    });
+  }
+
+  back(){
+    this.router.navigate(['/dispensers']);
   }
 }
  
 class User {
-name: string;
-email: string;
-roles_role: string;
+  name: string;
+  id: string;
+  roles_role: string;
+  email: string;
 } 
 
 class ErrorMsg {

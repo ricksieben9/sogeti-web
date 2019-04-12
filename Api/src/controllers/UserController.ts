@@ -129,7 +129,7 @@ class UserController {
         try {
             User = await userRepository.findOneOrFail(id);
         } catch (error) {
-            res.status(404).send("User not found");
+            res.status(404).send({"response":"User not found"});
             return;
         }
         userRepository.delete(id);

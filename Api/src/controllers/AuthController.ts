@@ -24,12 +24,12 @@ class AuthController {
             name = User.name;
 
         } catch (error) {
-            res.status(401).send();
+            res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
         }
 
         //Check if encrypted password match
         if (!User.checkIfUnencryptedPasswordIsValid(password)) {
-            res.status(401).send();
+            res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
             return;
         }
 

@@ -103,9 +103,9 @@ class ReceiverController {
         const receiverRepository = getRepository(receiver);
         let Receiver: receiver;
         try {
-            Receiver = await receiverRepository.findOneOrFail(id);
+            Receiver = await receiverRepository.findOne(id);
         } catch (error) {
-            res.status(404).send("Receiver not found");
+            res.status(404).send({"response":"Receiver not found"});
             return;
         }
         receiverRepository.delete(id);
@@ -116,4 +116,3 @@ class ReceiverController {
 }
 
 export default ReceiverController;
-

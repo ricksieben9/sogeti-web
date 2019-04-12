@@ -1,44 +1,46 @@
-
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import * as jwt from "jsonwebtoken";
-import { getRepository } from "typeorm";
-import { validate } from "class-validator";
+import {getRepository} from "typeorm";
+import {validate} from "class-validator";
 
-import { user } from "../entity/user";
+import {user} from "../entity/user";
 import config from "../config/config";
+import {roles} from "../entity/roles";
 
 class AuthController {
     static login = async (req: Request, res: Response) => {
         //Check if username and password are set
-        let { username, password } = req.body;
+        let {username, password} = req.body;
         if (!(username && password)) {
             res.status(400).send();
         }
-
+        let role, name;
         //Get user from database
         const userRepository = getRepository(user);
         let User: user;
         try {
-            User = await userRepository.findOneOrFail({ where: { username } });
+            User = await userRepository.findOne({where: {email: username}});
+            role = User.roles_role.role;
+            name = User.name;
+
         } catch (error) {
-            res.status(401).send();
+            res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
         }
 
         //Check if encrypted password match
         if (!User.checkIfUnencryptedPasswordIsValid(password)) {
-            res.status(401).send();
+            res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
             return;
         }
 
         //Sing JWT, valid for 1 hour
         const token = jwt.sign(
-            { userId: User.id, username: User.email },
+            {userId: User.id, username: User.email},
             config.jwtSecret,
-            { expiresIn: "1h" }
+            {expiresIn: "1h"}
         );
-
         //Send the jwt in the response
-        res.send(token);
+        res.send({username, token, role, name});
     };
 
     static changePassword = async (req: Request, res: Response) => {
@@ -46,7 +48,7 @@ class AuthController {
         const id = res.locals.jwtPayload.userId;
 
         //Get parameters from the body
-        const { oldPassword, newPassword } = req.body;
+        const {oldPassword, newPassword} = req.body;
         if (!(oldPassword && newPassword)) {
             res.status(400).send();
         }
@@ -79,5 +81,7 @@ class AuthController {
 
         res.status(204).send();
     };
+
 }
+
 export default AuthController;

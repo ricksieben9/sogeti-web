@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
+import {Component, OnInit} from '@angular/core';
 
 // core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2
-} from "../../variables/charts";
+import {Role} from '../../_models/role';
+import {User} from '../../_models/user';
+import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,47 +15,23 @@ export class DashboardComponent implements OnInit {
   public datasets: any;
   public data: any;
   public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
-
-  constructor() { }
-
-  ngOnInit() {
-
-    this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
-    ];
-    this.data = this.datasets[0];
 
 
-    var chartOrders = document.getElementById('chart-orders');
+  currentUser: User;
 
-    parseOptions(Chart, chartOptions());
+  constructor(private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
   }
 
-
-
+  ngOnInit() {
+  }
 
 
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
   }
-
-}
+  get isAdmin() {
+    return this.currentUser && this.currentUser.role === Role.Admin;
+  }}

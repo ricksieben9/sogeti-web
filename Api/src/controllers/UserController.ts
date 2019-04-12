@@ -3,6 +3,8 @@ import {getManager, getRepository} from "typeorm";
 import {validate} from "class-validator";
 
 import {user} from "../entity/user";
+import {roles} from "../entity/roles";
+import {In} from "typeorm/browser";
 
 class UserController {
 
@@ -19,10 +21,12 @@ class UserController {
         //Get the ID from the url
         const id: number = req.params.id;
 
+        console.log(id);
         //Get the user from database
         const userRepository = getRepository(user);
         try {
-            const User = await userRepository.createQueryBuilder().select(["id", "username", "role"]).where({id: id}).getRawMany();
+            const User = await userRepository.findOne(id);
+            res.send(User);
 
         } catch (error) {
             res.status(404).send("User not found");

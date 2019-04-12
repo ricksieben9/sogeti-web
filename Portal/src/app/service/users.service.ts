@@ -1,44 +1,20 @@
-// import { Injectable } from '@angular/core';
-//
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class UsersService {
-//
-//   constructor() { }
-// }
-import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
-interface User {
-  name: string
-}
+import {User} from '../_models/user';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UsersService {
-  constructor(private http: HttpClient) {}
-
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:4001/api/v1/users/')
+  constructor(private http: HttpClient) {
   }
 
-  getUser(name: string): Observable<User> {
-    return this.http.get<User>('http://localhost:4001/api/v1/users/' + name)
+  getAll() {
+    return this.http.get<User[]>(`${environment.url}/users`);
   }
 
-  insertUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:4001/api/v1/users/data/', user)
-  }
-
-  updateUser(user: User): Observable<void> {
-    return this.http.put<void>(
-      'http://localhost:8000/api/cats/' + user.name,
-      user
-    )
-  }
-
-  deleteUser(name: string) {
-    return this.http.delete('http://localhost:4001/api/v1/users/' + name)
+  getById(id: number) {
+    return this.http.get<User>(`${environment.url}/users/${id}`);
   }
 }

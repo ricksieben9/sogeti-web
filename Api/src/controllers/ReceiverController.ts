@@ -105,7 +105,7 @@ class ReceiverController {
         try {
             Receiver = await receiverRepository.findOneOrFail(id);
         } catch (error) {
-            res.status(404).send("Receiver not found");
+            res.status(404).send({"response":"Receiver not found"});
             return;
         }
         receiverRepository.delete(id);

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsersService } from 'src/app/service/users.service';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dispenser',
@@ -10,13 +11,16 @@ import { UsersService } from 'src/app/service/users.service';
 })
 export class DispenserComponent implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getDispensers();
   }
 
+  roleOptions = [ "Hoofdtoediener", "Toediener"];
   dispensers;
+  modalRef: BsModalRef;
+  newUser = new User();
 
   getDispensers() {
    let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
@@ -30,6 +34,14 @@ export class DispenserComponent implements OnInit {
     });
   }
 
+  openModalAdd(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  SaveDispenser() {
+    console.log("newUser:" + this.newUser.name);
+    return;
+  }
 }
  
 class User {

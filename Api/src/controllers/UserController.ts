@@ -79,12 +79,46 @@ class UserController {
         res.status(201).send("User created");
     };
 
+    static tempnewUser = async (req: Request, res: Response) => {
+        console.log("new temp user")
+        //Get parameters from the body
+        let { email, name, password, role } = req.body;
+        let User = new user();
+        User.email = email;
+        User.password = password;
+        User.roles_role = role;
+        User.name = name;
+
+        //Validade if the parameters are ok
+        const errors = await validate(User);
+        if (errors.length > 0) {
+            res.status(400).send(errors);
+            return;
+        }
+
+        //Hash the password, to securely store on DB
+        User.hashPassword();
+
+        //Try to save. If fails, the username is already in use
+        const userRepository = getRepository(user);
+        try {
+            await userRepository.save(User);
+        } catch (e) {
+            console.log(e)
+            res.status(409).send({"response":"username already in use"});
+            return;
+        }
+
+        //If all ok, send 201 response
+        res.status(201).send({"response":"User created"});
+    };
+
     static editUser = async (req: Request, res: Response) => {
         //Get the ID from the url
         const id = req.params.id;
 
         //Get values from the body
-        const { name, roles_role, email } = req.body;
+        const { name, role, email } = req.body;
         console.log(name);
 
         //Try to find user on database
@@ -100,7 +134,7 @@ class UserController {
 
         //Validate the new values on model
         User.name = name;
-        User.roles_role = roles_role;
+        User.roles_role = role;
         User.email = email;
         const errors = await validate(User);
         if (errors.length > 0) {

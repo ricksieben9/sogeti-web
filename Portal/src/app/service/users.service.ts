@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http'
 interface User {
   name: string,
   id: string,
-  roles_role: string,
+  role: string,
   email: string
 }
 
@@ -41,11 +41,15 @@ export class UsersService {
   }
 
   insertUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:4001/api/v1/users/data/', user)
+    return this.http.post<User>('http://localhost:3000/user', user)
+  }
+
+  tempInsertUser(user: User): Observable<User> {
+    return this.http.post<User>('http://localhost:3000/user/new', user)
   }
 
   updateUser(user: User): Observable<User> {
-    console.log("user = " + user.roles_role)
+    //console.log("user = " + user.roles_role)
     return this.http.patch<User>(
       'http://localhost:3000/user/' + user.id,
       user

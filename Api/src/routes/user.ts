@@ -6,7 +6,10 @@ import { checkRole } from "../middlewares/checkRole";
 const router = Router();
 
 //Get all users
-router.get("/", [checkJwt],checkRole(["ADMIN"]), UserController.listAll);
+router.get(
+    "/", 
+    //[checkJwt],checkRole(["ADMIN"]), 
+    UserController.listAll);
 
 //Get users by role
 //router.get("/:role", [checkJwt],checkRole(["ADMIN"]), UserController.getByRole);
@@ -45,7 +48,7 @@ router.patch(
 //Delete one user
 router.delete(
     "/:id([0-9]+)",
-    [checkJwt, checkRole(["ADMIN"])],
+  //  [checkJwt, checkRole(["ADMIN"])],
     UserController.deleteUser
 );
 

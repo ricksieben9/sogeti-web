@@ -9,7 +9,11 @@
 // }
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders} from '@angular/common/http'
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 interface User {
   name: string,
@@ -21,6 +25,8 @@ interface User {
 @Injectable()
 export class UsersService {
   constructor(private http: HttpClient) {}
+
+  users: User[];
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>('http://localhost:4001/api/v1/users/')
@@ -56,7 +62,8 @@ export class UsersService {
     );
   }
 
-  deleteUser(name: string) {
-    return this.http.delete('http://localhost:4001/api/v1/users/' + name)
+  deleteUser(user: User) {
+    console.log(user.id);
+    return this.http.delete('http://localhost:3000/user/' + user.id);
   }
 }

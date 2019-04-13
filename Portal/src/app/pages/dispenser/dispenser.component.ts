@@ -21,7 +21,7 @@ export class DispenserComponent implements OnInit {
     this.newUser = new User()
     this.newUser.role = "Toediener";
   }
-
+  
   errorMsg: ErrorMsg = new ErrorMsg();
   roleOptions = ["Hoofdtoediener", "Toediener"];
   dispensers;
@@ -64,6 +64,34 @@ export class DispenserComponent implements OnInit {
     });
     
   }
+
+  // delete(user: User): void {
+  //   console.log("Delete component button " + user.id);
+
+  //   console.log(user);
+
+  //   this.usersService.deleteUser(user.id).subscribe(res => {
+  //     console.log(res);
+  //     this.back();
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
+
+  delete(user: User) {
+    console.log(user);
+    this.usersService.deleteUser(user).subscribe(res => {
+      this.getDispensers();
+      console.log(res);
+    }, error => {
+      console.log(error);
+      this.errorMsg.name = error.error['response'];
+    });
+  }
+
+  back(){
+    this.router.navigate(['/dispensers']);
+  }
 }
 
 class User {
@@ -80,6 +108,7 @@ class User {
 class ErrorMsg {
   name: string;
   email: string;
+  roles_role: string;
 }
-
+ 
 

@@ -16,7 +16,7 @@
           <h3 class="mb-0">Toedieners</h3>
         </div>
         <div class="card-body">
-          <div>
+          <div class="float-right">
             <button (click)="openModalAdd(add)" class="btn btn-info">Toediener toevoegen</button>
           </div>
           <div class="table-responsive">
@@ -25,8 +25,9 @@
                 <tr>
                   <th scope="col">Naam</th>
                   <th scope="col">E-mail</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Open</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Aanpassen</th>                  
+                  <th scope="col">Verwijderen</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,7 +47,11 @@
                   </td>
                   <td>
                     <button routerLink="/dispensers/editDispenser/{{item.id}}" type="button"
-                      class="btn btn-primary">Open</button>
+                      class="btn btn-primary">Aanpassen</button>
+                  </td>
+                  <td>
+                    <button type="button"
+                      class="btn btn-danger" (click)="delete(item)">Verwijder</button>
                   </td>
                 </tr>
               </tbody>

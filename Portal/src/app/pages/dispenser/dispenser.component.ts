@@ -18,7 +18,7 @@ export class DispenserComponent implements OnInit {
 
   ngOnInit() {
     this.getDispensers();
-    this.newUser = new User()
+    this.newUser = new User();
     this.newUser.role = "Toediener";
   }
   
@@ -64,9 +64,11 @@ export class DispenserComponent implements OnInit {
     }
 
     this.usersService.insertUser(this.newUser).subscribe(res => {
-      console.log(res);
-      this.getDispensers();
+    console.log(res);
+    this.getDispensers();
     this.modalRef.hide();
+    this.newUser = new User();
+    this.newUser.role = "Toediener";
     }, error => {
       console.log(error);
     });
@@ -98,6 +100,7 @@ class User {
   password: string;
 
   constructor() {
+    // default password
     this.password = "Ab12345";
   }
 }

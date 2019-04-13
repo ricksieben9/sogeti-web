@@ -51,7 +51,7 @@
                   </td>
                   <td>
                     <button type="button"
-                      class="btn btn-danger" (click)="delete(item)">Verwijder</button>
+                      class="btn btn-danger" (click)="openModalDelete(delete, item)">Verwijder</button>
                   </td>
                 </tr>
               </tbody>
@@ -75,10 +75,10 @@
   </div>
   <div class="modal-body">
     <form>
-      <label for="name">naam</label>
+      <label for="name">Naam</label>
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newUser.name" required>
       <p class="text-danger">{{errorMsg.name}}</p>
-      <label for="email">e-mail</label>
+      <label for="email">E-mail</label>
       <input type="text" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
       <p class="text-danger">{{errorMsg.email}}</p>
       <div class="form-check form-check-inline">
@@ -88,6 +88,23 @@
       <div>
         <button class="btn btn-primary mt-4" (click)="SaveDispenser()">Opslaan</button>
       </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Verwijderen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label>Weet u zeker dat u <i>{{user.name}}</i> wilt verwijderen</label>
+      <br>
+      <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
+      <button class="btn btn-danger" (click)="delete(user)" >Verwijderen!</button>
     </form>
   </div>
 </ng-template>

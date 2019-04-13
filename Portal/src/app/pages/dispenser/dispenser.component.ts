@@ -22,6 +22,7 @@ export class DispenserComponent implements OnInit {
     this.newUser.role = "Toediener";
   }
   
+  user: User = new User();
   errorMsg: ErrorMsg = new ErrorMsg();
   roleOptions = ["Hoofdtoediener", "Toediener"];
   dispensers;
@@ -45,6 +46,13 @@ export class DispenserComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  openModalDelete(template: TemplateRef<any>, u: User) {
+    this.errorMsg = new ErrorMsg();
+    this.user.id = u.id;
+    this.user.name = u.name;
+    this.modalRef = this.modalService.show(template);
+  }
+
   SaveDispenser() {
     console.log(this.newUser.name);
     console.log(this.mainDispenser);
@@ -65,27 +73,18 @@ export class DispenserComponent implements OnInit {
     
   }
 
-  // delete(user: User): void {
-  //   console.log("Delete component button " + user.id);
-
-  //   console.log(user);
-
-  //   this.usersService.deleteUser(user.id).subscribe(res => {
-  //     console.log(res);
-  //     this.back();
-  //   }, error => {
-  //     console.log(error);
-  //   });
-  // }
-
   delete(user: User) {
+    console.log("Delete method dispenser.component");
     console.log(user);
     this.usersService.deleteUser(user).subscribe(res => {
+      console.log("Delete method dispenser.component succeeded");
       this.getDispensers();
+      this.modalRef.hide();
       console.log(res);
     }, error => {
       console.log(error);
       this.errorMsg.name = error.error['response'];
+      console.log("Delete method dispenser.component FAILED");
     });
   }
 

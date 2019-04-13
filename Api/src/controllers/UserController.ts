@@ -49,40 +49,9 @@ class UserController {
     };
 
     static newUser = async (req: Request, res: Response) => {
+        console.log("save new user")
         //Get parameters from the body
-        let { username, password, role } = req.body;
-        let User = new user();
-        User.email = username;
-        User.password = password;
-        User.roles_role = role;
-
-        //Validade if the parameters are ok
-        const errors = await validate(User);
-        if (errors.length > 0) {
-            res.status(400).send(errors);
-            return;
-        }
-
-        //Hash the password, to securely store on DB
-        User.hashPassword();
-
-        //Try to save. If fails, the username is already in use
-        const userRepository = getRepository(user);
-        try {
-            await userRepository.save(User);
-        } catch (e) {
-            res.status(409).send("username already in use");
-            return;
-        }
-
-        //If all ok, send 201 response
-        res.status(201).send("User created");
-    };
-
-    static tempnewUser = async (req: Request, res: Response) => {
-        console.log("new temp user")
-        //Get parameters from the body
-        let { email, name, password, role } = req.body;
+        let { name, email, password, role } = req.body;
         let User = new user();
         User.email = email;
         User.password = password;
@@ -104,8 +73,7 @@ class UserController {
         try {
             await userRepository.save(User);
         } catch (e) {
-            console.log(e)
-            res.status(409).send({"response":"username already in use"});
+            res.status(409).send("username already in use");
             return;
         }
 

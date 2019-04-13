@@ -37,10 +37,6 @@ export class UsersService {
     return this.http.post<User>('http://localhost:3000/user', user)
   }
 
-  tempInsertUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/user/new', user)
-  }
-
   updateUser(user: User): Observable<User> {
     //console.log("user = " + user.roles_role)
     return this.http.patch<User>(

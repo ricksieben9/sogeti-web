@@ -63,7 +63,7 @@ export class DispenserComponent implements OnInit {
       return;
     }
 
-    this.usersService.tempInsertUser(this.newUser).subscribe(res => {
+    this.usersService.insertUser(this.newUser).subscribe(res => {
       console.log(res);
       this.getDispensers();
     this.modalRef.hide();

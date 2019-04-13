@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { expect } from 'chai';
 
 import { DispenserComponent } from './dispenser.component';
 

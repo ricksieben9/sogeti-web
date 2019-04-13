@@ -74,17 +74,14 @@ export class DispenserComponent implements OnInit {
   }
 
   deleteDispenser(user: User) {
-    console.log("Delete method dispenser.component");
     console.log(user);
     this.usersService.deleteUser(user).subscribe(res => {
-      console.log("Delete method dispenser.component succeeded");
       this.getDispensers();
       this.modalRef.hide();
       console.log(res);
     }, error => {
       console.log(error);
       this.errorMsg.name = error.error['response'];
-      console.log("Delete method dispenser.component FAILED");
     });
   }
 

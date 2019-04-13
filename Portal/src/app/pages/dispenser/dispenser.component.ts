@@ -19,7 +19,6 @@ export class DispenserComponent implements OnInit {
   ngOnInit() {
     this.getDispensers();
     this.newUser = new User();
-    this.newUser.role = "Toediener";
   }
   
   user: User = new User();
@@ -28,7 +27,6 @@ export class DispenserComponent implements OnInit {
   dispensers;
   modalRef: BsModalRef;
   newUser;
-  mainDispenser = false;
 
   getDispensers() {
     let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
@@ -55,7 +53,6 @@ export class DispenserComponent implements OnInit {
 
   SaveDispenser() {
     console.log(this.newUser.name);
-    console.log(this.mainDispenser);
     this.errorMsg.name = this.errorMsg.email = '';
     !this.newUser.name ? this.errorMsg.name = 'Naam vereist' : '';
     !this.newUser.email ? this.errorMsg.email = 'E-mail vereist' : '';
@@ -63,12 +60,19 @@ export class DispenserComponent implements OnInit {
       return;
     }
 
+    var element = <HTMLInputElement> document.getElementById("isMainDispenser");
+    var isChecked = element.checked;
+    if (isChecked) {
+      this.newUser.role = "Hoofdtoediener";
+    } else {
+      this.newUser.role = "Toediener";
+    }
+    console.log("role = " + this.newUser.role);
     this.usersService.insertUser(this.newUser).subscribe(res => {
     console.log(res);
     this.getDispensers();
     this.modalRef.hide();
     this.newUser = new User();
-    this.newUser.role = "Toediener";
     }, error => {
       console.log(error);
     });

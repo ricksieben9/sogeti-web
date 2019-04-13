@@ -73,7 +73,7 @@ export class DispenserComponent implements OnInit {
     
   }
 
-  delete(user: User) {
+  deleteDispenser(user: User) {
     console.log("Delete method dispenser.component");
     console.log(user);
     this.usersService.deleteUser(user).subscribe(res => {

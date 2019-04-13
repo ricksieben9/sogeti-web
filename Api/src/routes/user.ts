@@ -34,9 +34,9 @@ router.post("/",
     UserController.newUser);
 
 //Create a new user -> temp method
-router.post("/new", 
-    //[checkJwt, checkRole(["ADMIN"])], 
-    UserController.tempnewUser);
+// router.post("/new", 
+//     //[checkJwt, checkRole(["ADMIN"])], 
+//     UserController.tempnewUser);
 
 //Edit one user
 router.patch(

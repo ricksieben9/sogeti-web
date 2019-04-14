@@ -7,7 +7,7 @@ const router = Router();
 
 //Get all users
 router.get("/",
-    //[checkJwt],checkRole(["ADMIN"]),
+    [checkJwt],
     UserController.listAll);
 
 // Get one user

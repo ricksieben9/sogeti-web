@@ -65,7 +65,7 @@ export class user {
     logs:log[];
 
     hashPassword() {
-        this.password = bcrypt.hashSync(this.password);
+        this.password = bcrypt.hashSync(this.password, 8);
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {

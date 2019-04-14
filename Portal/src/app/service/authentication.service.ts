@@ -35,7 +35,7 @@ export class AuthenticationService {
   }
 
   changePassword(oldPassword: string, newPassword: string) {
-    return this.http.post<any>(`${environment.url}/auth/change-password`, {oldPassword, newPassword})
+    return this.http.post<any>(`${environment.url}/auth/change-password`, {oldPassword, newPassword});
   }
 
   logout() {

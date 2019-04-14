@@ -25,6 +25,7 @@ class AuthController {
 
         } catch (error) {
             res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
+            return;
         }
 
         //Check if encrypted password match
@@ -59,12 +60,13 @@ class AuthController {
         try {
             User = await userRepository.findOneOrFail(id);
         } catch (id) {
-            res.status(401).send();
+            res.status(401).send({"response": "Het huidige wachtwoord en/of nieuwe wachtwoord is verkeerd!"});
+            return;
         }
 
         //Check if old password matches
         if (!User.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-            res.status(401).send();
+            res.status(401).send({"response": "Het huidige wachtwoord en/of nieuwe wachtwoord is verkeerd!"});
             return;
         }
 

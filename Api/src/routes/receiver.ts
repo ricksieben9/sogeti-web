@@ -9,6 +9,9 @@ const router = Router();
 //Get all receivers
 router.get("/", ReceiverController.listAll);
 
+//Get all intake moments of receiver
+router.get("/:id([0-9]+)/intakeMoments",ReceiverController.getAllIntakeMomentsById);
+
 // Get one receiver
 router.get(
     "/:id([0-9]+)",

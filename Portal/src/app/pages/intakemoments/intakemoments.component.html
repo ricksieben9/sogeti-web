@@ -1,3 +1,92 @@
-<p>
-  intakemoments works!
-</p>
+<div class="header bg-gradient-sogeti pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Indienmomenten</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+              <tr>
+                <th scope="col">Naam</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of list">
+                <td>
+                  {{item.name}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #add>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Toedienmoment toevoegen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label for="name">Naam</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="intakeMoment.name">
+      <p class="text-danger">{{errorMsg.name}}</p>
+      <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #alter>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aanpassen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label for="name">Naam</label>
+      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="intakeMoment.name">
+      <p class="text-danger">{{errorMsg.name}}</p>
+      <button class="btn btn-primary" (click)="onAlter()">Opslaan</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Verwijderen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label>Weet u zeker dat u het indienmoment voor {{intakeMoment.name}} wilt verwijderen?</label>
+      <br>
+      <button class="btn btn-primary" (click)="modalRef.hide()">Anuleren</button>
+      <button class="btn btn-danger" (click)="deleteIntakeMoment(intakeMoment)" >Verwijderen</button>
+    </form>
+  </div>
+</ng-template>

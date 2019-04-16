@@ -7,7 +7,7 @@ interface IntakeMoment {
   id: string;
   intake_start_time: Date;
   intake_end_time: Date;
-  IntakeMoment_id: string;
+  receiver_id: string;
   remark: string;
   priority_number: string;
   dispenser: string;

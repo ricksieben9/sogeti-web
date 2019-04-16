@@ -4,5 +4,6 @@ export class User {
   password: string;
   name: string;
   role: string;
+  isFirst: boolean;
   token?: string;
 }

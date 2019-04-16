@@ -14,7 +14,7 @@ class AuthController {
         if (!(username && password)) {
             res.status(400).send();
         }
-        let role, name;
+        let role, name, isFirst;
         //Get user from database
         const userRepository = getRepository(user);
         let User: user;
@@ -22,7 +22,7 @@ class AuthController {
             User = await userRepository.findOne({where: {email: username}});
             role = User.roles_role.role;
             name = User.name;
-
+            isFirst = (!User.isfirst ? null : User.isfirst);
         } catch (error) {
             res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
             return;
@@ -41,7 +41,7 @@ class AuthController {
             {expiresIn: "1h"}
         );
         //Send the jwt in the response
-        res.send({username, token, role, name});
+        res.send({username, token, role, name, isFirst});
     };
 
     static changePassword = async (req: Request, res: Response) => {
@@ -70,6 +70,12 @@ class AuthController {
             return;
         }
 
+        //Check if old password matches new password
+        if (!User.checkIfUnencryptedPasswordIsValid(oldPassword) === !User.checkIfUnencryptedPasswordIsValid(newPassword)) {
+            res.status(401).send({"response": "Het huidige wachtwoord mag niet gelijk zijn aan het nieuwe wachtwoord!"});
+            return;
+        }
+
         //Validate de model (password length)
         User.password = newPassword;
         const errors = await validate(User);
@@ -79,6 +85,7 @@ class AuthController {
         }
         //Hash the new password and save
         User.hashPassword();
+        User.isfirst = false;
         userRepository.save(User);
 
         res.status(204).send();

@@ -31,9 +31,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.resetPasswordForm = this.formBuilder.group({
       currentPassword: ['', Validators.required],
-      newPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       verifyPassword: ['', Validators.required]
-    });
+    }, {validators: this.MustMatch('newPassword', 'verifyPassword')});
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -68,4 +68,29 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
           this.loading = false;
         });
   }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({mustMatch: true});
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 }
+

@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { HttpClient, HttpHeaders} from '@angular/common/http'
 import { environment } from '../../environments/environment';
-import { User } from '../_models/user';
 
 interface User {
   name: string,
   id: string,
-  role: string,
+  roles_role: string,
   email: string
 }
 
@@ -18,45 +17,31 @@ export class UsersService {
 
   users: User[];
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:4001/api/v1/users/')
-  }
-
   getUsersByRoles(roles): Observable<User[]> {
-    let url = "http://localhost:3000/user/roles/?roles=" + JSON.stringify(roles);
+    let url = `${environment.url}/user/roles/?roles=` + JSON.stringify(roles);
     return this.http.get<User[]>(url);
   }
 
   getUserById(id: any): Observable<User[]> {
     console.log("id = " + id)
-    return this.http.get<User[]>("http://localhost:3000/user/" + id);
-  }
-
-  getUser(name: string): Observable<User> {
-    return this.http.get<User>('http://localhost:4001/api/v1/users/' + name)
+    return this.http.get<User[]>(`${environment.url}/user/` + id);
   }
 
   insertUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/user', user)
+    return this.http.post<User>(`${environment.url}/user/`, user)
   }
 
   updateUser(user: User): Observable<User> {
-    //console.log("user = " + user.roles_role)
+    console.log("user = " + user.roles_role);
     return this.http.patch<User>(
-      'http://localhost:3000/user/' + user.id,
+      `${environment.url}/user/` + user.id,
       user
     );
   }
 
   deleteUser(user: User) {
     console.log(user.id);
-    return this.http.delete('http://localhost:3000/user/' + user.id);
+    return this.http.delete(`${environment.url}/user/` + user.id);
+  }
 
-//   getAll() {
-//     return this.http.get<User[]>(`${environment.url}/users`);
-//   }
-
-//   getById(id: number) {
-//     return this.http.get<User>(`${environment.url}/users/${id}`);
-//   }
 }

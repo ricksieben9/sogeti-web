@@ -75,7 +75,7 @@ class UserController {
         try {
             await userRepository.save(User);
         } catch (e) {
-            res.status(409).send("username already in use");
+            res.status(409).send({"response":"Gebruikersnaam bestaat al!"});
             return;
         }
 
@@ -98,7 +98,7 @@ class UserController {
             User = await userRepository.findOne(id);
         } catch (error) {
             //If not found, send a 404 response
-            res.status(404).send("User not found");
+            res.status(404).send({"response":"Gebruiker niet gevonden!"});
             return;
         }
 
@@ -117,7 +117,7 @@ class UserController {
             await userRepository.save(User);
             
         } catch (e) {
-            res.status(409).send("username already in use");
+            res.status(409).send({"response":"Gebruikersnaam bestaat al!"});
             return;
         }
         //After all send a 204 (no content, but accepted) response

@@ -46,8 +46,7 @@
                     </span>
                   </td>
                   <td>
-                    <button routerLink="/dispensers/editDispenser/{{item.id}}" type="button"
-                      class="btn btn-primary">Aanpassen</button>
+                    <button class="btn btn-primary" (click)="openModalEditDispenser(edit, item)" >Aanpassen</button>
                   </td>
                   <td>
                     <button type="button"
@@ -89,6 +88,29 @@
         <button class="btn btn-primary mt-4" (click)="SaveDispenser()">Opslaan</button>
       </div>
     </form>
+  </div>
+</ng-template>
+
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aanpassen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">   
+      <form [formGroup]="form">  
+          <h2>{{ user.name }}</h2>
+        <div class="form-group mt-2">
+          <h4>Huidige rol: {{user.roles_role}}</h4>
+          <label for="role" class="mt-2">Wijzig rol</label>
+          <select formControlName="editRole" class="form-control" id="role">
+            <option *ngFor="let option of roleOptions" value="{{option}}">{{option}}</option>
+          </select>
+        </div>        
+        <button class="btn btn-primary" (click)="editRole()" >Opslaan</button>
+        <p class="text-danger">{{errorMsg.roles_role}}</p>
+      </form>    
   </div>
 </ng-template>
 

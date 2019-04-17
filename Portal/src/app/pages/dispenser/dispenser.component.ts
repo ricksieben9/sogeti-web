@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/service/users.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+//import { userInfo } from 'os';
 
 @Component({
   selector: 'app-dispenser',
@@ -19,14 +20,21 @@ export class DispenserComponent implements OnInit {
   ngOnInit() {
     this.getDispensers();
     this.newUser = new User();
+    this.form = new FormGroup({
+      editRole: new FormControl(null)
+    });
   }
-  
+
+  form: FormGroup;
   user: User = new User();
   errorMsg: ErrorMsg = new ErrorMsg();
   roleOptions = ["Hoofdtoediener", "Toediener"];
   dispensers;
   modalRef: BsModalRef;
   newUser;
+  selectedDispenserId;
+  selectedDispenser; 
+  selectedRole;
 
   getDispensers() {
     let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
@@ -42,6 +50,15 @@ export class DispenserComponent implements OnInit {
 
   openModalAdd(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  openModalEditDispenser(template: TemplateRef<any>, u: User) {
+    this.errorMsg = new ErrorMsg();
+    this.user.id = u.id;
+    this.user.name = u.name;    
+    this.user.roles_role = u.roles_role;
+    this.modalRef = this.modalService.show(template);
+    console.log(u.roles_role);
   }
 
   openModalDelete(template: TemplateRef<any>, u: User) {
@@ -79,6 +96,28 @@ export class DispenserComponent implements OnInit {
     
   }
 
+  editRole() {
+    console.log("edit role");
+
+    this.selectedRole = this.form.get('editRole').value;
+
+    !this.selectedRole ? this.errorMsg.roles_role = 'Rol vereist' : '';
+    if (!this.selectedRole) {
+      return;
+    } else {
+      this.user.roles_role = this.selectedRole;
+      this.usersService.updateUser(this.user).subscribe(res => {
+        this.getDispensers();
+        this.modalRef.hide();
+        console.log("chosen role: " + res);
+      }, error => {
+        //console.log(error);
+        this.errorMsg.roles_role = error.error['response'];
+      });
+    }
+  
+  }
+
   deleteDispenser(user: User) {
     console.log(user);
     this.usersService.deleteUser(user).subscribe(res => {
@@ -99,7 +138,7 @@ export class DispenserComponent implements OnInit {
 class User {
   name: string;
   email: string;
-  role: string;
+  roles_role: string;
   id: string;
   password: string;
 

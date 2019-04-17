@@ -22,21 +22,9 @@ export class UsersComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  getUsers() {
-
-    const userObservable = this.usersService.getAll();
-    userObservable.subscribe((userData: any[]) => {
-      this.list = userData['response'];
-    });
-  }
-
-
   ngOnInit() {
 
-    this.getUsers();
   }
-
-
 
   onSave() {
     this.errorMsg.name = this.errorMsg.email = '';

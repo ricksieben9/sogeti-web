@@ -42,7 +42,7 @@ export class DispenserEditComponent implements OnInit {
     //user.name = this.selectedDispenser.name;
     user.name = this.selectedDispenser.name;
     user.email = this.selectedDispenser.email;
-    user.role = this.selectedRole;
+    user.roles_role = this.selectedRole;
     this.usersService.updateUser(user);
     this.usersService.updateUser(user).subscribe(res => {
       console.log(res);
@@ -70,5 +70,5 @@ class User {
   id: string;
   name: string;
   email: string;
-  role: string;
+  roles_role: string;
   } 

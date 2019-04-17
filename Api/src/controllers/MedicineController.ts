@@ -3,9 +3,19 @@ import {getRepository} from "typeorm";
 import {validate} from "class-validator";
 
 import {medicine} from "../entity/medicine";
+import {receiver} from "../entity/receiver";
 
 class MedicineController {
 
+
+    static listAll = async (req: Request, res: Response) => {
+        //Get receivers from database
+        const medicineRepository = getRepository(medicine);
+        const medicines = await medicineRepository.find();
+
+        //Send the receivers object
+        res.send(medicines);
+    };
 
     static newMedicine = async (req: Request, res: Response) => {
         //Get parameters from the body

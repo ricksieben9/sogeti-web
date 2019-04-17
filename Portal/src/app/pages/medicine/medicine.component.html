@@ -22,7 +22,7 @@
               <thead class="thead-light">
               <tr>
                 <th scope="col">Naam</th>
-                <th scope="col">Type</th>
+                <th scope="col">Eenheid</th>
                 <th scope="col"></th>
                 <!--<th scope="col">Role</th>-->
               </tr>
@@ -31,11 +31,11 @@
               <tr *ngFor="let item of list">
                 <th scope="row">
                   <div class="media align-items-center">
-                    <span class="mb-0 text-sm">{{item.id}}</span>
+                    <span class="mb-0 text-sm">{{item.name}}</span>
                   </div>
                 </th>
                 <td>
-                  {{item.name}}
+                  {{item.unit}}
                 </td>
                 <td>
                   <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
@@ -91,7 +91,7 @@
   <div class="modal-body">
     <form>
       <label for="name">Naam</label>
-      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="receiver.name">
+      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="medicine.name">
       <p class="text-danger">{{errorMsg.name}}</p>
       <button class="btn btn-primary" (click)="onAlter()" >Opslaan</button>
     </form>
@@ -107,10 +107,10 @@
   </div>
   <div class="modal-body">
     <form>
-      <label>Weet u zeker dat u {{receiver.name}} wilt verwijderen</label>
+      <label>Weet u zeker dat u {{medicine.name}} wilt verwijderen</label>
       <br>
       <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
-      <button class="btn btn-danger" (click)="deleteRec(receiver)" >Verwijderen!</button>
+      <button class="btn btn-danger" (click)="deleteRec(medicine)" >Verwijderen!</button>
     </form>
   </div>
 </ng-template>

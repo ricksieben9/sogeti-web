@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {MedicinenService} from "../../service/medicinen.service";
+import {MedicinenService} from '../../service/medicinen.service';
 
 @Component({
   selector: 'app-medicine',
@@ -22,6 +22,14 @@ export class MedicineComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  getMedicine() {
+    const medicineObservable = this.medicineService.getAllMedicine();
+    medicineObservable.subscribe((data: any[]) => {
+      console.log(data);
+      this.list = data;
+    });
+  }
+
   onSave() {
     !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
     !this.medicine.unit ? this.errorMsg.name = 'Eenheid vereist' : '';
@@ -39,10 +47,7 @@ export class MedicineComponent implements OnInit {
     }
   }
   ngOnInit() {
-  }
-
-  private getMedicine() {
-
+    this.getMedicine();
   }
 }
 

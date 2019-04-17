@@ -33,13 +33,6 @@ export class UsersComponent implements OnInit {
     if (!this.user.name || !this.user.email) {
       return;
     }
-// this.usersService.insertUser(this.user).subscribe(res => {
-//   this.getUsers();
-//   this.modalRef.hide();
-//   console.log(res);
-// },error => {
-// console.log(error);
-// });
   }
 
 

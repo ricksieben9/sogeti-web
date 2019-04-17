@@ -9,6 +9,7 @@ import * as bcrypt from "bcryptjs";
 
 @Entity("user",{schema:"asautar_db" } )
 @Index("email_UNIQUE",["email",],{unique:true})
+@Index("name_UNIQUE",["name",],{unique:true})
 @Index("fk_Person_Roles_idx",["roles_role",])
 export class user {
 
@@ -45,6 +46,7 @@ export class user {
 
     @Column("varchar",{ 
         nullable:false,
+        unique: true,
         length:45,
         name:"name"
         })

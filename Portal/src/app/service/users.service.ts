@@ -23,7 +23,6 @@ export class UsersService {
   }
 
   getUserById(id: any): Observable<User[]> {
-    console.log("id = " + id)
     return this.http.get<User[]>(`${environment.url}/user/` + id);
   }
 
@@ -32,7 +31,6 @@ export class UsersService {
   }
 
   updateUser(user: User): Observable<User> {
-    console.log("user = " + user.roles_role);
     return this.http.patch<User>(
       `${environment.url}/user/` + user.id,
       user
@@ -40,7 +38,6 @@ export class UsersService {
   }
 
   deleteUser(user: User) {
-    console.log(user.id);
     return this.http.delete(`${environment.url}/user/` + user.id);
   }
 

@@ -82,7 +82,7 @@
       <p class="text-danger">{{errorMsg.email}}</p>
       <div class="form-check form-check-inline">
         <input class="form-check-input" type="checkbox" id="isMainDispenser" value="Hoofdtoediener">
-        <label class="form-check-label" for="mainDispenser">Hoofdtoediener</label>
+        <label class="form-check-label" for="isMainDispenser">Hoofdtoediener</label>
       </div>
       <div>
         <button class="btn btn-primary mt-4" (click)="SaveDispenser()">Opslaan</button>
@@ -104,7 +104,7 @@
         <div class="form-group mt-2">
           <h4>Huidige rol: {{user.roles_role}}</h4>
           <label for="role" class="mt-2">Wijzig rol</label>
-          <select formControlName="editRole" class="form-control" id="role">
+          <select formControlName="editRole" class="form-control" id="role" [(ngModel)]="selectedRole" required>
             <option *ngFor="let option of roleOptions" value="{{option}}">{{option}}</option>
           </select>
         </div>        

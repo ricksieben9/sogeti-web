@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-import { getManager, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import { validate } from "class-validator";
 import {user} from "../entity/user";
-import {roles} from "../entity/roles";
-import {In} from "typeorm/browser";
 
 class UserController {
 
@@ -39,7 +37,6 @@ class UserController {
         //Get the ID from the url
         const id: number = req.params.id;
 
-        console.log(id);
         //Get the user from database
         const userRepository = getRepository(user);
         try {
@@ -51,13 +48,12 @@ class UserController {
     };
 
     static newUser = async (req: Request, res: Response) => {
-        console.log("save new user")
         //Get parameters from the body
-        let { name, email, password, role } = req.body;
+        let { name, email, password, roles_role } = req.body;
         let User = new user();
         User.email = email;
         User.password = password;
-        User.roles_role = role;
+        User.roles_role = roles_role;
         User.name = name;
 
         //Validade if the parameters are ok
@@ -75,7 +71,18 @@ class UserController {
         try {
             await userRepository.save(User);
         } catch (e) {
-            res.status(409).send({"response":"Gebruikersnaam bestaat al!"});
+            if(e.message.includes('email_UNIQUE'))
+            {
+                res.status(409).send({"type":"email","response":"Dit emailadres is al in gebruik!"});
+            }
+            else if(e.message.includes('name_UNIQUE'))
+            {
+                res.status(409).send({"type":"username","response":"Deze gebruikersnaam bestaat al!"});
+            }
+            else
+            {
+                res.status(409).send({"type":"undefined","response":"Bad Request!"});
+            }
             return;
         }
 
@@ -88,8 +95,7 @@ class UserController {
         const id = req.params.id;
 
         //Get values from the body
-        const { name, role, email } = req.body;
-        console.log(name);
+        let { name, email, roles_role } = req.body;
 
         //Try to find user on database
         const userRepository = getRepository(user);
@@ -104,7 +110,7 @@ class UserController {
 
         //Validate the new values on model
         User.name = name;
-        User.roles_role = role;
+        User.roles_role = roles_role;
         User.email = email;
         const errors = await validate(User);
         if (errors.length > 0) {
@@ -117,7 +123,7 @@ class UserController {
             await userRepository.save(User);
             
         } catch (e) {
-            res.status(409).send({"response":"Gebruikersnaam bestaat al!"});
+            res.status(409).send({"response":"Bad request!"});
             return;
         }
         //After all send a 204 (no content, but accepted) response

@@ -1,12 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/service/users.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-//import { userInfo } from 'os';
 
 @Component({
   selector: 'app-dispenser',
@@ -15,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class DispenserComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private modalService: BsModalService, private route: ActivatedRoute, private router: Router, private location: Location) { }
+  constructor(private usersService: UsersService, private modalService: BsModalService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getDispensers();
@@ -28,22 +24,17 @@ export class DispenserComponent implements OnInit {
   form: FormGroup;
   user: User = new User();
   errorMsg: ErrorMsg = new ErrorMsg();
-  roleOptions = ["Hoofdtoediener", "Toediener"];
-  dispensers;
+  roleOptions: any = ["Hoofdtoediener", "Toediener"];
+  dispensers: any;
   modalRef: BsModalRef;
-  newUser;
-  selectedDispenserId;
-  selectedDispenser; 
-  selectedRole;
+  newUser: User;
+  selectedRole: string;
 
   getDispensers() {
     let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
-    // this.dispensers = this.usersService.getUsersByRoles(roles)
-    // console.log(this.dispensers);
 
     const userObservable = this.usersService.getUsersByRoles(roles);
     userObservable.subscribe((userData: any[]) => {
-      console.log(userData);
       this.dispensers = userData;
     });
   }
@@ -58,7 +49,6 @@ export class DispenserComponent implements OnInit {
     this.user.name = u.name;    
     this.user.roles_role = u.roles_role;
     this.modalRef = this.modalService.show(template);
-    console.log(u.roles_role);
   }
 
   openModalDelete(template: TemplateRef<any>, u: User) {
@@ -69,7 +59,6 @@ export class DispenserComponent implements OnInit {
   }
 
   SaveDispenser() {
-    console.log(this.newUser.name);
     this.errorMsg.name = this.errorMsg.email = '';
     !this.newUser.name ? this.errorMsg.name = 'Naam vereist' : '';
     !this.newUser.email ? this.errorMsg.email = 'E-mail vereist' : '';
@@ -80,27 +69,26 @@ export class DispenserComponent implements OnInit {
     var element = <HTMLInputElement> document.getElementById("isMainDispenser");
     var isChecked = element.checked;
     if (isChecked) {
-      this.newUser.role = "Hoofdtoediener";
+      this.newUser.roles_role = "Hoofdtoediener";
     } else {
-      this.newUser.role = "Toediener";
+      this.newUser.roles_role = "Toediener";
     }
-    console.log("role = " + this.newUser.role);
     this.usersService.insertUser(this.newUser).subscribe(res => {
-    console.log(res);
     this.getDispensers();
     this.modalRef.hide();
     this.newUser = new User();
     }, error => {
-      console.log(error);
+      if (error.error.type == 'username') {
+        this.errorMsg.name = error.error.response;
+      }
+        else
+      {
+        this.errorMsg.email = error.error.response;
+      }
     });
-    
   }
 
   editRole() {
-    console.log("edit role");
-
-    this.selectedRole = this.form.get('editRole').value;
-
     !this.selectedRole ? this.errorMsg.roles_role = 'Rol vereist' : '';
     if (!this.selectedRole) {
       return;
@@ -109,9 +97,7 @@ export class DispenserComponent implements OnInit {
       this.usersService.updateUser(this.user).subscribe(res => {
         this.getDispensers();
         this.modalRef.hide();
-        console.log("chosen role: " + res);
       }, error => {
-        //console.log(error);
         this.errorMsg.roles_role = error.error['response'];
       });
     }
@@ -119,13 +105,10 @@ export class DispenserComponent implements OnInit {
   }
 
   deleteDispenser(user: User) {
-    console.log(user);
     this.usersService.deleteUser(user).subscribe(res => {
       this.getDispensers();
       this.modalRef.hide();
-      console.log(res);
     }, error => {
-      console.log(error);
       this.errorMsg.name = error.error['response'];
     });
   }

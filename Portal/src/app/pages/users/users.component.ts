@@ -22,12 +22,11 @@ export class UsersComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  getUsers(){
+  getUsers() {
 
-    const userObservable = this.usersService.getAllUsers();
+    const userObservable = this.usersService.getAll();
     userObservable.subscribe((userData: any[]) => {
-      console.log(userData);
-      this.list = userData["response"];
+      this.list = userData['response'];
     });
   }
 
@@ -39,11 +38,11 @@ export class UsersComponent implements OnInit {
 
 
 
-  onSave(){
+  onSave() {
     this.errorMsg.name = this.errorMsg.email = '';
-    !this.user.name ? this.errorMsg.name = 'Naam vereist': '';
-    !this.user.email ? this.errorMsg.email = 'E-mail vereist': '';
-    if (!this.user.name || !this.user.email){
+    !this.user.name ? this.errorMsg.name = 'Naam vereist' : '';
+    !this.user.email ? this.errorMsg.email = 'E-mail vereist' : '';
+    if (!this.user.name || !this.user.email) {
       return;
     }
 // this.usersService.insertUser(this.user).subscribe(res => {

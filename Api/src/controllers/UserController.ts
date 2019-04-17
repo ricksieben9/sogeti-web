@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { getManager, getRepository } from "typeorm";
 import { validate } from "class-validator";
-
-import { user } from "../entity/user";
+import {user} from "../entity/user";
+import {roles} from "../entity/roles";
+import {In} from "typeorm/browser";
 
 class UserController {
 
@@ -38,6 +39,7 @@ class UserController {
         //Get the ID from the url
         const id: number = req.params.id;
 
+        console.log(id);
         //Get the user from database
         const userRepository = getRepository(user);
         try {

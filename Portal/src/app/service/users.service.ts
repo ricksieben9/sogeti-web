@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { HttpClient, HttpHeaders} from '@angular/common/http'
+import { environment } from '../../environments/environment';
+import { User } from '../_models/user';
 
 interface User {
   name: string,
@@ -9,7 +11,8 @@ interface User {
   email: string
 }
 
-@Injectable()
+
+@Injectable({providedIn: 'root'})
 export class UsersService {
   constructor(private http: HttpClient) {}
 
@@ -48,5 +51,12 @@ export class UsersService {
   deleteUser(user: User) {
     console.log(user.id);
     return this.http.delete('http://localhost:3000/user/' + user.id);
-  }
+
+//   getAll() {
+//     return this.http.get<User[]>(`${environment.url}/users`);
+//   }
+
+//   getById(id: number) {
+//     return this.http.get<User>(`${environment.url}/users/${id}`);
+//   }
 }

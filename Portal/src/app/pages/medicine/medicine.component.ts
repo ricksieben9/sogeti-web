@@ -21,11 +21,24 @@ export class MedicineComponent implements OnInit {
     this.medicine = new Medicine();
     this.modalRef = this.modalService.show(template);
   }
+  openModalAlter(template: TemplateRef<any>, med: Medicine) {
+    this.errorMsg = new ErrorMsg();
+    this.medicine.id = med.id;
+    this.medicine.name = med.name;
+    this.medicine.description = med.description;
+    this.medicine.unit = med.unit;
+    this.modalRef = this.modalService.show(template);
+  }
+  openModalDelete(template: TemplateRef<any>, med: Medicine) {
+    this.errorMsg = new ErrorMsg();
+    this.medicine.id = med.id;
+    this.medicine.name = med.name;
+    this.modalRef = this.modalService.show(template);
+  }
 
   getMedicine() {
     const medicineObservable = this.medicineService.getAllMedicine();
     medicineObservable.subscribe((data: any[]) => {
-      console.log(data);
       this.list = data;
     });
   }
@@ -37,15 +50,39 @@ export class MedicineComponent implements OnInit {
       return;
     } else {
       this.medicineService.addMedicine(this.medicine).subscribe(res => {
-        // this.getMedicine();
+        this.getMedicine();
         this.modalRef.hide();
-        console.log(res);
       }, error => {
         console.log(error);
         this.errorMsg.name = error.error['response'];
       });
     }
   }
+
+  onAlter() {
+    !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
+    if (!this.medicine.name) {
+      return;
+    } else {
+      this.medicineService.updateMedicine(this.medicine).subscribe(res => {
+        this.getMedicine();
+        this.modalRef.hide();
+      }, error => {
+        console.log(error);
+        this.errorMsg.name = error.error['response'];
+      });
+    }
+  }
+
+  onDelete(med: Medicine) {
+    this.medicineService.deleteMedicine(med).subscribe(res => {
+      this.getMedicine();
+      this.modalRef.hide();
+    }, error => {
+      this.errorMsg.name = error.error['response'];
+    });
+  }
+
   ngOnInit() {
     this.getMedicine();
   }
@@ -54,7 +91,7 @@ export class MedicineComponent implements OnInit {
 class Medicine {
   id: string;
   name: string;
-  desc: string;
+  description: string;
   unit: string;
 }
 class ErrorMsg {

@@ -80,7 +80,6 @@ export class ReceiversComponent implements OnInit {
   }
 
   deleteRec(rec: Receiver) {
-    console.log(rec);
     this.receiverService.deleteReceiver(rec).subscribe(res => {
       this.getReceivers();
        this.modalRef.hide();

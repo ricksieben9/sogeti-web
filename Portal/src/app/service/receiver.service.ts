@@ -34,7 +34,6 @@ export class ReceiverService {
   }
 
   deleteReceiver(rec: Receiver) {
-    console.log(rec.id);
     return this.http.delete('http://localhost:3000/receiver/' + rec.id);
   }
 }

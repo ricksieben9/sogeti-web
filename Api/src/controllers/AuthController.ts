@@ -34,6 +34,12 @@ class AuthController {
             return;
         }
 
+        // Check if authorized to login
+        if(role === 'Toediener'){
+            res.status(401).send({"response": "U bent niet gemachtigd om het portaal te gebruiken!"});
+            return;
+        }
+
         //Sing JWT, valid for 1 hour
         const token = jwt.sign(
             {userId: User.id, username: User.email},

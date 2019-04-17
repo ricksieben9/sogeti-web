@@ -38,6 +38,7 @@
                   {{item.unit}}
                 </td>
                 <td>
+                  <button class="btn btn-primary" (click)="openModalView(view, item)"> Bekijken</button>
                   <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
                   <button class="btn btn-danger" (click)="openModalDelete(delete, item)" >Verwijderen</button>
                 </td>
@@ -53,6 +54,22 @@
   </div>
 </div>
 
+<ng-template #view>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Medicijn</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <label>Naam: {{medicine.name}}</label>
+    <br>
+      <label>Eenheid: {{medicine.unit}}</label>
+    <br>
+      <label for="name">Beschrijving: </label>
+      <textarea rows="4" cols="50"  readonly="true" id="descriptionView" name="description">{{medicine.description}}</textarea>
+  </div>
+</ng-template>
 <ng-template #add>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Medicijn toevoegen</h4>

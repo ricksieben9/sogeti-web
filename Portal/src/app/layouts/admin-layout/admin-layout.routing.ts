@@ -6,6 +6,7 @@ import {MapsComponent} from '../../pages/maps/maps.component';
 import {UserProfileComponent} from '../../pages/user-profile/user-profile.component';
 import {TablesComponent} from '../../pages/tables/tables.component';
 import {ReceiversComponent} from '../../pages/receivers/receivers.component';
+import {MedicineComponent} from '../../pages/medicine/medicine.component';
 import {AuthGuard} from '../../_guards/auth.guard';
 import {Role} from '../../_models/role';
 
@@ -15,5 +16,6 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'tables', component: TablesComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'maps', component: MapsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
+  {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
+  {path: 'medicine', component: MedicineComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
 ];

@@ -71,12 +71,11 @@
         <option>mg</option>
         <option>g</option>
       </select>
-<!--      <input type="text" class="form-control" id="unit" name="unit" [(ngModel)]="medicine.unit">-->
       <p class="text-danger">{{errorMsg.name}}</p>
       <label for="name">Beschrijving</label>
       <textarea rows="4" cols="50" class="form-control" id="description" name="description" [(ngModel)]="medicine.description"></textarea>
       <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
+      <button class="btn btn-primary float-right" (click)="onSave()" >Opslaan</button>
     </form>
   </div>
 </ng-template>
@@ -104,7 +103,7 @@
       <label for="name">Beschrijving</label>
       <textarea rows="4" cols="50" class="form-control" id="descriptionAlter" name="description" [(ngModel)]="medicine.description"></textarea>
       <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onAlter()" >Opslaan</button>
+      <button class="btn btn-primary float-right" (click)="onAlter()" >Opslaan</button>
     </form>
   </div>
 </ng-template>
@@ -120,8 +119,8 @@
     <form>
       <label>Weet u zeker dat u {{medicine.name}} wilt verwijderen</label>
       <br>
-      <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
-      <button class="btn btn-danger" (click)="onDelete(medicine)" >Verwijderen!</button>
+      <button class="btn btn-primary " (click)="modalRef.hide()" >Anuleren</button>
+      <button class="btn btn-danger float-right" (click)="onDelete(medicine)" >Verwijderen!</button>
     </form>
   </div>
 </ng-template>

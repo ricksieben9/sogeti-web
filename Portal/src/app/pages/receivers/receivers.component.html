@@ -67,7 +67,7 @@
       <label for="name">Naam</label>
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="receiver.name">
       <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
+      <button class="btn btn-primary float-right" (click)="onSave()" >Opslaan</button>
     </form>
   </div>
 </ng-template>
@@ -84,7 +84,7 @@
       <label for="name">Naam</label>
       <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="receiver.name">
       <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onAlter()" >Opslaan</button>
+      <button class="btn btn-primary float-right" (click)="onAlter()" >Opslaan</button>
     </form>
   </div>
 </ng-template>

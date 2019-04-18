@@ -13,12 +13,14 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0">Ontvangers</h3>
-        </div>
-        <div class="card-body">
+            <div class="float-left">
+          <h3 class="mb-0 line">Ontvangers</h3>
+            </div>
           <div class="float-right">
             <button (click)="openModalAdd(add)" class="btn btn-info">Ontvanger toevoegen</button>
           </div>
+        </div>
+        <div class="card-body">
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -39,7 +41,7 @@
                 <td>
                   {{item.name}}
                 </td>
-                <td>
+                <td class="alignr">
                   <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
                   <button class="btn btn-danger" (click)="openModalDelete(delete, item)" >Verwijderen</button>
                 </td>

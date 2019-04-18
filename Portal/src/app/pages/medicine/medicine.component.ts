@@ -71,7 +71,7 @@ export class MedicineComponent implements OnInit {
   onAlter() {
     !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
     !this.medicine.unit ? this.errorMsg.unit = 'Eenheid vereist' : '';
-    if (!this.medicine.name) {
+    if (!this.medicine.name || !this.medicine.unit) {
       return;
     } else {
       this.medicineService.updateMedicine(this.medicine).subscribe(res => {

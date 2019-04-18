@@ -37,7 +37,7 @@ class MedicineController {
         const medicineRepository = getRepository(medicine);
         try {
             await medicineRepository.save(Medicine);
-        } catch (e) {
+        } catch (error) {
             res.status(409).send({"response": "Naam is al in gebruik."});
             return;
         }
@@ -58,7 +58,7 @@ class MedicineController {
             Medicine = await medicineRepository.findOne(id);
         } catch (error) {
             //If not found, send a 404 response
-            res.status(404).send("Receiver not found");
+            res.status(404).send("Medicine not found");
             return;
         }
 

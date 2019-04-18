@@ -71,18 +71,16 @@ class UserController {
         try {
             await userRepository.save(User);
         } catch (e) {
-            if(e.message.includes('email_UNIQUE'))
-            {
-                res.status(409).send({"type":"email","response":"Dit emailadres is al in gebruik!"});
+            if(e.message.includes('email_UNIQUE')) {
+                res.status(409).send({"type": "email", "response": "Dit emailadres is al in gebruik!"});
+                return;
             }
-            else if(e.message.includes('name_UNIQUE'))
-            {
+
+            if(e.message.includes('name_UNIQUE')){
                 res.status(409).send({"type":"username","response":"Deze gebruikersnaam bestaat al!"});
+                return;
             }
-            else
-            {
-                res.status(409).send({"type":"undefined","response":"Bad Request!"});
-            }
+            res.status(409).send({"type": "undefined", "response": "Bad Request!"});
             return;
         }
 

@@ -54,7 +54,7 @@ export class MedicineComponent implements OnInit {
 
   onSave() {
     !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
-    !this.medicine.unit ? this.errorMsg.name = 'Eenheid vereist' : '';
+    !this.medicine.unit ? this.errorMsg.unit = 'Eenheid vereist' : '';
     if (!this.medicine.name || !this.medicine.unit) {
       return;
     } else {
@@ -70,6 +70,7 @@ export class MedicineComponent implements OnInit {
 
   onAlter() {
     !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
+    !this.medicine.unit ? this.errorMsg.unit = 'Eenheid vereist' : '';
     if (!this.medicine.name) {
       return;
     } else {
@@ -105,4 +106,5 @@ class Medicine {
 }
 class ErrorMsg {
   name: string;
+  unit: string;
 }

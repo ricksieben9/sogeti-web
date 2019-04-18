@@ -3,17 +3,16 @@ import {getRepository} from "typeorm";
 import {validate} from "class-validator";
 
 import {medicine} from "../entity/medicine";
-import {receiver} from "../entity/receiver";
 
 class MedicineController {
 
 
     static listAll = async (req: Request, res: Response) => {
-        //Get receivers from database
+        //Get medicines from database
         const medicineRepository = getRepository(medicine);
         const medicines = await medicineRepository.find();
 
-        //Send the receivers object
+        //Send the mediciness object
         res.send(medicines);
     };
 
@@ -33,7 +32,7 @@ class MedicineController {
             return;
         }
 
-        //Try to save. If fails, the receivername is already in use
+        //Try to save. If fails, the medicinename is already in use
         const medicineRepository = getRepository(medicine);
         try {
             await medicineRepository.save(Medicine);
@@ -51,7 +50,7 @@ class MedicineController {
         //Get values from the body
         const {id, name, unit, description} = req.body;
 
-        //Try to find receiver on database
+        //Try to find medicine on database
         const medicineRepository = getRepository(medicine);
         let Medicine = new medicine();
         try {
@@ -73,7 +72,7 @@ class MedicineController {
             return;
         }
 
-        //Try to safe, if fails, that means receivername already in use
+        //Try to safe, if fails, that means medicinename already in use
         try {
             await medicineRepository.save(Medicine);
             res.send(Medicine);

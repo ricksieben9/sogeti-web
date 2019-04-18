@@ -22,7 +22,6 @@ export class MedicinenService {
   }
 
   addMedicine(med: Medicine): Observable<Medicine> {
-    console.log(med);
     return this.http.post<Medicine>('http://localhost:3000/medicine/', med);
   }
 

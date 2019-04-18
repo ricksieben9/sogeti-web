@@ -21,7 +21,7 @@ router.patch(
     MedicineController.editMedicine
 );
 
-//Delete a receiver
+//Delete a medicine
 router.delete(
     "/:id([0-9]+)",
     // [checkJwt, checkRole(["ADMIN"])],

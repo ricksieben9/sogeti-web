@@ -40,7 +40,7 @@ class AuthController {
             {expiresIn: "1h"}
         );
         //Send the jwt in the response
-        res.send({username, token, role, name});
+        res.status(200).send({username, token, role, name});
     };
 
     static changePassword = async (req: Request, res: Response) => {

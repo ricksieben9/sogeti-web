@@ -30,10 +30,6 @@ export class MedicineComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
   openModalView(template: TemplateRef<any>, med: Medicine) {
-    // this.medicine.id = med.id;
-    // this.medicine.name = med.name;
-    // this.medicine.description = med.description;
-    // this.medicine.unit = med.unit;
     this.medicine = med;
     console.log(this.medicine);
     this.modalRef = this.modalService.show(template);

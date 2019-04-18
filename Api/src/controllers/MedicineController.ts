@@ -18,12 +18,12 @@ class MedicineController {
 
     static newMedicine = async (req: Request, res: Response) => {
         //Get parameters from the body
-        const {name, unit, desc} = req.body;
+        const {name, unit, description} = req.body;
 
         let Medicine = new medicine();
         Medicine.name = name;
         Medicine.unit = unit;
-        Medicine.description = desc;
+        Medicine.description = description;
 
         //Validade if the parameters are ok
         const errors = await validate(Medicine);

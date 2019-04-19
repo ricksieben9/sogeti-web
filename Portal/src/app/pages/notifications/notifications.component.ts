@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {LogService} from "../../service/log.service";
 
 @Component({
   selector: 'app-notifications',
@@ -7,8 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor() { }
+  list: any;
+  log: Log = new Log();
+  // errorMsg: ErrorMsg = new  ErrorMsg();
+  modalRef: BsModalRef;
 
+  constructor(private logService: LogService) { }
+
+  getLogs() {
+    const logObservable = this.logService.getAllLogs();
+    logObservable.subscribe((logData: any[]) => {
+      console.log(logData);
+      this.list = logData;
+    });
+  }
   ngOnInit() {}
+}
 
+class Log{
+  id: string;
+  message: string;
+  datetime : string;
+  category : string;
+  user_id : string
 }

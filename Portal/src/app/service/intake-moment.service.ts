@@ -13,6 +13,11 @@ interface IntakeMoment {
   dispenser: string;
 }
 
+interface Receiver {
+  id: string;
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,11 +26,11 @@ export class IntakeMomentService {
   constructor(private http: HttpClient) { }
 
   getAllIntakeMoments(): Observable<IntakeMoment[]> {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/');
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakemoments/');
   }
 
-  getIntakeMoment() {
-
+  getIntakeMomentOfReceiver(receiver: Receiver) {
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver.id + '/intakemoments');
   }
 
   addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {

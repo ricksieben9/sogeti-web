@@ -21,12 +21,16 @@
               <thead class="thead-light">
               <tr>
                 <th scope="col">Naam</th>
+                <th scope="col"></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let item of list">
                 <td>
                   {{item.name}}
+                </td>
+                <td>
+                  <button class="btn btn-primary" type="button" routerLink="/receiver/{{item.id}}/intakemoments">Bekijk planning</button>
                 </td>
               </tr>
               </tbody>

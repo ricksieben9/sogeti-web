@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IntakeMomentService } from '../../service/intake-moment.service';
+import { ReceiverService } from '../../service/receiver.service';
 
 @Component({
   selector: 'app-intakemoments',
@@ -14,30 +15,31 @@ export class IntakemomentsComponent implements OnInit {
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
 
-  constructor(private intakeMomentService: IntakeMomentService, private modalService: BsModalService) { }
+  constructor(private intakeMomentService: IntakeMomentService, private receiverService: ReceiverService, private modalService: BsModalService) { }
 
-  openModalAdd(template: TemplateRef<any>) {
+  openModalAddIntakemoment(template: TemplateRef<any>) {
     this.errorMsg = new ErrorMsg();
     this.intakeMoment = new IntakeMoment();
     this.modalRef = this.modalService.show(template);
   }
 
-  openModalAlter(template: TemplateRef<any>, rec: IntakeMoment) {
+  openModalEditIntakemoment(template: TemplateRef<any>, rec: IntakeMoment) {
     this.errorMsg = new ErrorMsg();
     this.intakeMoment.id = rec.id;
-    this.intakeMoment.name = rec.name;
+    // this.intakeMoment.name = rec.name;
     this.modalRef = this.modalService.show(template);
   }
 
-  openModalDelete(template: TemplateRef<any>, rec: IntakeMoment) {
+  openModalDeleteIntakemoment(template: TemplateRef<any>, rec: IntakeMoment) {
     this.errorMsg = new ErrorMsg();
     this.intakeMoment.id = rec.id;
    // this.intakeMoment.name = rec.name;
     this.modalRef = this.modalService.show(template);
   }
 
+  //needs to get receivers to look at the planning of a receiver
   getReceivers() {
-    const receiverObservable = this.intakeMomentService.getAllIntakeMoments();
+    const receiverObservable = this.receiverService.getAllReceivers();
     receiverObservable.subscribe((userData: any[]) => {
       console.log(userData);
       this.list = userData;

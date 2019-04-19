@@ -18,6 +18,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {LoginComponent} from './auth/login/login.component';
+import { IntakemomentDetailComponent } from './pages/intakemoments/intakemoment-detail/intakemoment-detail.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {LoginComponent} from './auth/login/login.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    IntakemomentDetailComponent
   ],
   providers: [UsersService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

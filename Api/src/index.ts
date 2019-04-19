@@ -26,9 +26,5 @@ createConnection()
         http.listen(3000, () => {
             console.log("Server started on port 3000!");
         });
-
-        io.on('connection', (socket) => {
-            console.log('device connected');
-        });
     })
     .catch(error => console.log(error));

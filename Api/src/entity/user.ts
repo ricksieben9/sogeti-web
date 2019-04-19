@@ -9,11 +9,13 @@ import * as bcrypt from "bcryptjs";
 
 @Entity("user",{schema:"asautar_db" } )
 @Index("email_UNIQUE",["email",],{unique:true})
+@Index("name_UNIQUE",["name",],{unique:true})
 @Index("fk_Person_Roles_idx",["roles_role",])
 export class user {
 
    
     @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager: true })
+
     @JoinColumn({ name:'roles_role'})
     roles_role:roles | null;
 
@@ -44,6 +46,7 @@ export class user {
 
     @Column("varchar",{ 
         nullable:false,
+        unique: true,
         length:45,
         name:"name"
         })

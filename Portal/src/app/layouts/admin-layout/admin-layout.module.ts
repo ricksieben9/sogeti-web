@@ -10,6 +10,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { UsersComponent } from '../../pages/users/users.component';
 import { ReceiversComponent } from '../../pages/receivers/receivers.component';
+import { MedicineComponent} from '../../pages/medicine/medicine.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
@@ -35,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DispenserComponent,
     MapsComponent,
     ReceiversComponent,
+    MedicineComponent
   ]
 })
 

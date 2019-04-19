@@ -22,15 +22,14 @@ export class medicine {
     name:string;
         
 
-    @Column("longtext",{ 
-        nullable:false,
+    @Column("longtext",{
         name:"description"
         })
     description:string;
         
 
    
-    @ManyToOne(type=>medicine_types, medicine_types=>medicine_types.medicines,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>medicine_types, medicine_types=>medicine_types.medicines,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'medicine_type'})
     medicine_type:medicine_types | null;
 

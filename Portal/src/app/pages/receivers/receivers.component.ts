@@ -39,7 +39,6 @@ export class ReceiversComponent implements OnInit {
   getReceivers() {
     const receiverObservable = this.receiverService.getAllReceivers();
     receiverObservable.subscribe((userData: any[]) => {
-      console.log(userData);
       this.list = userData;
     });
   }
@@ -81,7 +80,6 @@ export class ReceiversComponent implements OnInit {
   }
 
   deleteRec(rec: Receiver) {
-    console.log(rec);
     this.receiverService.deleteReceiver(rec).subscribe(res => {
       this.getReceivers();
        this.modalRef.hide();

@@ -34,12 +34,10 @@ export class UsersComponent implements OnInit {
     userObservable.subscribe((userData: any[]) => {
       this.list = userData;
     });
-    console.log(this.currentUser);
   }
 
 
   ngOnInit() {
-    console.log(this.currentUser);
     this.getUsers();
   }
 

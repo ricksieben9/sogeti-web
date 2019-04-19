@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
           if (data['isFirst'] === 1) {
             this.router.navigate(['/reset-password']);
           } else {

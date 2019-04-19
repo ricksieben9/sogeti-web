@@ -1,28 +1,34 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {validate} from "class-validator";
-
 import {intake_moment} from "../entity/intake_moment";
+import {intake_moment_medicines} from "../entity/intake_moment_medicines";
 
 class IntakeMomentController {
 
-    static listAll = async (req: Request, res: Response) => {
+    static getAllIntakeMomentsOfReceiver = async (req: Request, res: Response) => {
+        //Get the ID from the url
+        const id: number = req.params.id;
+
         //Get intakeMoments from database
         const intakeRepository = getRepository(intake_moment);
-        const intakeMoments = await intakeRepository.find();
+        try {
+            const intakeMoments = await intakeRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"],where:{receiver_id: id}});
+            res.send(intakeMoments);
 
-        //Send the intake object
-        res.send(intakeMoments);
+        } catch (error) {
+            res.status(404).send("Intake moments not found");
+        }
     };
 
     static getOneById = async (req: Request, res: Response) => {
         //Get the ID from the url
-        const id: number = req.params.id;
+        const id: number = req.params.intakeMomentId;
 
         //Get the intake moment from the database
         const intakeRepository = getRepository(intake_moment);
         try {
-            const IntakeMoment = await intakeRepository.createQueryBuilder().select(["id", "name","intake_start_time","intake_end_time","receiver_id","remark","priority_number","dispenser"]).where({id: id}).getRawMany();
+            const IntakeMoment = await intakeRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"],where:{id: id}});
             res.send(IntakeMoment);
 
         } catch (error) {
@@ -37,7 +43,7 @@ class IntakeMomentController {
 
 
         IntakeMoment.dispenser = intakeMomentData['dispenser_id'];
-        IntakeMoment.receiver_id = intakeMomentData['receiver_id'];
+        IntakeMoment.receiver_id = req.params.id;
         IntakeMoment.intake_start_time = intakeMomentData['intake_start_time'];
         IntakeMoment.intake_end_time = intakeMomentData['intake_end_time'];
         IntakeMoment.priority_number = intakeMomentData['priority_number'];
@@ -66,7 +72,7 @@ class IntakeMomentController {
 
     static editIntakeMoment = async (req: Request, res: Response) => {
         //Get the ID from the url
-        const id = req.params.id;
+        const id = req.params.intakeMomentId;
 
         //Get values from the body
         let intakeMomentData = req.body;
@@ -84,7 +90,7 @@ class IntakeMomentController {
 
         //Validate the new values on model
         IntakeMoment.dispenser = intakeMomentData['dispenser_id'];
-        IntakeMoment.receiver_id = intakeMomentData['receiver_id'];
+        IntakeMoment.receiver_id = req.params.id;
         IntakeMoment.intake_start_time = intakeMomentData['intake_start_time'];
         IntakeMoment.intake_end_time = intakeMomentData['intake_end_time'];
         IntakeMoment.priority_number = intakeMomentData['priority_number'];
@@ -96,21 +102,28 @@ class IntakeMomentController {
             return;
         }
 
+        //Delete all original medicine from intakeMoment
+        const intakeMomentMecinesRepository = getRepository(intake_moment_medicines);
+        try  {
+            intakeMomentMecinesRepository.delete({intake_moment_id: id});
+        } catch(error){
+            res.status(409).send(error);
+            return;
+        }
+
         //Try to save, if fails, the error is reported back
         try {
             await intakeRepository.save(IntakeMoment);
-            res.send(IntakeMoment);
+            res.status(200).send(IntakeMoment);
         } catch (e) {
             res.status(409).send(e);
             return;
         }
-        //After all send a 204 (no content, but accepted) response
-        res.status(204).send({"response": "Intake moment updated"});
     };
 
     static deleteIntakeMoment = async (req: Request, res: Response) => {
         //Get the ID from the url
-        const id = req.params.id;
+        const id = req.params.intakeMomentId;
         const intakeRepository = getRepository(intake_moment);
         let IntakeMoment: intake_moment;
         try {

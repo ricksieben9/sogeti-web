@@ -23,7 +23,7 @@ export class NotificationsComponent implements OnInit {
       this.list = logData;
     });
   }
-  ngOnInit() {}
+  ngOnInit() {this.getLogs();}
 }
 
 class Log{

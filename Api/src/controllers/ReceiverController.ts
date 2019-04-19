@@ -31,21 +31,6 @@ class ReceiverController {
         }
     };
 
-    static getAllIntakeMomentsById = async (req: Request, res: Response) => {
-        //Get the ID from the url
-        const id: number = req.params.id;
-
-        //Get the intake moment from the database
-        const intakeRepository = getRepository(intake_moment);
-        try {
-            const IntakeMoment = await intakeRepository.createQueryBuilder().select(["id", "name","intake_start_time","intake_end_time","receiver_id","remark","priority_number","dispenser"]).where({receiver_id: id}).getRawMany();
-            res.send(IntakeMoment);
-
-        } catch (error) {
-            res.status(404).send("Intake moment not found");
-        }
-    };
-
     static newReceiver = async (req: Request, res: Response) => {
         //Get parameters from the body
         let receivername = req.body;

@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
-
     const userObservable = this.usersService.getAll();
     userObservable.subscribe((userData: any[]) => {
       this.list = userData;
@@ -41,7 +40,6 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
-
   onSave() {
     this.errorMsg.name = this.errorMsg.email = '';
     !this.user.name ? this.errorMsg.name = 'Naam vereist' : '';
@@ -49,13 +47,6 @@ export class UsersComponent implements OnInit {
     if (!this.user.name || !this.user.email) {
       return;
     }
-// this.usersService.insertUser(this.user).subscribe(res => {
-//   this.getUsers();
-//   this.modalRef.hide();
-//   console.log(res);
-// },error => {
-// console.log(error);
-// });
   }
 
 

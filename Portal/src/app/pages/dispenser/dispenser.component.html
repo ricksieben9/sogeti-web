@@ -1,0 +1,132 @@
+<div class="header bg-gradient-sogeti pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 class="mb-0">Toedieners</h3>
+        </div>
+        <div class="card-body">
+          <div class="float-right">
+            <button (click)="openModalAdd(add)" class="btn btn-info">Toediener toevoegen</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Naam</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Aanpassen</th>                  
+                  <th scope="col">Verwijderen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dispensers">
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <span class="mb-0 text-sm">{{item.name}}</span>
+                    </div>
+                  </th>
+                  <td>
+                    {{item.email}}
+                  </td>
+                  <td>
+                    <span class="badge badge-dot mr-4">
+                      {{item.roles_role}}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary" (click)="openModalEditDispenser(edit, item)" >Aanpassen</button>
+                  </td>
+                  <td>
+                    <button type="button"
+                      class="btn btn-danger" (click)="openModalDelete(delete, item)">Verwijder</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer py-4">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #add>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Toediener toevoegen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label for="name">Naam</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newUser.name" required>
+      <p class="text-danger">{{errorMsg.name}}</p>
+      <label for="email">E-mail</label>
+      <input type="text" class="form-control" id="email" name="email" [(ngModel)]="newUser.email" required>
+      <p class="text-danger">{{errorMsg.email}}</p>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="isMainDispenser" value="Hoofdtoediener">
+        <label class="form-check-label" for="isMainDispenser">Hoofdtoediener</label>
+      </div>
+      <div>
+        <button class="btn btn-primary mt-4" (click)="SaveDispenser()">Opslaan</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aanpassen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">   
+      <form [formGroup]="form">  
+          <h2>{{ user.name }}</h2>
+        <div class="form-group mt-2">
+          <h4>Huidige rol: {{user.roles_role}}</h4>
+          <label for="role" class="mt-2">Wijzig rol</label>
+          <select formControlName="editRole" class="form-control" id="role" [(ngModel)]="selectedRole" required>
+            <option *ngFor="let option of roleOptions" value="{{option}}">{{option}}</option>
+          </select>
+        </div>        
+        <button class="btn btn-primary" (click)="editRole()" >Opslaan</button>
+        <p class="text-danger">{{errorMsg.roles_role}}</p>
+      </form>    
+  </div>
+</ng-template>
+
+<ng-template #delete>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Verwijderen</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <label>Weet u zeker dat u <i>{{user.name}}</i> wilt verwijderen</label>
+      <br>
+      <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
+      <button class="btn btn-danger" (click)="deleteDispenser(user)" >Verwijderen!</button>
+    </form>
+  </div>
+</ng-template>

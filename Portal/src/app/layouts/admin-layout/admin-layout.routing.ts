@@ -6,12 +6,13 @@ import {MapsComponent} from '../../pages/maps/maps.component';
 import {UserProfileComponent} from '../../pages/user-profile/user-profile.component';
 import {TablesComponent} from '../../pages/tables/tables.component';
 import {ReceiversComponent} from '../../pages/receivers/receivers.component';
+import {NotificationsComponent} from "../../pages/notifications/notifications.component";
 import {AuthGuard} from '../../_guards/auth.guard';
 import {Role} from '../../_models/role';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
+  {path: 'logs', component: NotificationsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'tables', component: TablesComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'maps', component: MapsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},

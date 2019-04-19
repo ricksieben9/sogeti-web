@@ -25,12 +25,8 @@ export class IntakeMomentService {
 
   constructor(private http: HttpClient) { }
 
-  getAllIntakeMoments(): Observable<IntakeMoment[]> {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakemoments/');
-  }
-
   getIntakeMomentOfReceiver(receiver: Receiver) {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver.id + '/intakemoments');
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver.id + '/intakeMoments');
   }
 
   addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
@@ -44,8 +40,8 @@ export class IntakeMomentService {
     );
   }
 
-  deleteIntakeMoment(rec: IntakeMoment) {
-    console.log(rec.id);
-    return this.http.delete(`${environment.url}` + '/intakeMoment/' + rec.id);
+  deleteIntakeMoment(intakeMoment: IntakeMoment) {
+    console.log(intakeMoment.id);
+    return this.http.delete(`${environment.url}` + '/intakeMoment/' + intakeMoment.id);
   }
 }

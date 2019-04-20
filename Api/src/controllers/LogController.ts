@@ -10,7 +10,7 @@ class LogController {
         //Get logs from database
         const logRepository = getRepository(log);
         const logs = await logRepository.find();
-
+        console.log(logs);
         //Send the receivers object
         res.send(logs);
     };

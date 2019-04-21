@@ -25,9 +25,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let item of list">
+              <tr *ngFor="let item of receivers">
                 <td>
-                  {{item.name}} 
+                  {{item.name}}
                 </td>
                 <td>
                   <button class="btn btn-primary" type="button" routerLink="/intakemoments/{{item.id}}">Bekijk planning</button>
@@ -43,54 +43,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #add>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Toedienmoment toevoegen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <label for="name">Naam</label>
-      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="intakeMoment.name">
-      <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
-    </form>
-  </div>
-</ng-template>
-
-<ng-template #alter>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Aanpassen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <label for="name">Naam</label>
-      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="intakeMoment.name">
-      <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onAlter()">Opslaan</button>
-    </form>
-  </div>
-</ng-template>
-
-<ng-template #delete>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Verwijderen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <label>Weet u zeker dat u het indienmoment voor {{intakeMoment.name}} wilt verwijderen?</label>
-      <br>
-      <button class="btn btn-primary" (click)="modalRef.hide()">Anuleren</button>
-      <button class="btn btn-danger" (click)="deleteIntakeMoment(intakeMoment)" >Verwijderen</button>
-    </form>
-  </div>
-</ng-template>

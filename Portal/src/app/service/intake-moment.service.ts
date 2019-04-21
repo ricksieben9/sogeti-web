@@ -25,8 +25,8 @@ export class IntakeMomentService {
 
   constructor(private http: HttpClient) { }
 
-  getIntakeMomentOfReceiver(receiver: Receiver) {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver.id + '/intakeMoments');
+  getIntakeMomentOfReceiver(receiver: number) {
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
   }
 
   addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {

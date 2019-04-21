@@ -4,6 +4,8 @@ import {IntakeMomentService} from '../../../service/intake-moment.service';
 import {ReceiverService} from '../../../service/receiver.service';
 import {Receiver} from '../../../_models/receiver';
 import {IntakeMoment} from '../../../_models/intakeMoment';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-intakemoment-detail',
@@ -12,20 +14,21 @@ import {IntakeMoment} from '../../../_models/intakeMoment';
 })
 export class IntakemomentDetailComponent implements OnInit {
 
-  list: any;
+  intakemoments: any;
 
-  constructor(private intakeMomentService: IntakeMomentService, private receiver: ReceiverService) { }
+  constructor(private intakeMomentService: IntakeMomentService,
+              private route: ActivatedRoute,
+              private location: Location) { }
 
   ngOnInit() {
-    //this.getIntakeMomentsOfReceiver();
+    this.getIntakeMomentsOfReceiver();
   }
 
-  getIntakeMomentsOfReceiver(rec: Receiver){
-    const receiverObservable = this.intakeMomentService.getIntakeMomentOfReceiver(rec);
-    receiverObservable.subscribe((userData: any[]) => {
-      console.log(userData);
-      this.list = userData;
-    });
+  getIntakeMomentsOfReceiver() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.intakeMomentService.getIntakeMomentOfReceiver(id)
+      .subscribe(intakemoments => {console.log(intakemoments);
+                  this.intakemoments = intakemoments; });
   }
 
 }

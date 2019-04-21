@@ -19,5 +19,5 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'maps', component: MapsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'intakemoments', component: IntakemomentsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'intakemoments/receiver/:id/intakeMoments', component: IntakemomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
+  {path: 'intakemoments/:id', component: IntakemomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
 ];

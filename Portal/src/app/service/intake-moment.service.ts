@@ -26,8 +26,8 @@ export class IntakeMomentService {
     );
   }
 
-  deleteIntakeMoment(intakeMoment: IntakeMoment) {
+  deleteIntakeMoment(receiver: number, intakeMoment: IntakeMoment) {
     console.log(intakeMoment.id);
-    return this.http.delete(`${environment.url}` + '/intakeMoment/' + intakeMoment.id);
+    return this.http.delete(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments/' + intakeMoment.id);
   }
 }

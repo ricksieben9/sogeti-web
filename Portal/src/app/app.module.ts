@@ -52,6 +52,11 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

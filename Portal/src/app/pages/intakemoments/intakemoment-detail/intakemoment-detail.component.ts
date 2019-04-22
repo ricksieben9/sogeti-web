@@ -3,6 +3,8 @@ import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
 import {ReceiverService} from '../../../service/receiver.service';
 import {Receiver} from '../../../_models/receiver';
+import {IntakeMoment_medicines} from '../../../_models/intake_moment_medicine';
+import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
 import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ErrorMsg} from '../../../_models/errorMsg';
 //import {IntakeMoment} from '../../../_models/intakeMoment';
@@ -46,11 +48,23 @@ export class IntakemomentDetailComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   
+  medicines: any;
   intakemoments: any;
   intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
+  id: number;
 
+  intakeForm = new FormGroup({
+    medicinesForm : new FormArray([
+      new FormGroup({
+        medicines: new FormControl('', Validators.required),
+        time_window: new FormControl('', Validators.required),
+        dosage: new FormControl('', Validators.required)
+      })    
+    ])
+  });
+  
   constructor(private intakeMomentService: IntakeMomentService,
               private receiverService: ReceiverService,
               private route: ActivatedRoute,
@@ -64,8 +78,8 @@ export class IntakemomentDetailComponent implements OnInit {
 
   //get the intakemoments of the selected receiver
   getIntakeMomentsOfReceiver() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.intakeMomentService.getIntakeMomentOfReceiver(id)
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.intakeMomentService.getIntakeMomentOfReceiver(this.id)
       .subscribe(intakemoments => {console.log(intakemoments);
                   this.intakemoments = intakemoments; });
   }
@@ -230,10 +244,10 @@ export class IntakemomentDetailComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
-  openModalDeleteIntakemoment(template: TemplateRef<any>, rec: IntakeMoment) {
+  openModalDeleteIntakemoment(template: TemplateRef<any>, intake: IntakeMoment) {
     this.errorMsg = new ErrorMsg();
-    this.intakeMoment.id = rec.id;
-   // this.intakeMoment.name = rec.name;
+    this.intakeMoment.id = intake.id;
+    this.intakeMoment.receiver_id = intake.receiver_id;
     this.modalRef = this.modalService.show(template);
   }
 
@@ -269,17 +283,18 @@ export class IntakemomentDetailComponent implements OnInit {
     // }
   }
 
-  // deleteRec(rec: IntakeMoment) {
-  //   console.log(rec);
-  //   this.intakeMomentService.deleteIntakeMoment(rec).subscribe(res => {
-  //     this.getReceivers();
-  //      this.modalRef.hide();
-  //     console.log(res);
-  //   }, error => {
-  //     console.log(error);
-  //     this.errorMsg.name = error.error['response'];
-  //   });
-  // }
+  deleteIntakeMoment(intake: IntakeMoment) {
+    console.log(intake);
+    console.log(this.id + "aaaaaaaaaaaaaaaaaaaa");
+    this.intakeMomentService.deleteIntakeMoment(this.id, intake).subscribe(res => {
+      this.getIntakeMomentsOfReceiver();
+       this.modalRef.hide();
+      console.log(res);
+    }, error => {
+      console.log(error);
+      this.errorMsg.name = error.error['response'];
+    });
+  }
 
 }
 

@@ -2,21 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
-interface IntakeMoment {
-  id: string;
-  intake_start_time: Date;
-  intake_end_time: Date;
-  receiver_id: string;
-  remark: string;
-  priority_number: string;
-  dispenser: string;
-}
-
-interface Receiver {
-  id: string;
-  name: string;
-}
+import { IntakeMoment } from '../_models/intakeMoment';
 
 @Injectable({
   providedIn: 'root'

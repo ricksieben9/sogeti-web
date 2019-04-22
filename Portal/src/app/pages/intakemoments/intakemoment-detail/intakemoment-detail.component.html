@@ -254,13 +254,19 @@
   <div class="modal-body">
     <form>
       <label for="name">Starttijd</label>
-      <input type="datetime" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
-      <label for="intake_start_time">Eindtijd</label>
-      <input type="text" class="form-control" id="intake_end_time" name="intake_end_time" [(ngModel)]="intakeMoment.intake_end_time">
+      <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
       <label for="remark">Prioriteit</label>
       <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number">
       <label for="priority_number">Toediener</label>
       <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+     
+      <label for="medicines">Medicijn(en)</label>
+      <form [formgroup]="medicineForm">
+      <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+      <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+      <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+      </form>
+      
       <label for="intake_end_time">Opmerking</label>
       <textarea type="text" class="form-control" id="remark" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
       
@@ -280,9 +286,9 @@
   <div class="modal-body">
     <form>
         <label for="name">Starttijd</label>
-        <input type="datetime" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
+        <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
         <label for="intake_start_time">Eindtijd</label>
-        <input type="text" class="form-control" id="intake_end_time" name="intake_end_time" [(ngModel)]="intakeMoment.intake_end_time">
+        <input type="datetime-local" class="form-control" id="intake_end_time" name="intake_end_time" [(ngModel)]="intakeMoment.intake_end_time">
         <label for="remark">Prioriteit</label>
         <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number">
         <label for="priority_number">Toediener</label>

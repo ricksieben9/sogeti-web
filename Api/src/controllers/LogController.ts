@@ -26,7 +26,6 @@ class LogController {
         Log.message = "Toedienmoment heeft een toediener nodig!";
         Log.category = "test";
         // Log.datetime = currentDateTime;
-        Log.category = "test";
 
         //Validade if the parameters are ok
         const errors = await validate(Log);

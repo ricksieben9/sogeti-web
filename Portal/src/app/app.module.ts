@@ -9,7 +9,6 @@ import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.componen
 import {AuthLayoutComponent} from './layouts/auth-layout/auth-layout.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import { routing} from './app.routing';
 import {ComponentsModule} from './components/components.module';
 import {UsersService} from './service/users.service';

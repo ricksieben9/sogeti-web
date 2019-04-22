@@ -13,13 +13,9 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Portaal',  icon: 'ni-tv-2 text-primary', class: '' },
     { path: '/users', title: 'Gebruikersaccounts',  icon: 'ni-circle-08 text-blue', class: '' },
-    // { path: '/maps', title: 'Example 1',  icon: 'ni-pin-3 text-orange', class: '' },
-    // { path: '/user-profile', title: 'Example 2',  icon: 'ni-single-02 text-yellow', class: '' },
     { path: '/dispensers', title: 'Toedieners',  icon: 'ni-circle-08 text-blue', class: '' },
-
     { path: '/receivers', title: 'ontvangers', icon: 'ni-single-02 text-blue', class: ''},
     {path: '/medicine', title: 'medicijnen', icon: 'ni-atom text-blue', class: ''}
-    // { path: '/login', title: 'Login',  icon: 'ni-key-25 text-info', class: '' }
 ];
 
 @Component({

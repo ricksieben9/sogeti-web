@@ -44,7 +44,7 @@
                     <td>{{intakeMoment.intake_start_time}}</td>
                     <td>{{intakeMoment.intake_end_time}}</td>
                     <td>{{intakeMoment.priority_number.number}}</td>
-                    <td>{{intakeMoment.dispenser.name}}</td>
+                    <td ng-if="intakeMoment.dispenser != 'null' ">{{intakeMoment.dispenser.name}}</td>
                     <td>
                       <button class="btn btn-primary" (click)="openModalEditIntakemoment(alter, intakeMoment)" >Aanpassen</button>
                       <button class="btn btn-danger" (click)="openModalDeleteIntakemoment(delete, intakeMoment)" >Verwijderen</button>
@@ -291,12 +291,10 @@
     <form>
         <label for="name">Starttijd</label>
         <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
-        <label for="intake_start_time">Eindtijd</label>
-        <input type="datetime-local" class="form-control" id="intake_end_time" name="intake_end_time" [(ngModel)]="intakeMoment.intake_end_time">
         <label for="remark">Prioriteit</label>
-        <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number">
+        <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number.number">
         <label for="priority_number">Toediener</label>
-        <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+        <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser.name">
         <label for="intake_end_time">Opmerking</label>
         <textarea type="text" class="form-control" id="remark" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
       

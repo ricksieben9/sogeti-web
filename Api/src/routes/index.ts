@@ -4,6 +4,7 @@ import user from "./user";
 import receiver from "./receiver";
 import log from "./log";
 import medicine from "./medicine";
+import priority from "./priority";
 
 const routes = Router();
 
@@ -12,5 +13,5 @@ routes.use("/user", user);
 routes.use("/receiver", receiver);
 routes.use("/log", log);
 routes.use("/medicine", medicine);
-
+routes.use("/priority", priority);
 export default routes;

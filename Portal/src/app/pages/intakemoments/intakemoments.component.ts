@@ -14,14 +14,13 @@ export class IntakemomentsComponent implements OnInit {
 
   ngOnInit() {
     this.getReceivers();
-  }  
+  }
 
-  //get receivers, from there you go to their intakemoments-planning
+  // get receivers, from there you go to their intakemoments-planning
   getReceivers() {
     const receiverObservable = this.receiverService.getAllReceivers();
     receiverObservable.subscribe((userData: any[]) => {
-      console.log(userData);
       this.receivers = userData;
     });
-  }  
+  }
 }

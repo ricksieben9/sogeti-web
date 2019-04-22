@@ -25,7 +25,6 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                 <tr>
-                  <th scope="col">Id</th>
                   <th scope="col">Starttijd</th>
                   <th scope="col">Eindtijd</th>
                   <th scope="col">Prioriteit</th>
@@ -36,15 +35,16 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let intakeMoment of intakemoments">
-                  <th scope="row">
-                      <div class="media align-items-center">
-                        <span class="mb-0 text-sm">{{intakeMoment.id}}</span>
-                      </div>
-                    </th>
-                    <td>{{intakeMoment.intake_start_time}}</td>
-                    <td>{{intakeMoment.intake_end_time}}</td>
+                    <td>{{intakeMoment.intake_start_time | date : "dd-MM-yyy HH:mm"}}</td>
+                    <td>{{intakeMoment.intake_end_time | date : "dd-MM-yyy HH:mm"}}</td>
                     <td>{{intakeMoment.priority_number.number}}</td>
-                    <td ng-if="intakeMoment.dispenser != 'null' ">{{intakeMoment.dispenser.name}}</td>
+                  <td *ngIf="intakeMoment.dispenser; else noDispenser">
+                    {{intakeMoment.dispenser.name}}
+                  </td>
+                  <ng-template #noDispenser>
+                    <td>Heeft nog geen toediener.</td>
+                  </ng-template>
+                    <td ng-if="intakeMoment.dispenser != 'null' "></td>
                     <td>
                       <button class="btn btn-primary" (click)="openModalEditIntakemoment(alter, intakeMoment)" >Aanpassen</button>
                       <button class="btn btn-danger" (click)="openModalDeleteIntakemoment(delete, intakeMoment)" >Verwijderen</button>
@@ -254,25 +254,29 @@
   <div class="modal-body">
     <!-- <form [formGroup]="intakeForm"> -->
     <form>
-      <label for="name">Starttijd</label>
-      <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
-      <label for="remark">Prioriteit</label>
-      <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number">
-      <label for="priority_number">Toediener</label>
-      <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser">
+      <label for="intake_start_time">Starttijd</label>
+      <input type="datetime-local" class="form-control" id="intake_start_time_add" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
+      <label for="priority_number">Prioriteit</label>
+      <select name="priority_number" id="priority_add" class="form-control" required [(ngModel)]="intakeMoment.priority_number">
+        <option *ngFor="let priority of priorities" value="{{priority.number}}">{{priority.number}}</option>
+      </select>
+      <label for="dispenser">Toediener</label>
+      <select name="dispenser" id="dispenser_add" class="form-control" required [(ngModel)]="intakeMoment.dispenser">
+        <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
+      </select>
      
-      <label for="medicines">Medicijn(en)</label>      
-      <select class="form-control" required>
+      <!--<label for="medicines">Medicijn(en)</label> -->
+     <!-- <select name="medicines" id="medicines" class="form-control" required>
         <option *ngFor="let option of intakemoments" value="{{option}}">{{option.medicines}}</option>
       </select>  
-      <label for="time_window">Tijdwindow</label>       
+      <label for="time_window">Aantal minuten om medicijn toe te dienen</label>
       <input type="text" class="form-control" id="time_window" name="time_window" [(ngModel)]="intakeMoment.intake_moment_medicines.time_window">
-      <label for="dosage">Hoeveelheid</label> 
-      <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.intake_moment_medicines.dosage">
+      <label for="dosage">Dosis</label>
+      <input type="text" class="form-control" id="dosage" name="dosage" [(ngModel)]="intakeMoment.intake_moment_medicines.dosage">-->
       
       
-      <label for="intake_end_time">Opmerking</label>
-      <textarea type="text" class="form-control" id="remark" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
+      <label for="remark">Opmerking</label>
+      <textarea type="text" class="form-control" id="remark_add" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
       
       <p class="text-danger">{{errorMsg.name}}</p>
       <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
@@ -289,13 +293,13 @@
   </div>
   <div class="modal-body">
     <form>
-        <label for="name">Starttijd</label>
+        <label for="intake_start_time">Starttijd</label>
         <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
         <label for="remark">Prioriteit</label>
         <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number.number">
         <label for="priority_number">Toediener</label>
         <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser.name">
-        <label for="intake_end_time">Opmerking</label>
+        <label for="remark">Opmerking</label>
         <textarea type="text" class="form-control" id="remark" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
       
         <p class="text-danger">{{errorMsg.name}}</p>

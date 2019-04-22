@@ -1,13 +1,12 @@
 import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
-import {ReceiverService} from '../../../service/receiver.service';
-import {Receiver} from '../../../_models/receiver';
 import {IntakeMoment_medicines} from '../../../_models/intake_moment_medicine';
+import {UsersService} from '../../../service/users.service';
+import {PriorityService} from '../../../service/priority.service';
 import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
 import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ErrorMsg} from '../../../_models/errorMsg';
-//import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {
@@ -47,9 +46,11 @@ const colors: any = {
 export class IntakemomentDetailComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-  
+
   medicines: any;
   intakemoments: any;
+  dispensers: any;
+  priorities: any;
   intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
@@ -61,12 +62,13 @@ export class IntakemomentDetailComponent implements OnInit {
         medicines: new FormControl('', Validators.required),
         time_window: new FormControl('', Validators.required),
         dosage: new FormControl('', Validators.required)
-      })    
+      })
     ])
   });
-  
+
   constructor(private intakeMomentService: IntakeMomentService,
-              private receiverService: ReceiverService,
+              private userService: UsersService,
+              private priorityService: PriorityService,
               private route: ActivatedRoute,
               private location: Location,
               private modalService: BsModalService,
@@ -76,12 +78,28 @@ export class IntakemomentDetailComponent implements OnInit {
     this.getIntakeMomentsOfReceiver();
   }
 
-  //get the intakemoments of the selected receiver
+  // get the intakemoments of the selected receiver
   getIntakeMomentsOfReceiver() {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.intakeMomentService.getIntakeMomentOfReceiver(this.id)
-      .subscribe(intakemoments => {console.log(intakemoments);
+      .subscribe(intakemoments => {
                   this.intakemoments = intakemoments; });
+  }
+
+  getData() {
+
+    const roles = { roleList: ['Toediener', 'Hoofdtoediener'] };
+    // get dispensers from API
+    const userObservable = this.userService.getUsersByRoles(roles);
+    userObservable.subscribe((userData: any[]) => {
+      this.dispensers = userData;
+    });
+
+    // get priorities from API
+    const priorityObservable = this.priorityService.getAllPriorities();
+    priorityObservable.subscribe((priorityData: any[]) => {
+      this.priorities = priorityData;
+    });
   }
 
   // view: CalendarView = CalendarView.Month;
@@ -225,11 +243,12 @@ export class IntakemomentDetailComponent implements OnInit {
 
 
 
-  
+
 
   openModalAddIntakemoment(template: TemplateRef<any>) {
     this.errorMsg = new ErrorMsg();
     this.intakeMoment = new IntakeMoment();
+    this.getData();
     this.modalRef = this.modalService.show(template);
   }
 
@@ -284,14 +303,10 @@ export class IntakemomentDetailComponent implements OnInit {
   }
 
   deleteIntakeMoment(intake: IntakeMoment) {
-    console.log(intake);
-    console.log(this.id + "aaaaaaaaaaaaaaaaaaaa");
     this.intakeMomentService.deleteIntakeMoment(this.id, intake).subscribe(res => {
       this.getIntakeMomentsOfReceiver();
        this.modalRef.hide();
-      console.log(res);
     }, error => {
-      console.log(error);
       this.errorMsg.name = error.error['response'];
     });
   }

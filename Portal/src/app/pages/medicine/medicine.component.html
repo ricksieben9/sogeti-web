@@ -1,9 +1,6 @@
 <div class="header bg-gradient-sogeti pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
-
-    </div>
+    <div class="header-body"></div>
   </div>
 </div>
 <!-- Page content -->
@@ -13,20 +10,16 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-            <div class="float-left">
-          <h3 class="mb-0">Ontvangers</h3>
-            </div>
-          <div class="float-right">
-            <button (click)="openModalAdd(add)" class="btn btn-info">Ontvanger toevoegen</button>
-          </div>
+            <h3 class="mb-0 float-left">Medicijnen</h3>
+          <button (click)="openModalAdd(add)" class="btn btn-info float-right">Medicijn toevoegen</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
               <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Naam</th>
+                <th scope="col">Eenheid</th>
                 <th scope="col"></th>
                 <!--<th scope="col">Role</th>-->
               </tr>
@@ -35,13 +28,14 @@
               <tr *ngFor="let item of list">
                 <th scope="row">
                   <div class="media align-items-center">
-                    <span class="mb-0 text-sm">{{item.id}}</span>
+                    <span class="mb-0 text-sm">{{item.name}}</span>
                   </div>
                 </th>
                 <td>
-                  {{item.name}}
+                  {{item.unit}}
                 </td>
                 <td>
+                  <button class="btn btn-primary" (click)="openModalView(view, item)"> Bekijken</button>
                   <button class="btn btn-primary" (click)="openModalAlter(alter, item)" >Aanpassen</button>
                   <button class="btn btn-danger" (click)="openModalDelete(delete, item)" >Verwijderen</button>
                 </td>
@@ -57,18 +51,43 @@
   </div>
 </div>
 
+<ng-template #view>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Medicijn</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <label>Naam: {{medicine.name}}</label>
+    <br>
+      <label>Eenheid: {{medicine.unit}}</label>
+    <br>
+      <label for="name">Beschrijving: </label>
+      <textarea rows="4" cols="50"  readonly="true">{{medicine.description}}</textarea>
+  </div>
+</ng-template>
 <ng-template #add>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Ontvanger toevoegen</h4>
+    <h4 class="modal-title pull-left">Medicijn toevoegen</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form>
-      <label for="name">Naam</label>
-      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="receiver.name">
+      <label for="name">Naam:</label>
+      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="medicine.name">
       <p class="text-danger">{{errorMsg.name}}</p>
+      <label for="name">Eenheid:</label>
+      <select type="text" class="form-control" id="unit" name="unit" [(ngModel)]="medicine.unit">
+        <option>ml</option>
+        <option>mg</option>
+        <option>g</option>
+      </select>
+      <p class="text-danger">{{errorMsg.unit}}</p>
+      <label for="name">Beschrijving</label>
+      <textarea rows="4" cols="50" class="form-control" id="description" name="description" [(ngModel)]="medicine.description"></textarea>
       <button class="btn btn-primary float-right" (click)="onSave()" >Opslaan</button>
     </form>
   </div>
@@ -83,9 +102,18 @@
   </div>
   <div class="modal-body">
     <form>
-      <label for="name">Naam</label>
-      <input type="text" class="form-control" id="alterName" name="name" [(ngModel)]="receiver.name">
+      <label for="name">Naam:</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="medicine.name">
       <p class="text-danger">{{errorMsg.name}}</p>
+      <label for="name">Eenheid:</label>
+      <select type="text" class="form-control" name="unit" [(ngModel)]="medicine.unit">
+        <option>ml</option>
+        <option>mg</option>
+        <option>g</option>
+      </select>
+      <p class="text-danger">{{errorMsg.unit}}</p>
+      <label for="name">Beschrijving</label>
+      <textarea rows="4" cols="50" class="form-control" id="descriptionAlter" name="description" [(ngModel)]="medicine.description"></textarea>
       <button class="btn btn-primary float-right" (click)="onAlter()" >Opslaan</button>
     </form>
   </div>
@@ -100,10 +128,10 @@
   </div>
   <div class="modal-body">
     <form>
-      <label>Weet u zeker dat u {{receiver.name}} wilt verwijderen?</label>
+      <label>Weet u zeker dat u {{medicine.name}} wilt verwijderen</label>
       <br>
-      <button class="btn btn-primary" (click)="modalRef.hide()" >Anuleren</button>
-      <button class="btn btn-danger" (click)="deleteRec(receiver)" >Verwijderen</button>
+      <button class="btn btn-primary " (click)="modalRef.hide()" >Anuleren</button>
+      <button class="btn btn-danger float-right" (click)="onDelete(medicine)" >Verwijderen!</button>
     </form>
   </div>
 </ng-template>

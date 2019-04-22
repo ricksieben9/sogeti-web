@@ -79,7 +79,6 @@ class ReceiverController {
 
         //Validate the new values on model
         Receiver.name = receiverName['name'];
-        console.log(Receiver.receivername);
         const errors = await validate(Receiver);
         if (errors.length > 0) {
             res.status(400).send(errors);

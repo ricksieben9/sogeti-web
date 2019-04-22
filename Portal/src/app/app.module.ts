@@ -18,8 +18,6 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {LoginComponent} from './auth/login/login.component';
 
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,

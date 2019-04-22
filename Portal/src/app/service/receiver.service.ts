@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 interface Receiver {
   id: string;
@@ -15,26 +16,22 @@ export class ReceiverService {
   constructor(private http: HttpClient) { }
 
   getAllReceivers(): Observable<Receiver[]> {
-    return this.http.get<Receiver[]>('http://localhost:3000/receiver/');
-  }
-
-  getReceiver() {
-
+    return this.http.get<Receiver[]>(`${environment.url}` + '/receiver/');
   }
 
   addReceiver(receiver: Receiver): Observable<Receiver> {
-    return this.http.post<Receiver>('http://localhost:3000/receiver/', receiver);
+    return this.http.post<Receiver>(`${environment.url}` + '/receiver/', receiver);
   }
 
   updateReceiver(receiver: Receiver): Observable<Receiver> {
     return this.http.patch<Receiver>(
-      'http://localhost:3000/receiver/' + receiver.id,
+      `${environment.url}` + '/receiver/' + receiver.id,
       receiver
     );
   }
 
   deleteReceiver(rec: Receiver) {
     console.log(rec.id);
-    return this.http.delete('http://localhost:3000/receiver/' + rec.id);
+    return this.http.delete(`${environment.url}` + '/receiver/' + rec.id);
   }
 }

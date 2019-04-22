@@ -2,43 +2,169 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5006f885-0f84-4095-ab0d-39e01a4dedf4" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoment-detail/intakemoment-detail.component.html">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="253">
+              <caret line="138" selection-start-line="138" selection-end-line="138" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/notifications/notifications.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="17" column="23" lean-forward="true" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#61#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Api/src/controllers/IntakeMomentController.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/notifications/notifications.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="106">
+              <caret line="41" column="20" lean-forward="true" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/service/log.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="22" column="3" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/service/intake-moment.service.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="344">
+              <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+              <folding>
+                <element signature="e#69#109#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>//white</find>
+      <find>logser</find>
+      <find>constructor</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoment-detail/intakemoment-detail.component.html" />
         <option value="$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoments.component.html" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/IntakeMomentController.ts" />
+        <option value="$PROJECT_DIR$/Api/src/routes/intakeMoment.ts" />
+        <option value="$PROJECT_DIR$/Api/src/routes/index.ts" />
+        <option value="$PROJECT_DIR$/Portal/src/app/pages/notifications/notifications.component.ts" />
+        <option value="$PROJECT_DIR$/Portal/src/app/service/intake-moment.service.ts" />
+        <option value="$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.ts" />
+        <option value="$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2019" />
-    <option name="width" value="1391" />
-    <option name="height" value="784" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sogeti-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sogeti-web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sogeti-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sogeti-web" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sogeti-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sogeti-web" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sogeti-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sogeti-web" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sogeti-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sogeti-web" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -98,10 +224,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="D:\repos\sogeti-web\Portal\node_modules\tslint" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="D:\repos\sogeti-web\Api\node_modules\typescript\lib" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -119,22 +249,26 @@
     <configuration />
   </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5006f885-0f84-4095-ab0d-39e01a4dedf4" name="Default Changelist" comment="" />
+      <created>1555943795153</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1555943795153</updated>
+      <workItem from="1555943798718" duration="7893000" />
+    </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1784000" />
+    <option name="totallyTimeSpent" value="11645000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13224447" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="TypeScript" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.22318527" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -142,23 +276,258 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="TypeScript" order="9" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Api/src/index.js" />
+        <option value="$PROJECT_DIR$/Api/src/index.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/config/config.js" />
+        <option value="$PROJECT_DIR$/Api/src/config/config.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/group_dispensers.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/group_dispensers.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/group.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/group.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/timetonotificate.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/timetonotificate.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/priority.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/priority.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/medicine_types.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/medicine_types.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/medicine.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/medicine.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/receiver.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/receiver.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/log_category.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/log_category.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/user.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/user.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/roles.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/roles.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/intake_moment.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/intake_moment.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/log.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/log.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/entity/intake_moment_medicines.js" />
+        <option value="$PROJECT_DIR$/Api/src/entity/intake_moment_medicines.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/receiver.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/receiver.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/auth.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/auth.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/user.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/user.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/index.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/index.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/AuthController.js" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/AuthController.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/ReceiverController.js" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/ReceiverController.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/UserController.js" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/UserController.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/middlewares/checkJwt.js" />
+        <option value="$PROJECT_DIR$/Api/src/middlewares/checkJwt.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/middlewares/checkRole.js" />
+        <option value="$PROJECT_DIR$/Api/src/middlewares/checkRole.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/log.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/log.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/LogController.js" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/LogController.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/routes/intakeMoment.js" />
+        <option value="$PROJECT_DIR$/Api/src/routes/intakeMoment.js.map" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/IntakeMomentController.js" />
+        <option value="$PROJECT_DIR$/Api/src/controllers/IntakeMomentController.js.map" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoments.component.html">
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoments.component.html" />
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoment-detail/intakemoment-detail.component.html" />
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="29" column="31" lean-forward="true" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        <state relative-caret-position="289">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/intakemoments/intakemoment-detail/intakemoment-detail.component.html">
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/components/sidebar/sidebar.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="136">
+          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="34" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/environments/environment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/entity/intake_moment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#164#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/routes/log.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/routes/intakeMoment.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/routes/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/routes/intakeMoment.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/service/log.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="22" column="3" lean-forward="true" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/auth/login/login.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/controllers/LogController.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-726">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/service/intake-moment.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="39" column="38" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+          <folding>
+            <element signature="e#69#109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Api/src/controllers/IntakeMomentController.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/notifications/notifications.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="23" lean-forward="true" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/notifications/notifications.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="41" column="20" lean-forward="true" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Portal/src/app/pages/dashboard/dashboard.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
         </state>
       </provider>
     </entry>

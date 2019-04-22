@@ -13,6 +13,9 @@ router.get(
     "/:intakeMomentId([0-9]+)",IntakeMomentController.getOneById
 );
 
+//Get all intake moments
+router.get("/incomplete",IntakeMomentController.getAllIntakeMomentsWithoutDispenser);
+
 //Create a new intake moment
 router.post("/",IntakeMomentController.newIntakeMoment);
 

@@ -21,6 +21,13 @@ class IntakeMomentController {
         }
     };
 
+    static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
+      const intakeRepository = getRepository(intake_moment);
+      const intakeMoments = await intakeRepository.find({where:{dispenser: null}});
+
+      res.send(intakeMoments);
+    };
+
     static getOneById = async (req: Request, res: Response) => {
         //Get the ID from the url
         const id: number = req.params.intakeMomentId;

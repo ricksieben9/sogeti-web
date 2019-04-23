@@ -1,8 +1,10 @@
 export class ErrorMsg {
     name: string;
-    
-    intake_start_time: Date;
-    intake_end_time: Date;
-    remark: string;
+    email: string;
+    intake_start_time: string;
     priority_number: string;
+    medicines: string[];
+    dosage: string[];
+    time_window: string[];
   }
+

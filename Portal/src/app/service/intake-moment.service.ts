@@ -15,13 +15,13 @@ export class IntakeMomentService {
     return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
   }
 
-  addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
-    return this.http.post<IntakeMoment>(`${environment.url}` + '/intakeMoment/', intakeMoment);
+  addIntakeMoment(intakeMoment: IntakeMoment, receiverId: number): Observable<IntakeMoment> {
+    return this.http.post<IntakeMoment>(`${environment.url}` + '/receiver/' + receiverId + '/intakeMoments', intakeMoment);
   }
 
-  updateIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
+  updateIntakeMoment(intakeMoment: IntakeMoment, receiverId: number): Observable<IntakeMoment> {
     return this.http.patch<IntakeMoment>(
-      `${environment.url}` + '/intakeMoment/' + intakeMoment.id,
+      `${environment.url}` + '/receiver/' + receiverId + '/intakeMoments/' + intakeMoment.id,
       intakeMoment
     );
   }

@@ -1,10 +1,10 @@
 import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
-import {IntakeMoment_medicines} from '../../../_models/intake_moment_medicine';
 import {UsersService} from '../../../service/users.service';
 import {PriorityService} from '../../../service/priority.service';
-import {FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
+import {MedicinenService} from '../../../service/medicinen.service';
+import {FormGroup, FormArray, Validators, FormBuilder} from '@angular/forms';
 import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ErrorMsg} from '../../../_models/errorMsg';
 import {ActivatedRoute} from '@angular/router';
@@ -22,6 +22,7 @@ import {
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
+import {forEach} from '@angular/router/src/utils/collection';
 
 const colors: any = {
   red: {
@@ -55,27 +56,39 @@ export class IntakemomentDetailComponent implements OnInit {
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
   id: number;
-
-  intakeForm = new FormGroup({
-    medicinesForm : new FormArray([
-      new FormGroup({
-        medicines: new FormControl('', Validators.required),
-        time_window: new FormControl('', Validators.required),
-        dosage: new FormControl('', Validators.required)
-      })
-    ])
-  });
+  intakeMomentForm: FormGroup;
+  intakeMomentEditForm: FormGroup;
+  submitted = false;
 
   constructor(private intakeMomentService: IntakeMomentService,
               private userService: UsersService,
               private priorityService: PriorityService,
+              private medicinService: MedicinenService,
               private route: ActivatedRoute,
               private location: Location,
               private modalService: BsModalService,
+              private fb: FormBuilder,
               private modal: NgbModal) { }
 
   ngOnInit() {
     this.getIntakeMomentsOfReceiver();
+    this.intakeMomentForm = this.fb.group({
+      intakeStartTime: ['', [Validators.required]],
+      priorityNumber: ['', [Validators.required]],
+      dispenser: [''],
+      medicines: this.fb.array([
+        this.addMedicineFormGroup()
+      ]),
+      remark: ['']
+    });
+    this.intakeMomentEditForm = this.fb.group({
+      intakeStartTime: ['', [Validators.required]],
+      priorityNumber: ['', [Validators.required]],
+      dispenser: [''],
+      medicines: this.fb.array([]),
+      remark: ['']
+    });
+    this.getData();
   }
 
   // get the intakemoments of the selected receiver
@@ -100,166 +113,41 @@ export class IntakemomentDetailComponent implements OnInit {
     priorityObservable.subscribe((priorityData: any[]) => {
       this.priorities = priorityData;
     });
+
+    // get medicines from Api
+    const medicinObservable = this.medicinService.getAllMedicine();
+    medicinObservable.subscribe((medicinData: any[]) => {
+      this.medicines = medicinData;
+    });
   }
 
-  // view: CalendarView = CalendarView.Month;
-
-  // CalendarView = CalendarView;
-
-  // viewDate: Date = new Date();
-
-  // modalData: {
-  //   action: string;
-  //   event: CalendarEvent;
-  // };
-
-  // actions: CalendarEventAction[] = [
-  //   {
-  //     label: '<i class="fa fa-fw fa-pencil"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.handleEvent('Edited', event);
-  //     }
-  //   },
-  //   {
-  //     label: '<i class="fa fa-fw fa-times"></i>',
-  //     onClick: ({ event }: { event: CalendarEvent }): void => {
-  //       this.events = this.events.filter(iEvent => iEvent !== event);
-  //       this.handleEvent('Deleted', event);
-  //     }
-  //   }
-  // ];
-
-  // refresh: Subject<any> = new Subject();
-
-  // events: CalendarEvent[] = [
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: new Date(),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: true
-  //   }
-  // ];
-
-  // activeDayIsOpen: boolean = true;
-
-  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-  //   if (isSameMonth(date, this.viewDate)) {
-  //     this.viewDate = date;
-  //     if (
-  //       (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-  //       events.length === 0
-  //     ) {
-  //       this.activeDayIsOpen = false;
-  //     } else {
-  //       this.activeDayIsOpen = true;
-  //     }
-  //   }
-  // }
-
-  // eventTimesChanged({
-  //   event,
-  //   newStart,
-  //   newEnd
-  // }: CalendarEventTimesChangedEvent): void {
-  //   this.events = this.events.map(iEvent => {
-  //     if (iEvent === event) {
-  //       return {
-  //         ...event,
-  //         start: newStart,
-  //         end: newEnd
-  //       };
-  //     }
-  //     return iEvent;
-  //   });
-  //   this.handleEvent('Dropped or resized', event);
-  // }
-
-  // handleEvent(action: string, event: CalendarEvent): void {
-  //   this.modalData = { event, action };
-  //   this.modal.open(this.modalContent, { size: 'lg' });
-  // }
-
-  // addEvent(): void {
-  //   this.events = [
-  //     ...this.events,
-  //     {
-  //       title: 'New event',
-  //       start: startOfDay(new Date()),
-  //       end: endOfDay(new Date()),
-  //       color: colors.red,
-  //       draggable: true,
-  //       resizable: {
-  //         beforeStart: true,
-  //         afterEnd: true
-  //       }
-  //     }
-  //   ];
-  // }
-
-  // deleteEvent(eventToDelete: CalendarEvent) {
-  //   this.events = this.events.filter(event => event !== eventToDelete);
-  // }
-
-  // setView(view: CalendarView) {
-  //   this.view = view;
-  // }
-
-  // closeOpenMonthViewDay() {
-  //   this.activeDayIsOpen = false;
-  // }
-
-
-
-
-
+  addMedicineFormGroup(): FormGroup {
+    return this.fb.group({
+      medicine_id: ['', Validators.required],
+      time_window: ['', Validators.required],
+      dosage: ['', Validators.required]
+    });
+  }
 
   openModalAddIntakemoment(template: TemplateRef<any>) {
+    this.submitted = false;
     this.errorMsg = new ErrorMsg();
     this.intakeMoment = new IntakeMoment();
-    this.getData();
     this.modalRef = this.modalService.show(template);
   }
 
-  openModalEditIntakemoment(template: TemplateRef<any>, intake: IntakeMoment) {
+  openModalEditIntakemoment(template: TemplateRef<any>, intake: any) {
+    this.submitted = false;
     this.errorMsg = new ErrorMsg();
+    this.intakeMoment = new IntakeMoment();
+    this.intakeMoment.id = intake.id;
     this.intakeMoment.intake_start_time = intake.intake_start_time;
     this.intakeMoment.intake_end_time = intake.intake_end_time;
-    this.intakeMoment.priority_number = intake.priority_number;
-    this.intakeMoment.dispenser = intake.dispenser;
+    this.intakeMoment.priority_number = intake.priority_number.number;
+    this.intakeMoment.dispenser_id = intake.dispenser ? intake.dispenser.id : '';
     this.intakeMoment.remark = intake.remark;
-    // this.intakeMoment.name = rec.name;
+    this.intakeMoment.intake_moment_medicines = intake.intake_moment_medicines;
+    this.patchIntakeMomentEditForm();
     this.modalRef = this.modalService.show(template);
   }
 
@@ -271,35 +159,41 @@ export class IntakemomentDetailComponent implements OnInit {
   }
 
   onSave() {
-    if (!this.intakeMoment.intake_start_time && !this.intakeMoment.intake_end_time &&
-      !this.intakeMoment.priority_number && !this.intakeMoment.dispenser) {
+    this.submitted = true;
+    this.intakeMoment.intake_start_time = this.intakeMomentForm.get('intakeStartTime').value;
+    this.intakeMoment.priority_number = this.intakeMomentForm.get('priorityNumber').value;
+    this.intakeMoment.dispenser_id = this.intakeMomentForm.get('dispenser').value;
+    this.intakeMoment.remark = this.intakeMomentForm.get('remark').value;
+    this.intakeMoment.intake_moment_medicines = this.intakeMomentForm.get('medicines').value;
+    if (this.intakeMomentForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.addIntakeMoment(this.intakeMoment).subscribe(res => {
+      this.intakeMomentService.addIntakeMoment(this.intakeMoment, this.id).subscribe(res => {
         this.getIntakeMomentsOfReceiver();
         this.modalRef.hide();
-        console.log(res);
       }, error => {
-         console.log(error);
          this.errorMsg.name = error.error['response'];
        });
     }
   }
 
   onAlter() {
-    // !this.intakeMoment.name ? this.errorMsg.name = 'Naam vereist' : '';
-    // if (!this.intakeMoment.name) {
-    //   return;
-    // } else {
-    //   this.intakeMomentService.updateIntakeMoment(this.intakeMoment).subscribe(res => {
-    //     this.getReceivers();
-    //     this.modalRef.hide();
-    //     console.log(res);
-    //   }, error => {
-    //     console.log(error);
-    //     this.errorMsg.name = error.error['response'];
-    //   });
-    // }
+    this.submitted = true;
+    this.intakeMoment.intake_start_time = this.intakeMomentEditForm.get('intakeStartTime').value;
+    this.intakeMoment.priority_number = this.intakeMomentEditForm.get('priorityNumber').value;
+    this.intakeMoment.dispenser_id = this.intakeMomentEditForm.get('dispenser').value;
+    this.intakeMoment.remark = this.intakeMomentEditForm.get('remark').value;
+    this.intakeMoment.intake_moment_medicines = this.intakeMomentEditForm.get('medicines').value;
+    if (this.intakeMomentEditForm.invalid) {
+      return;
+    } else {
+      this.intakeMomentService.updateIntakeMoment(this.intakeMoment, this.id).subscribe(res => {
+        this.getIntakeMomentsOfReceiver();
+        this.modalRef.hide();
+      }, error => {
+        this.errorMsg.name = error.error['response'];
+      });
+    }
   }
 
   deleteIntakeMoment(intake: IntakeMoment) {
@@ -311,5 +205,43 @@ export class IntakemomentDetailComponent implements OnInit {
     });
   }
 
+  addMedicineButtonClick(): void {
+    (<FormArray>this.intakeMomentForm.get('medicines')).push(this.addMedicineFormGroup());
+  }
+
+  addMedicineEditButtonClick() {
+    (<FormArray>this.intakeMomentEditForm.get('medicines')).push(this.addMedicineFormGroup());
+  }
+
+  deleteMedicineButtonClick(index: number): void {
+    (<FormArray>this.intakeMomentForm.get('medicines')).removeAt(index);
+  }
+
+  deleteMedicineEditButtonClick(i: number) {
+    (<FormArray>this.intakeMomentEditForm.get('medicines')).removeAt(i);
+  }
+
+  patchIntakeMomentEditForm() {
+    this.intakeMomentEditForm.patchValue({
+      intakeStartTime: new Date(this.intakeMoment.intake_start_time).toISOString().slice(0, -1),
+      priorityNumber: this.intakeMoment.priority_number,
+      dispenser: this.intakeMoment.dispenser_id,
+      remark: this.intakeMoment.remark,
+    });
+    this.setMedicines();
+  }
+
+  setMedicines() {
+    const control = <FormArray>this.intakeMomentEditForm.controls.medicines;
+    control.controls = [];
+    this.intakeMoment.intake_moment_medicines.forEach(x => {
+      if (x.medicine_id) {
+      control.push(this.fb.group({medicine_id: x.medicine_id.id, time_window: x.time_window, dosage: x.dosage}));
+      }
+    });
+  }
+
+  get intakeAddForm() { return this.intakeMomentForm.controls; }
+  get intakeEditForm() {return this.intakeMomentEditForm.controls; }
 }
 

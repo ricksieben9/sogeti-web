@@ -252,34 +252,49 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <form [formGroup]="intakeForm"> -->
-    <form>
-      <label for="intake_start_time">Starttijd</label>
-      <input type="datetime-local" class="form-control" id="intake_start_time_add" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
-      <label for="priority_number">Prioriteit</label>
-      <select name="priority_number" id="priority_add" class="form-control" required [(ngModel)]="intakeMoment.priority_number">
+    <form [formGroup]="intakeMomentForm" (ngSubmit)="onSave()">
+      <label for="intake_start_time_add">Starttijd</label>
+      <input formControlName="intakeStartTime" type="datetime-local" class="form-control" id="intake_start_time_add" required [ngClass]="{ 'is-invalid': submitted && intakeAddForm.intakeStartTime.errors }">
+      <div *ngIf="submitted && intakeAddForm.intakeStartTime.errors" class="invalid-feedback">
+        <div *ngIf="intakeAddForm.intakeStartTime.errors.required">Starttijd is vereist</div>
+      </div>
+      <label for="priority_add">Prioriteit</label>
+      <select formControlName="priorityNumber" id="priority_add" class="form-control" required [ngClass]="{ 'is-invalid': submitted && intakeAddForm.priorityNumber.errors }">
         <option *ngFor="let priority of priorities" value="{{priority.number}}">{{priority.number}}</option>
       </select>
-      <label for="dispenser">Toediener</label>
-      <select name="dispenser" id="dispenser_add" class="form-control" required [(ngModel)]="intakeMoment.dispenser">
+      <div *ngIf="submitted && intakeAddForm.priorityNumber.errors" class="invalid-feedback">
+        <div *ngIf="intakeAddForm.priorityNumber.errors.required">Prioriteit is vereist</div>
+      </div>
+      <label for="dispenser_add">Toediener</label>
+      <select formControlName="dispenser" id="dispenser_add" class="form-control">
         <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
       </select>
-     
-      <!--<label for="medicines">Medicijn(en)</label> -->
-     <!-- <select name="medicines" id="medicines" class="form-control" required>
-        <option *ngFor="let option of intakemoments" value="{{option}}">{{option.medicines}}</option>
-      </select>  
-      <label for="time_window">Aantal minuten om medicijn toe te dienen</label>
-      <input type="text" class="form-control" id="time_window" name="time_window" [(ngModel)]="intakeMoment.intake_moment_medicines.time_window">
-      <label for="dosage">Dosis</label>
-      <input type="text" class="form-control" id="dosage" name="dosage" [(ngModel)]="intakeMoment.intake_moment_medicines.dosage">-->
+
+      <div>
+        <h4 class="modal-title pull-left">Medicijnen</h4>
+      <div formArrayName="medicines" *ngFor="let medicine of intakeMomentForm.get('medicines').controls; let i = index">
+        <hr *ngIf="i>0">
+        <div [formGroupName]="i">
+          <label for="medicine_id">Medicijn</label>
+          <select formControlName="medicine_id" id="medicine_id" class="form-control" required>
+            <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
+          </select>
+          <label for="time_window">Aantal minuten om medicijn toe te dienen</label>
+          <input type="text" class="form-control" id="time_window" formControlName="time_window">
+          <label for="dosage">Dosis</label>
+          <input type="text" class="form-control" id="dosage" formControlName="dosage">
+        </div>
+        <button *ngIf="i > 0;" type="button" class="btn btn-primary" (click)="deleteMedicineButtonClick(i)">Verwijder medicijn</button>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addMedicineButtonClick()" [disabled]="intakeMomentForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
+      </div>
+      <div *ngIf="submitted && intakeMomentForm.get('medicines').invalid" class="invalid-feedback">
+        <div *ngIf="intakeMomentForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
+      </div>
       
-      
-      <label for="remark">Opmerking</label>
-      <textarea type="text" class="form-control" id="remark_add" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
-      
-      <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onSave()" >Opslaan</button>
+      <label for="remark_add">Opmerking</label>
+      <textarea type="text" class="form-control" id="remark_add" formControlName="remark"></textarea>
+      <button class="btn btn-primary" type="submit" >Opslaan</button>
     </form>
   </div>
 </ng-template>
@@ -292,18 +307,47 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
-        <label for="intake_start_time">Starttijd</label>
-        <input type="datetime-local" class="form-control" id="intake_start_time" name="intake_start_time" [(ngModel)]="intakeMoment.intake_start_time">
-        <label for="remark">Prioriteit</label>
-        <input type="text" class="form-control" id="priority_number" name="priority_number" [(ngModel)]="intakeMoment.priority_number.number">
-        <label for="priority_number">Toediener</label>
-        <input type="text" class="form-control" id="dispenser" name="dispenser" [(ngModel)]="intakeMoment.dispenser.name">
-        <label for="remark">Opmerking</label>
-        <textarea type="text" class="form-control" id="remark" name="remark" [(ngModel)]="intakeMoment.remark"></textarea>
-      
-        <p class="text-danger">{{errorMsg.name}}</p>
-      <button class="btn btn-primary" (click)="onAlter()">Opslaan</button>
+    <form [formGroup]="intakeMomentEditForm" (ngSubmit)="onAlter()">
+      <label for="intake_start_time_edit">Starttijd</label>
+      <input formControlName="intakeStartTime" type="datetime-local" class="form-control" id="intake_start_time_edit" required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.intakeStartTime.errors }">
+      <div *ngIf="submitted && intakeEditForm.intakeStartTime.errors" class="invalid-feedback">
+        <div *ngIf="intakeEditForm.intakeStartTime.errors.required">Starttijd is vereist</div>
+      </div>
+      <label for="priority_edit">Prioriteit</label>
+      <select formControlName="priorityNumber" id="priority_edit" class="form-control" required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.priorityNumber.errors }">
+        <option *ngFor="let priority of priorities" value="{{priority.number}}">{{priority.number}}</option>
+      </select>
+      <div *ngIf="submitted && intakeEditForm.priorityNumber.errors" class="invalid-feedback">
+        <div *ngIf="intakeEditForm.priorityNumber.errors.required">Prioriteit is vereist</div>
+      </div>
+      <label for="dispenser_edit">Toediener</label>
+      <select formControlName="dispenser" id="dispenser_edit" class="form-control">
+        <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
+      </select>
+      <div>
+        <h4 class="modal-title pull-left">Medicijnen</h4>
+      <div formArrayName="medicines" *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
+        <hr *ngIf="i>0">
+        <div [formGroupName]="i">
+          <label for="medicine_id_edit">Medicijn</label>
+          <select formControlName="medicine_id" id="medicine_id_edit" class="form-control" required>
+            <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
+          </select>
+          <label for="time_window_edit">Aantal minuten om medicijn toe te dienen</label>
+          <input type="text" class="form-control" id="time_window_edit" formControlName="time_window">
+          <label for="dosage_edit">Dosis</label>
+          <input type="text" class="form-control" id="dosage_edit" formControlName="dosage">
+        </div>
+        <button *ngIf="i > 0;" type="button" class="btn btn-primary" (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addMedicineEditButtonClick()" [disabled]="intakeMomentEditForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
+      </div>
+      <div *ngIf="submitted && intakeMomentEditForm.get('medicines').invalid" class="invalid-feedback">
+        <div *ngIf="intakeMomentEditForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
+      </div>
+      <label for="remark_edit">Opmerking</label>
+      <textarea type="text" class="form-control" id="remark_edit" formControlName="remark"></textarea>
+      <button class="btn btn-primary" type="submit" >Opslaan</button>
     </form>
   </div>
 </ng-template>

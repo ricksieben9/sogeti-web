@@ -88,27 +88,31 @@
         <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
       </select>
 
-      <div>
-        <h4 class="modal-title pull-left">Medicijnen</h4>
-      <div formArrayName="medicines" *ngFor="let medicine of intakeMomentForm.get('medicines').controls; let i = index">
-        <hr *ngIf="i>0">
-        <div [formGroupName]="i">
-          <label for="medicine_id">Medicijn</label>
-          <select formControlName="medicine_id" id="medicine_id" class="form-control" required>
-            <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
-          </select>
-          <label for="time_window">Aantal minuten om medicijn toe te dienen</label>
-          <input type="text" class="form-control" id="time_window" formControlName="time_window">
-          <label for="dosage">Dosis</label>
-          <input type="text" class="form-control" id="dosage" formControlName="dosage">
+      <hr>
+      
+      <div>     
+        <h3 class="modal-title pull-left">Medicijnen</h3>     
+        <div formArrayName="medicines" *ngFor="let medicine of intakeMomentForm.get('medicines').controls; let i = index">
+          <hr *ngIf="i>0">
+          <div [formGroupName]="i">
+            <label for="medicine_id">Medicijn</label>
+            <select formControlName="medicine_id" id="medicine_id" class="form-control" required>
+              <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
+            </select>
+            <label for="time_window">Aantal minuten om medicijn toe te dienen</label>
+            <input type="text" class="form-control" id="time_window" formControlName="time_window">
+            <label for="dosage">Dosis</label>
+            <input type="text" class="form-control" id="dosage" formControlName="dosage">
+          </div>
+          <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteMedicineButtonClick(i)">Verwijder medicijn</button>
         </div>
-        <button *ngIf="i > 0;" type="button" class="btn btn-primary" (click)="deleteMedicineButtonClick(i)">Verwijder medicijn</button>
-      </div>
       <button type="button" class="btn btn-primary" (click)="addMedicineButtonClick()" [disabled]="intakeMomentForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
       </div>
       <div *ngIf="submitted && intakeMomentForm.get('medicines').invalid" class="invalid-feedback">
         <div *ngIf="intakeMomentForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
       </div>
+
+      <hr>
       
       <label for="remark_add">Opmerking</label>
       <textarea type="text" class="form-control" id="remark_add" formControlName="remark"></textarea>
@@ -142,27 +146,33 @@
       <select formControlName="dispenser" id="dispenser_edit" class="form-control">
         <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
       </select>
+
+      <hr> 
+
       <div>
-        <h4 class="modal-title pull-left">Medicijnen</h4>
-      <div formArrayName="medicines" *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
-        <hr *ngIf="i>0">
-        <div [formGroupName]="i">
-          <label for="medicine_id_edit">Medicijn</label>
-          <select formControlName="medicine_id" id="medicine_id_edit" class="form-control" required>
-            <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
-          </select>
-          <label for="time_window_edit">Aantal minuten om medicijn toe te dienen</label>
-          <input type="text" class="form-control" id="time_window_edit" formControlName="time_window">
-          <label for="dosage_edit">Dosis</label>
-          <input type="text" class="form-control" id="dosage_edit" formControlName="dosage">
+        <h3 class="modal-title pull-left">Medicijnen</h3>
+        <div formArrayName="medicines" *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
+          <hr *ngIf="i>0">
+          <div [formGroupName]="i">
+            <label for="medicine_id_edit">Medicijn</label>
+            <select formControlName="medicine_id" id="medicine_id_edit" class="form-control" required>
+              <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
+            </select>
+            <label for="time_window_edit">Aantal minuten om medicijn toe te dienen</label>
+            <input type="text" class="form-control" id="time_window_edit" formControlName="time_window">
+            <label for="dosage_edit">Dosis</label>
+            <input type="text" class="form-control" id="dosage_edit" formControlName="dosage">
+          </div>
+          <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
         </div>
-        <button *ngIf="i > 0;" type="button" class="btn btn-primary" (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
-      </div>
       <button type="button" class="btn btn-primary" (click)="addMedicineEditButtonClick()" [disabled]="intakeMomentEditForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
       </div>
       <div *ngIf="submitted && intakeMomentEditForm.get('medicines').invalid" class="invalid-feedback">
         <div *ngIf="intakeMomentEditForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
       </div>
+
+      <hr>
+
       <label for="remark_edit">Opmerking</label>
       <textarea type="text" class="form-control" id="remark_edit" formControlName="remark"></textarea>
       <button class="btn btn-primary" type="submit" >Opslaan</button>

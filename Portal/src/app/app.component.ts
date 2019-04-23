@@ -8,5 +8,5 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 })
 export class AppComponent {
   title = 'argon-dashboard-angular';
-  calendarPlugins = [dayGridPlugin];
+  // calendarPlugins = [dayGridPlugin];
 }

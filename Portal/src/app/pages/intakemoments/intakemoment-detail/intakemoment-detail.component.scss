@@ -1,2 +1,21 @@
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
+// @import '~@fullcalendar/core/main.css';
+// @import '~@fullcalendar/daygrid/main.css';
+
+.modal-title{
+    margin-bottom: 10px;
+}
+
+hr{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+td button{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+button{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

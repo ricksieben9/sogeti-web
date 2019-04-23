@@ -9,35 +9,8 @@ import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ErrorMsg} from '../../../_models/errorMsg';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
-import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
-import {forEach} from '@angular/router/src/utils/collection';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-intakemoment-detail',
@@ -46,7 +19,7 @@ const colors: any = {
 })
 export class IntakemomentDetailComponent implements OnInit {
 
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  calendarPlugins = [dayGridPlugin];
 
   medicines: any;
   intakemoments: any;
@@ -100,7 +73,6 @@ export class IntakemomentDetailComponent implements OnInit {
   }
 
   getData() {
-
     const roles = { roleList: ['Toediener', 'Hoofdtoediener'] };
     // get dispensers from API
     const userObservable = this.userService.getUsersByRoles(roles);

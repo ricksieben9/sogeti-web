@@ -19,6 +19,7 @@ import {LoginComponent} from './auth/login/login.component';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
+// import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     NgbModalModule,
     ReactiveFormsModule,
+    // FullCalendarModule
   ],
   declarations: [
     AppComponent,

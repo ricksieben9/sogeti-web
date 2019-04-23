@@ -102,7 +102,6 @@
               <h2 class="text-white mb-0">Example</h2>
             </div>
             <div class="col">
-
             </div>
           </div>
         </div>
@@ -117,32 +116,30 @@
     </div>
     <div class="col-xl-4">
       <div class="card shadow">
-        //white
         <div class="card-header bg-transparent">
           <div class="row align-items-center">
             <div class="col">
-              <tbody>
-              <tr>
-                <th scope="col">Toedienmoment</th>
-                <th></th>
-                <!--<th scope="col">Role</th>-->
-              </tr>
-              <tr *ngFor="let item of list">
-                <td>
-                  {{item.remark}}
-                </td>
-                <td>
-                  <button class="btn btn-primary" routerLink="/intakemoments/{{item.id}}">Go!</button>
-                </td>
-              </tr>
-              </tbody>
-              <h2 class="mb-0"></h2>
+              <h3>Toedienmomenten zonder toediener</h3>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <!-- Chart -->
           <div class="chart">
+            <tbody>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <!--<th scope="col">Role</th>-->
+            </tr>
+            <tr *ngFor="let item of list">
+              <td>
+                {{item.remark}}
+              </td>
+              <td>
+                <button class="btn btn-primary" type="button" routerLink="/intakemoments/{{item.id}}">Go!</button>
+              </td>
+            </tr>
+            </tbody>
           </div>
         </div>
       </div>

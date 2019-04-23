@@ -5,6 +5,13 @@
 .chart {
     position: relative;
     height: $chart-height;
+    overflow-y: scroll;
+  .tr{
+    .td{
+      margin-bottom: 30px;
+    }
+  }
+
 }
 
 

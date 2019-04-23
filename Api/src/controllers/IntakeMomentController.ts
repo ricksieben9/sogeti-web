@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getRepository} from "typeorm";
+import {getRepository, Raw} from "typeorm";
 import {validate} from "class-validator";
 import {intake_moment} from "../entity/intake_moment";
 import {intake_moment_medicines} from "../entity/intake_moment_medicines";
@@ -23,7 +23,7 @@ class IntakeMomentController {
 
     static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
       const intakeRepository = getRepository(intake_moment);
-      const intakeMoments = await intakeRepository.find({where:{dispenser: null}});
+      const intakeMoments = await intakeRepository.find({where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}});
 
       res.send(intakeMoments);
     };

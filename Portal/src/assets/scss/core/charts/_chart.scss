@@ -3,15 +3,15 @@
 //
 
 .chart {
-    position: relative;
-    height: $chart-height;
-    overflow-y: scroll;
-  .tr{
-    .td{
-      margin-bottom: 30px;
-    }
-  }
-
+  position: relative;
+  height: $chart-height;
+  overflow-y: scroll;
+}
+.chart td{
+  //height: fit-content;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #ccc;
 }
 
 

@@ -23,7 +23,7 @@ class IntakeMomentController {
 
     static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
       const intakeRepository = getRepository(intake_moment);
-      const intakeMoments = await intakeRepository.find({where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}});
+      const intakeMoments = await intakeRepository.find({where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}, order:{intake_start_time: "ASC"}});
 
       res.send(intakeMoments);
     };

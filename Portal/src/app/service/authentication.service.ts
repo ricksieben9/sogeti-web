@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import { User } from '../_models/user';
+import {User} from '../_models/user';
 import {environment} from '../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
@@ -21,7 +21,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${environment.url}/auth/login`, { username, password })
+    return this.http.post<any>(`${environment.url}/auth/login`, {username, password})
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {
@@ -32,6 +32,10 @@ export class AuthenticationService {
 
         return user;
       }));
+  }
+
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.post<any>(`${environment.url}/auth/change-password`, {oldPassword, newPassword});
   }
 
   logout() {

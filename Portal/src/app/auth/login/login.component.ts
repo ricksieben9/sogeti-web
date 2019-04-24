@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
@@ -38,10 +38,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
   ngOnDestroy() {
   }
+
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
+
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
@@ -54,7 +59,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+          if (data['isFirst'] === 1) {
+            this.router.navigate(['/reset-password']);
+          } else {
+            this.router.navigate([this.returnUrl]);
+          }
         },
         error => {
           this.error = error.error['response'];

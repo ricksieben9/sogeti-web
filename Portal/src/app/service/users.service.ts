@@ -22,6 +22,10 @@ export class UsersService {
     return this.http.get<User[]>(url);
   }
 
+  getAll() {
+    return this.http.get<User[]>(`${environment.url}/user`);
+  }
+  
   getUserById(id: any): Observable<User[]> {
     return this.http.get<User[]>(`${environment.url}/user/` + id);
   }

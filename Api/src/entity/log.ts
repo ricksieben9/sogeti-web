@@ -9,45 +9,35 @@ import {user} from "./user";
 export class log {
 
     @PrimaryGeneratedColumn({
-        type:"int", 
+        type:"int",
         name:"id"
-        })
+    })
     id:number;
-        
+
 
     @Column("longtext",{
         nullable:false,
         name:"message"
-        })
+    })
     message:string;
-        
 
-    @Column("datetime",{ 
+
+    @Column("datetime",{
         nullable:true,
         name:"datetime"
-        })
+    })
     datetime:Date | null;
 
-    @Column("varchar",{
-        nullable:false,
-        name:"category"
-    })
-    category:string;
 
-    @Column("int",{
-        nullable:false,
-        name:"user_id"
-    })
-    user_id:number;
 
-    // @ManyToOne(type=>log_category, log_category=>log_category.logs,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
-    // @JoinColumn({ name:'category'})
-    // category:log_category | null;
-    //
-    //
-    //
-    // @ManyToOne(type=>user, user=>user.logs,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
-    // @JoinColumn({ name:'user_id'})
-    // user_id:user | null;
+    @ManyToOne(type=>log_category, log_category=>log_category.logs,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @JoinColumn({ name:'category'})
+    category:log_category | null;
+
+
+
+    @ManyToOne(type=>user, user=>user.logs,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @JoinColumn({ name:'user_id'})
+    user_id:user | null;
 
 }

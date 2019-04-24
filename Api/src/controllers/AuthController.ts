@@ -14,7 +14,7 @@ class AuthController {
         if (!(username && password)) {
             res.status(400).send();
         }
-        let role, name;
+        let role, name, isFirst;
         //Get user from database
         const userRepository = getRepository(user);
         let User: user;
@@ -22,14 +22,21 @@ class AuthController {
             User = await userRepository.findOne({where: {email: username}});
             role = User.roles_role.role;
             name = User.name;
-
+            isFirst = (!User.isfirst ? null : User.isfirst);
         } catch (error) {
             res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
+            return;
         }
 
         //Check if encrypted password match
         if (!User.checkIfUnencryptedPasswordIsValid(password)) {
             res.status(401).send({"response": "Email en/of wachtwoord is verkeerd"});
+            return;
+        }
+
+        // Check if authorized to login
+        if(role === 'Toediener'){
+            res.status(401).send({"response": "U bent niet gemachtigd om het portaal te gebruiken!"});
             return;
         }
 
@@ -59,12 +66,19 @@ class AuthController {
         try {
             User = await userRepository.findOneOrFail(id);
         } catch (id) {
-            res.status(401).send();
+            res.status(401).send({"response": "Het huidige wachtwoord en/of nieuwe wachtwoord is verkeerd!"});
+            return;
         }
 
         //Check if old password matches
         if (!User.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-            res.status(401).send();
+            res.status(401).send({"response": "Het huidige wachtwoord en/of nieuwe wachtwoord is verkeerd!"});
+            return;
+        }
+
+        //Check if old password matches new password
+        if (!User.checkIfUnencryptedPasswordIsValid(oldPassword) === !User.checkIfUnencryptedPasswordIsValid(newPassword)) {
+            res.status(401).send({"response": "Het huidige wachtwoord mag niet gelijk zijn aan het nieuwe wachtwoord!"});
             return;
         }
 
@@ -77,6 +91,7 @@ class AuthController {
         }
         //Hash the new password and save
         User.hashPassword();
+        User.isfirst = false;
         userRepository.save(User);
 
         res.status(204).send();

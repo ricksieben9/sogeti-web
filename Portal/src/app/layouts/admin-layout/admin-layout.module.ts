@@ -10,8 +10,10 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { UsersComponent } from '../../pages/users/users.component';
 import { ReceiversComponent } from '../../pages/receivers/receivers.component';
+import { MedicineComponent} from '../../pages/medicine/medicine.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
+import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
@@ -23,15 +25,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    ClipboardModule
+    ClipboardModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
     UsersComponent,
+    DispenserComponent,
     MapsComponent,
-    ReceiversComponent
+    ReceiversComponent,
+    MedicineComponent
   ]
 })
 

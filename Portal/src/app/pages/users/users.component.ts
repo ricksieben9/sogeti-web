@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef  } from '@angular/core';
-import { Router } from "@angular/router";
-import { UsersService } from '../../service/users.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Router} from '@angular/router';
+import {UsersService} from '../../service/users.service';
+import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import {AuthenticationService} from '../../service/authentication.service';
 
 @Component({
   selector: 'app-icons',
@@ -11,32 +12,33 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class UsersComponent implements OnInit {
   list: any;
   user: User = new User();
-  errorMsg : ErrorMsg = new  ErrorMsg();
+  errorMsg: ErrorMsg = new ErrorMsg();
   modalRef: BsModalRef;
+  currentUser: User;
 
   public copy: string;
-  constructor(private usersService: UsersService,  private router: Router, private modalService: BsModalService) {
+
+  constructor(private usersService: UsersService, private router: Router, private modalService: BsModalService,
+              private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
 
   }
+
   openModalAdd(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
   getUsers() {
-
     const userObservable = this.usersService.getAll();
     userObservable.subscribe((userData: any[]) => {
-      this.list = userData['response'];
+      this.list = userData;
     });
   }
 
 
   ngOnInit() {
-
     this.getUsers();
   }
-
-
 
   onSave() {
     this.errorMsg.name = this.errorMsg.email = '';
@@ -45,17 +47,11 @@ export class UsersComponent implements OnInit {
     if (!this.user.name || !this.user.email) {
       return;
     }
-// this.usersService.insertUser(this.user).subscribe(res => {
-//   this.getUsers();
-//   this.modalRef.hide();
-//   console.log(res);
-// },error => {
-// console.log(error);
-// });
   }
 
 
 }
+
 class User {
   name: string;
   email: string;

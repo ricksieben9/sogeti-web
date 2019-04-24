@@ -10,7 +10,6 @@ import {ErrorMsg} from '../../../_models/errorMsg';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import dayGridPlugin from '@fullcalendar/daygrid';
 import {Receiver} from '../../../_models/receiver';
 import {ReceiverService} from '../../../service/receiver.service';
 
@@ -21,7 +20,6 @@ import {ReceiverService} from '../../../service/receiver.service';
 })
 export class IntakemomentDetailComponent implements OnInit {
 
-  calendarPlugins = [dayGridPlugin];
   receiver: Receiver;
   medicines: any;
   intakemoments: any;

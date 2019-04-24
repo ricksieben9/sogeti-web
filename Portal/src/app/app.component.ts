@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 })
 export class AppComponent {
   title = 'argon-dashboard-angular';
-  // calendarPlugins = [dayGridPlugin];
 }

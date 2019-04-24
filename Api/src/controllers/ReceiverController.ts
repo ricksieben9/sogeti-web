@@ -3,7 +3,6 @@ import {getRepository} from "typeorm";
 import {validate} from "class-validator";
 
 import {receiver} from "../entity/receiver";
-import {intake_moment} from "../entity/intake_moment";
 
 class ReceiverController {
 

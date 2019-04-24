@@ -24,5 +24,5 @@ export class LogService {
 
   createIncompleteIntakeMomentLog(): Observable<Log[]> {
     return this.http.get<Log[]>('http://localhost:3000/log/createIncompleteLog');
-}
+  }
 }

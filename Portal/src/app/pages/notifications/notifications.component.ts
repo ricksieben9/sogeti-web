@@ -27,6 +27,12 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  // newIntakeMomentLogCheck()
+  // {
+  //
+  // }
+
+
   ngOnInit() {this.getLogs();}
 
   get isAdmin() {

@@ -10,9 +10,6 @@ const router = Router();
 //Get all logs
 router.get("/", LogController.listAll);
 
-//Create a new log
-router.post("/",LogController.newLog);
-
 //Create log about incomplete intake moment
 router.get("/createIncompleteLog",LogController.createIncompleteIntakeMomentLog);
 

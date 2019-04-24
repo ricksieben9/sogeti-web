@@ -40,6 +40,12 @@ export class log {
     })
     user_id:number;
 
+    @Column("int",{
+        nullable: true,
+        name:"intake_moment_id"
+    })
+    intake_moment_id:number;
+
     // @ManyToOne(type=>log_category, log_category=>log_category.logs,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     // @JoinColumn({ name:'category'})
     // category:log_category | null;

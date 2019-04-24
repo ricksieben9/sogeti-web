@@ -11,22 +11,22 @@ export class IntakeMomentService {
 
   constructor(private http: HttpClient) { }
 
-  getIntakeMomentOfReceiver(receiver: number) {
+  getIntakeMomentOfReceiver(receiver: string) {
     return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
   }
 
-  addIntakeMoment(intakeMoment: IntakeMoment, receiverId: number): Observable<IntakeMoment> {
+  addIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {
     return this.http.post<IntakeMoment>(`${environment.url}` + '/receiver/' + receiverId + '/intakeMoments', intakeMoment);
   }
 
-  updateIntakeMoment(intakeMoment: IntakeMoment, receiverId: number): Observable<IntakeMoment> {
+  updateIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {
     return this.http.patch<IntakeMoment>(
       `${environment.url}` + '/receiver/' + receiverId + '/intakeMoments/' + intakeMoment.id,
       intakeMoment
     );
   }
 
-  deleteIntakeMoment(receiver: number, intakeMoment: IntakeMoment) {
+  deleteIntakeMoment(receiver: string, intakeMoment: IntakeMoment) {
     console.log(intakeMoment.id);
     return this.http.delete(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments/' + intakeMoment.id);
   }

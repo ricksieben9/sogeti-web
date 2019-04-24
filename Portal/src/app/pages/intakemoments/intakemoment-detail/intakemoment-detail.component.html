@@ -13,13 +13,10 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <h3 class="mb-0">Indienmomenten</h3>
+          <h3 class="mb-0 float-left" *ngIf="receiver">Toedienmomenten van {{receiver.name}}</h3>
+          <button (click)="openModalAddIntakemoment(add)" class="btn btn-info float-right">Toedienmoment toevoegen</button>
         </div>
         <div class="card-body">
-
-            <div class="float-right">
-              <button (click)="openModalAddIntakemoment(add)" class="btn btn-info">Toedienmoment toevoegen</button>
-            </div>
 
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -56,6 +53,9 @@
 
           <!-- <full-calendar [plugins]="calendarPlugins"></full-calendar> -->
 
+        </div>
+        <div class="card-footer bg-transparent">
+          <button (click)="backToOverview()" class="btn btn-primary float-right">Terug naar vorige pagina</button>
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
       titlee = titlee.slice(2);
     }
     for (var item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
+      if (titlee.search(this.listTitles[item].path) !== -1) {
         return this.listTitles[item].title;
       }
     }

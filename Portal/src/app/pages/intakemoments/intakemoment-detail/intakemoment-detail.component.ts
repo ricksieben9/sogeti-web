@@ -11,6 +11,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import {Receiver} from '../../../_models/receiver';
+import {ReceiverService} from '../../../service/receiver.service';
 
 @Component({
   selector: 'app-intakemoment-detail',
@@ -20,7 +22,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 export class IntakemomentDetailComponent implements OnInit {
 
   calendarPlugins = [dayGridPlugin];
-
+  receiver: Receiver;
   medicines: any;
   intakemoments: any;
   dispensers: any;
@@ -28,7 +30,6 @@ export class IntakemomentDetailComponent implements OnInit {
   intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
-  id: number;
   intakeMomentForm: FormGroup;
   intakeMomentEditForm: FormGroup;
   submitted = false;
@@ -37,6 +38,7 @@ export class IntakemomentDetailComponent implements OnInit {
               private userService: UsersService,
               private priorityService: PriorityService,
               private medicinService: MedicinenService,
+              private receiverService: ReceiverService,
               private route: ActivatedRoute,
               private location: Location,
               private modalService: BsModalService,
@@ -44,7 +46,7 @@ export class IntakemomentDetailComponent implements OnInit {
               private modal: NgbModal) { }
 
   ngOnInit() {
-    this.getIntakeMomentsOfReceiver();
+    this.getReceiver();
     this.intakeMomentForm = this.fb.group({
       intakeStartTime: ['', [Validators.required]],
       priorityNumber: ['', [Validators.required]],
@@ -62,12 +64,22 @@ export class IntakemomentDetailComponent implements OnInit {
       remark: ['']
     });
     this.getData();
+    this.getIntakeMomentsOfReceiver();
+  }
+
+  // get the selected receiver
+  getReceiver() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.receiverService.getReceiver(id)
+      .subscribe(receiver => {
+        this.receiver = receiver[0];
+      });
   }
 
   // get the intakemoments of the selected receiver
   getIntakeMomentsOfReceiver() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    this.intakeMomentService.getIntakeMomentOfReceiver(this.id)
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.intakeMomentService.getIntakeMomentOfReceiver('' + id)
       .subscribe(intakemoments => {
                   this.intakemoments = intakemoments; });
   }
@@ -140,8 +152,9 @@ export class IntakemomentDetailComponent implements OnInit {
     if (this.intakeMomentForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.addIntakeMoment(this.intakeMoment, this.id).subscribe(res => {
+      this.intakeMomentService.addIntakeMoment(this.intakeMoment, this.receiver.id).subscribe(res => {
         this.getIntakeMomentsOfReceiver();
+        this.intakeMomentForm.reset();
         this.modalRef.hide();
       }, error => {
          this.errorMsg.name = error.error['response'];
@@ -159,7 +172,7 @@ export class IntakemomentDetailComponent implements OnInit {
     if (this.intakeMomentEditForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.updateIntakeMoment(this.intakeMoment, this.id).subscribe(res => {
+      this.intakeMomentService.updateIntakeMoment(this.intakeMoment, this.receiver.id).subscribe(res => {
         this.getIntakeMomentsOfReceiver();
         this.modalRef.hide();
       }, error => {
@@ -169,7 +182,7 @@ export class IntakemomentDetailComponent implements OnInit {
   }
 
   deleteIntakeMoment(intake: IntakeMoment) {
-    this.intakeMomentService.deleteIntakeMoment(this.id, intake).subscribe(res => {
+    this.intakeMomentService.deleteIntakeMoment(this.receiver.id, intake).subscribe(res => {
       this.getIntakeMomentsOfReceiver();
        this.modalRef.hide();
     }, error => {
@@ -215,5 +228,9 @@ export class IntakemomentDetailComponent implements OnInit {
 
   get intakeAddForm() { return this.intakeMomentForm.controls; }
   get intakeEditForm() {return this.intakeMomentEditForm.controls; }
+
+  backToOverview() {
+    this.location.back();
+  }
 }
 

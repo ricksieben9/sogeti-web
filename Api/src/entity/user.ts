@@ -13,7 +13,7 @@ import * as bcrypt from "bcryptjs";
 @Index("fk_Person_Roles_idx",["roles_role",])
 export class user {
 
-   
+
     @ManyToOne(type=>roles, roles=>roles.users,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager: true })
 
     @JoinColumn({ name:'roles_role'})
@@ -21,54 +21,60 @@ export class user {
 
 
     @PrimaryGeneratedColumn({
-        type:"int", 
+        type:"int",
         name:"id"
         })
     id:number;
-        
 
-    @Column("varchar",{ 
+
+    @Column("varchar",{
         nullable:false,
         unique: true,
         length:100,
         name:"email"
         })
     email:string;
-        
 
-    @Column("varchar",{ 
+
+    @Column("varchar",{
         nullable:false,
         length:100,
         name:"password"
         })
     password:string;
-        
 
-    @Column("varchar",{ 
+
+    @Column("varchar",{
         nullable:false,
         unique: true,
         length:45,
         name:"name"
         })
     name:string;
-        
 
-   
+    @Column("tinyint",{
+        nullable:false,
+        width:1,
+        default: () => "'0'",
+        name:"isfirst"
+    })
+    isfirst:boolean;
+
     @OneToMany(type=>group_dispensers, group_dispensers=>group_dispensers.user_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
     group_dispensers:group_dispensers[];
-    
 
-   
+
+
     @OneToMany(type=>intake_moment, intake_moment=>intake_moment.dispenser,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
     intake_moments:intake_moment[];
-    
 
-   
+
+
     @OneToMany(type=>log, log=>log.user_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
     logs:log[];
 
     hashPassword() {
-        this.password = bcrypt.hashSync(this.password);
+        this.password = bcrypt.hashSync(this.password, 8);
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {

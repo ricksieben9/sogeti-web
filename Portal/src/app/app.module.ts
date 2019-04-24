@@ -13,8 +13,6 @@ import {UsersService} from './service/users.service';
 import {AuthenticationService} from './service/authentication.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
-import {ErrorInterceptor} from './_helpers/error.interceptor';
-
 import { CommonModule } from '@angular/common';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 

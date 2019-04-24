@@ -12,53 +12,53 @@ import {intake_moment_medicines} from "./intake_moment_medicines";
 export class intake_moment {
 
     @PrimaryGeneratedColumn({
-        type:"int", 
+        type:"int",
         name:"id"
         })
     id:number;
-        
 
-    @Column("datetime",{ 
+
+    @Column("datetime",{
         nullable:false,
         name:"intake_start_time"
         })
     intake_start_time:Date;
-        
 
-    @Column("datetime",{ 
+
+    @Column("datetime",{
         nullable:false,
         name:"intake_end_time"
         })
     intake_end_time:Date;
-        
 
-   
-    @ManyToOne(type=>receiver, receiver=>receiver.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+
+
+    @ManyToOne(type=>receiver, receiver=>receiver.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager:true })
     @JoinColumn({ name:'receiver_id'})
     receiver_id:receiver | null;
 
 
-    @Column("longtext",{ 
+    @Column("longtext",{
         nullable:true,
         name:"remark"
         })
     remark:string | null;
-        
 
-   
-    @ManyToOne(type=>priority, priority=>priority.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+
+
+    @ManyToOne(type=>priority, priority=>priority.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' , eager:true})
     @JoinColumn({ name:'priority_number'})
     priority_number:priority | null;
 
 
-   
+
     @ManyToOne(type=>user, user=>user.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'dispenser'})
     dispenser:user | null;
 
 
-   
-    @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' })
+
+    @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' , eager:true})
     intake_moment_medicines:intake_moment_medicines[];
-    
+
 }

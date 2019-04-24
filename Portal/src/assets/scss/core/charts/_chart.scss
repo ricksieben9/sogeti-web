@@ -2,12 +2,17 @@
 // Chart
 //
 
-.chart {
+.incompleteOverview {
   position: relative;
   height: $chart-height;
   overflow-y: scroll;
 }
-.chart td{
+
+.chart {
+  position: relative;
+  height: $chart-height;
+}
+.incompleteOverview td{
   //height: fit-content;
   padding-right: 10px;
   padding-bottom: 7px;

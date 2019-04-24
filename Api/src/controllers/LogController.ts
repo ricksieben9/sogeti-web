@@ -5,6 +5,7 @@ import {user} from "../entity/user";
 
 import {log} from "../entity/log";
 import {receiver} from "../entity/receiver";
+import {intake_moment} from "../entity/intake_moment";
 
 class LogController {
 
@@ -46,32 +47,33 @@ class LogController {
         //If all ok, send 201 response
         res.status(201).send({"response": "Log created"});
     };
+    static createIncompleteIntakeMomentLog = async (req: Request, res: Response) => {
+        let newLog = new log();
 
+        newLog.category = "test"
+        newLog.message = "nieuwe log";
 
-    // static listAllForCurrentDispenser = async (req: Request, res: Response) => {
-    //     //Get logs for this dispenser only from database
-    //     const logRepository = getRepository(log);
-    //     //TODO GET LOGGED IN USER_ID TO FIND WITH
-    //     const logs = await logRepository.find()
-    //     console.log(logs);
-    //     //Send the logs
-    //     res.send(logs);
-    // }
+        //Validade if the parameters are ok
+        const errors = await validate(newLog);
+        if (errors.length > 0) {
+            res.status(400).send(errors);
+            return;
+        }
 
-    // static getOneById = async (req: Request, res: Response) => {
-    //     //Get the ID from the url
-    //     const id: number = req.params.id;
-    //
-    //     //Get the receiver from database
-    //     const notificationRepository = getRepository(receiver);
-    //     try {
-    //         const Receiver = await notificationRepository.createQueryBuilder().select(["id", "name"]).where({id: id}).getRawMany();
-    //         res.send(Receiver);
-    //
-    //     } catch (error) {
-    //         res.status(404).send("Receiver not found");
-    //     }
-    // };
+        //Try to save. If fails, the error is reported back
+        const logRepository = getRepository(log);
+        try {
+            await logRepository.save(newLog);
+        } catch (e) {
+            res.status(409).send(e);
+            return;
+        }
+
+        //If all ok, send 201 response
+        res.status(201).send({"response": "Log was created"});
+    };
 }
+
+
 
 export default LogController;

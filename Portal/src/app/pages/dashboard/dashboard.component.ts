@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
   getIncompleteIntakeMoments() {
     const incompleteIntakeMomentObservable = this.intakeMomentService.getIncompleteIntakeMoments();
     incompleteIntakeMomentObservable.subscribe((intakeData: any[]) => {
-      console.log(intakeData);
       this.list = intakeData;
     });
   }

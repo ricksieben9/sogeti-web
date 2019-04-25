@@ -24,7 +24,7 @@ class IntakeMomentController {
     static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
       const intakeRepository = getRepository(intake_moment);
       const intakeMoments = await intakeRepository.find({relations:["receiver_id"],where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}, order:{intake_start_time: "ASC"}});
-console.log(intakeMoments);
+
       res.send(intakeMoments);
     };
 
@@ -57,7 +57,7 @@ console.log(intakeMoments);
         IntakeMoment.remark = intakeMomentData['remark'];
         IntakeMoment.intake_moment_medicines = intakeMomentData['intake_moment_medicines'];
 
-        //Validade if the parameters are ok
+        //validate if the parameters are ok
         const errors = await validate(IntakeMoment);
         if (errors.length > 0) {
             res.status(400).send(errors);
@@ -110,9 +110,9 @@ console.log(intakeMoments);
         }
 
         //Delete all original medicine from intakeMoment
-        const intakeMomentMecinesRepository = getRepository(intake_moment_medicines);
+        const intakeMomentMedicinesRepository = getRepository(intake_moment_medicines);
         try  {
-            intakeMomentMecinesRepository.delete({intake_moment_id: id});
+            intakeMomentMedicinesRepository.delete({intake_moment_id: id});
         } catch(error){
             res.status(409).send(error);
             return;

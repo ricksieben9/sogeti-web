@@ -22,16 +22,13 @@ export class NotificationsComponent implements OnInit {
   getLogs() {
     const logObservable = this.logService.getAllLogs();
     logObservable.subscribe((logData: any[]) => {
-      console.log(logData);
       this.list = logData;
     });
   }
 
-  // newIntakeMomentLogCheck()
-  // {
-  //
-  // }
-
+  checkIntakeMoments() {
+    const logObservable = this.logService.getAllLogs();
+  }
 
   ngOnInit() {this.getLogs();}
 

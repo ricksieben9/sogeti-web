@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {environment} from '../../environments/environment';
 
 interface Log {
   id: string;
@@ -19,10 +20,6 @@ export class LogService {
   constructor(private http: HttpClient) { }
 
   getAllLogs(): Observable<Log[]> {
-    return this.http.get<Log[]>('http://localhost:3000/log/');
-  }
-
-  createIncompleteIntakeMomentLog(): Observable<Log[]> {
-    return this.http.get<Log[]>('http://localhost:3000/log/createIncompleteLog');
+    return this.http.get<Log[]>(`${environment.url}` + '/log/');
   }
 }

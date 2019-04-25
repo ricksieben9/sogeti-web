@@ -5,7 +5,6 @@ import {user} from "../entity/user";
 
 import {log} from "../entity/log";
 import {receiver} from "../entity/receiver";
-import {intake_moment} from "../entity/intake_moment";
 
 class LogController {
 
@@ -17,33 +16,36 @@ class LogController {
         res.send(logs);
     };
 
+    static newLog = async (req: Request, res: Response) => {
+        //Get parameters from the body
+        let logMessage = req.body;
+        let Log = new log();
+        let currentDateTime = new Date();
 
-    static createIncompleteIntakeMomentLog = async (req: Request, res: Response) => {
-        let newLog = new log();
 
-        newLog.category = "test";
-        newLog.message = "nieuwe log";
+        Log.message = "Toedienmoment heeft een toediener nodig!";
+        Log.category = "test";
+        // Log.datetime = currentDateTime;
 
         //Validade if the parameters are ok
-        const errors = await validate(newLog);
+        const errors = await validate(Log);
         if (errors.length > 0) {
             res.status(400).send(errors);
             return;
         }
 
-        //Try to save. If fails, the error is reported back
+        //Try to save. If fails, the receivername is already in use
         const logRepository = getRepository(log);
         try {
-            await logRepository.save(newLog);
+            await logRepository.save(Log);
         } catch (e) {
-            res.status(409).send(e);
+            res.status(409).send({"response": "Naam is al in gebruik."});
             return;
         }
 
         //If all ok, send 201 response
-        res.status(201).send({"response": "Log was created"});
-    };}
-
-
+        res.status(201).send({"response": "Log created"});
+    };
+}
 
 export default LogController;

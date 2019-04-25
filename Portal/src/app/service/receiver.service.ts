@@ -19,6 +19,10 @@ export class ReceiverService {
     return this.http.get<Receiver[]>(`${environment.url}` + '/receiver/');
   }
 
+  getReceiver(id: number): Observable<Receiver[]> {
+    return this.http.get<Receiver[]>(`${environment.url}` + '/receiver/' + id);
+  }
+
   addReceiver(receiver: Receiver): Observable<Receiver> {
     return this.http.post<Receiver>(`${environment.url}` + '/receiver/', receiver);
   }
@@ -31,7 +35,6 @@ export class ReceiverService {
   }
 
   deleteReceiver(rec: Receiver) {
-    console.log(rec.id);
     return this.http.delete(`${environment.url}` + '/receiver/' + rec.id);
   }
 }

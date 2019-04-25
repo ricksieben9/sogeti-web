@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LogService } from './log.service';
+import { PriorityService } from './priority.service';
 
-describe('LogService', () => {
+describe('PriorityService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: LogService = TestBed.get(LogService);
+    const service: PriorityService = TestBed.get(PriorityService);
     expect(service).toBeTruthy();
   });
 });

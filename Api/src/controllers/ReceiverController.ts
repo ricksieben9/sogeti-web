@@ -3,7 +3,6 @@ import {getRepository} from "typeorm";
 import {validate} from "class-validator";
 
 import {receiver} from "../entity/receiver";
-import {intake_moment} from "../entity/intake_moment";
 
 class ReceiverController {
 
@@ -39,7 +38,7 @@ class ReceiverController {
 
         Receiver.name = receivername['name'];
 
-        //Validade if the parameters are ok
+        //validate if the parameters are ok
         const errors = await validate(Receiver);
         if (errors.length > 0) {
             res.status(400).send(errors);
@@ -79,7 +78,6 @@ class ReceiverController {
 
         //Validate the new values on model
         Receiver.name = receiverName['name'];
-        console.log(Receiver.receivername);
         const errors = await validate(Receiver);
         if (errors.length > 0) {
             res.status(400).send(errors);

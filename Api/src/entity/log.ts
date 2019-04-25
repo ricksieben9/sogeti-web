@@ -9,23 +9,22 @@ import {user} from "./user";
 export class log {
 
     @PrimaryGeneratedColumn({
-        type:"int", 
+        type:"int",
         name:"id"
-        })
+    })
     id:number;
-        
+
 
     @Column("longtext",{
         nullable:false,
         name:"message"
-        })
+    })
     message:string;
-        
 
-    @Column("datetime",{ 
+    @Column("datetime",{
         nullable:true,
         name:"datetime"
-        })
+    })
     datetime:Date | null;
 
     @Column("varchar",{
@@ -55,5 +54,4 @@ export class log {
     // @ManyToOne(type=>user, user=>user.logs,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     // @JoinColumn({ name:'user_id'})
     // user_id:user | null;
-
 }

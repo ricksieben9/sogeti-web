@@ -10,11 +10,10 @@ export const setIncompleteIntakeNotification = async (req: Request, res: Respons
     const intakeRepository = getRepository(intake_moment);
     const intakeMoments = await intakeRepository.find({where:{dispenser: null, currentDate: Raw(alias =>`${alias} > NOW()`)} });
     const logRepository = getRepository(log);
-    console.log(intakeMoments);
     for(let l of intakeMoments)
     {
         const logs = await logRepository.find({where:{intake_moment_id : l.id, category: "toedienmoment", currentDate: Raw(alias =>`${alias} = NOW()`)}});
-        console.log(logs);
+
         if(logs.length == 0) {
             let newLog = new log();
             newLog.category = "toedienmoment";

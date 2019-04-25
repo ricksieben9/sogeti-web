@@ -31,7 +31,6 @@ export class MedicineComponent implements OnInit {
   }
   openModalView(template: TemplateRef<any>, med: Medicine) {
     this.medicine = med;
-    console.log(this.medicine);
     this.modalRef = this.modalService.show(template);
   }
   openModalDelete(template: TemplateRef<any>, med: Medicine) {
@@ -58,7 +57,6 @@ export class MedicineComponent implements OnInit {
         this.getMedicine();
         this.modalRef.hide();
       }, error => {
-        console.log(error);
         this.errorMsg.name = error.error['response'];
       });
     }
@@ -74,7 +72,6 @@ export class MedicineComponent implements OnInit {
         this.getMedicine();
         this.modalRef.hide();
       }, error => {
-        console.log(error);
         this.errorMsg.name = error.error['response'];
       });
     }

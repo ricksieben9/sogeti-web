@@ -25,7 +25,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    ModalModule.forRoot(), 
+    ModalModule.forRoot(),
     ReactiveFormsModule,
     routing
   ],

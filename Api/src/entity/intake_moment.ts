@@ -24,16 +24,13 @@ export class intake_moment {
         })
     intake_start_time:Date;
 
-
     @Column("datetime",{
-        nullable:false,
         name:"intake_end_time"
         })
-    intake_end_time:Date;
+    intake_end_time:Date | null;
+        
 
-
-
-    @ManyToOne(type=>receiver, receiver=>receiver.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION', eager:true })
+    @ManyToOne(type=>receiver, receiver=>receiver.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'receiver_id'})
     receiver_id:receiver | null;
 
@@ -45,20 +42,17 @@ export class intake_moment {
     remark:string | null;
 
 
-
-    @ManyToOne(type=>priority, priority=>priority.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' , eager:true})
+    @ManyToOne(type=>priority, priority=>priority.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'priority_number'})
     priority_number:priority | null;
 
 
-
-    @ManyToOne(type=>user, user=>user.intake_moments,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    @ManyToOne(type=>user, user=>user.intake_moments,{  onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
     @JoinColumn({ name:'dispenser'})
     dispenser:user | null;
 
 
-
-    @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{ onDelete: 'NO ACTION' ,onUpdate: 'NO ACTION' , eager:true})
+    @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{  cascade: true })
     intake_moment_medicines:intake_moment_medicines[];
 
 }

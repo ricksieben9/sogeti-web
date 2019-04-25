@@ -7,12 +7,21 @@ import {intake_moment_medicines} from "../entity/intake_moment_medicines";
 
 class ApplicationController {
 
+    static getAllApplications = async (req: Request, res: Response) => {
+        const intakeMomentRepository = getRepository(intake_moment);
+        //const intakeMoment = await intakeMomentRepository.find({dispenser:userId, id:id});
+        const intakeMoment = await intakeMomentRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"]});
+
+        //Send the users object
+        res.status(200).send(intakeMoment);
+    };
+
     static getApplicationDetail = async (req: Request, res: Response) => {
         //const { userId } = res.locals.jwtPayload;
         const id: number = req.params.id;
         const intakeMomentRepository = getRepository(intake_moment);
         //const intakeMoment = await intakeMomentRepository.find({dispenser:userId, id:id});
-        const intakeMoment = await intakeMomentRepository.find({id: id});
+        const intakeMoment = await intakeMomentRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"], where:{id: id}});
 
         //Send the users object
         res.status(200).send(intakeMoment);

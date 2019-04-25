@@ -38,7 +38,7 @@ class ReceiverController {
 
         Receiver.name = receivername['name'];
 
-        //Validade if the parameters are ok
+        //validate if the parameters are ok
         const errors = await validate(Receiver);
         if (errors.length > 0) {
             res.status(400).send(errors);

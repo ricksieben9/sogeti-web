@@ -14,8 +14,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Portaal',  icon: 'ni-tv-2 text-primary', class: '' },
     { path: '/users', title: 'Gebruikersaccounts',  icon: 'ni-circle-08 text-blue', class: '' },
     { path: '/dispensers', title: 'Toedieners',  icon: 'ni-circle-08 text-blue', class: '' },
-    { path: '/receivers', title: 'ontvangers', icon: 'ni-single-02 text-blue', class: ''},
-    {path: '/medicine', title: 'medicijnen', icon: 'ni-atom text-blue', class: ''}
+    { path: '/intakemoments', title: 'Toedienmomenten', icon: 'ni-single-02 text-blue', class: ''},
+    { path: '/receivers', title: 'Ontvangers', icon: 'ni-single-02 text-blue', class: ''},
+    { path: '/medicine', title: 'Medicijnen', icon: 'ni-atom text-blue', class: ''},
+    { path: '/log', title: 'Notificaties', icon: 'ni-atom text-blue', class: ''},
 ];
 
 @Component({

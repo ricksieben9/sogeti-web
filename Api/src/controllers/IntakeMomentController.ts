@@ -50,7 +50,7 @@ class IntakeMomentController {
         IntakeMoment.remark = intakeMomentData['remark'];
         IntakeMoment.intake_moment_medicines = intakeMomentData['intake_moment_medicines'];
 
-        //Validade if the parameters are ok
+        //validate if the parameters are ok
         const errors = await validate(IntakeMoment);
         if (errors.length > 0) {
             res.status(400).send(errors);

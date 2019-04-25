@@ -56,7 +56,7 @@ class UserController {
         User.roles_role = roles_role;
         User.name = name;
 
-        //Validade if the parameters are ok
+        //Validate if the parameters are ok
         const errors = await validate(User);
         if (errors.length > 0) {
             res.status(400).send(errors);

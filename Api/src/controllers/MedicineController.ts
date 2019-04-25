@@ -12,7 +12,7 @@ class MedicineController {
         const medicineRepository = getRepository(medicine);
         const medicines = await medicineRepository.find();
 
-        //Send the mediciness object
+        //Send the medicines object
         res.send(medicines);
     };
 
@@ -25,7 +25,7 @@ class MedicineController {
         Medicine.unit = unit;
         Medicine.description = description;
 
-        //Validade if the parameters are ok
+        //validate if the parameters are ok
         const errors = await validate(Medicine);
         if (errors.length > 0) {
             res.status(400).send(errors);

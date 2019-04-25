@@ -51,9 +51,7 @@ export class ReceiversComponent implements OnInit {
       this.receiverService.addReceiver(this.receiver).subscribe(res => {
         this.getReceivers();
         this.modalRef.hide();
-        console.log(res);
       }, error => {
-         console.log(error);
          this.errorMsg.name = error.error['response'];
        });
     }
@@ -71,9 +69,7 @@ export class ReceiversComponent implements OnInit {
       this.receiverService.updateReceiver(this.receiver).subscribe(res => {
         this.getReceivers();
         this.modalRef.hide();
-        console.log(res);
       }, error => {
-        console.log(error);
         this.errorMsg.name = error.error['response'];
       });
     }
@@ -83,9 +79,7 @@ export class ReceiversComponent implements OnInit {
     this.receiverService.deleteReceiver(rec).subscribe(res => {
       this.getReceivers();
        this.modalRef.hide();
-      console.log(res);
     }, error => {
-      console.log(error);
       this.errorMsg.name = error.error['response'];
     });
   }

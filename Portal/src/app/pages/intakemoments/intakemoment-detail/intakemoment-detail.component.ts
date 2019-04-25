@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit, Inject, LOCALE_ID} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
 import {UsersService} from '../../../service/users.service';
@@ -12,6 +12,7 @@ import {Location} from '@angular/common';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Receiver} from '../../../_models/receiver';
 import {ReceiverService} from '../../../service/receiver.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-intakemoment-detail',
@@ -41,6 +42,7 @@ export class IntakemomentDetailComponent implements OnInit {
               private location: Location,
               private modalService: BsModalService,
               private fb: FormBuilder,
+              @Inject(LOCALE_ID) private locale: string,
               private modal: NgbModal) { }
 
   ngOnInit() {
@@ -206,7 +208,7 @@ export class IntakemomentDetailComponent implements OnInit {
 
   patchIntakeMomentEditForm() {
     this.intakeMomentEditForm.patchValue({
-      intakeStartTime: new Date(this.intakeMoment.intake_start_time).toISOString().slice(0, -1),
+      intakeStartTime: formatDate(new Date(this.intakeMoment.intake_start_time), 'yyyy-MM-ddThh:mm', this.locale),
       priorityNumber: this.intakeMoment.priority_number,
       dispenser: this.intakeMoment.dispenser_id,
       remark: this.intakeMoment.remark,

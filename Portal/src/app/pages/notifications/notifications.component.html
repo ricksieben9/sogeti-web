@@ -38,7 +38,7 @@
                     {{item.message}}
                   </td>
                   <td>
-                    {{item.datetime}}
+                    {{item.datetime | date : "dd-MM-yyy HH:mm"}}
                   </td>
                   <td>
                     <button class="btn btn-primary" routerLink="/receiver/97/intakeMomentsreceiver/{{receiver_id}}/intakeMoments">Ga naar Toedienmoment</button>

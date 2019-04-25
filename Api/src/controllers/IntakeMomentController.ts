@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {getRepository} from "typeorm";
+import {getRepository, Raw} from "typeorm";
 import {validate} from "class-validator";
 import {intake_moment} from "../entity/intake_moment";
 import {intake_moment_medicines} from "../entity/intake_moment_medicines";
@@ -19,6 +19,13 @@ class IntakeMomentController {
         } catch (error) {
             res.status(404).send("Intake moments not found");
         }
+    };
+
+    static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
+      const intakeRepository = getRepository(intake_moment);
+      const intakeMoments = await intakeRepository.find({relations:["receiver_id"],where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}, order:{intake_start_time: "ASC"}});
+
+      res.send(intakeMoments);
     };
 
     static getOneById = async (req: Request, res: Response) => {

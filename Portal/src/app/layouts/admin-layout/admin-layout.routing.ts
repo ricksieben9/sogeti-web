@@ -12,6 +12,7 @@ import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
 import {MedicineComponent} from '../../pages/medicine/medicine.component';
 import {AuthGuard} from '../../_guards/auth.guard';
 import {Role} from '../../_models/role';
+import {NotificationsComponent} from '../../pages/notifications/notifications.component';
 
 export const AdminLayoutRoutes: Routes = [
   {path: 'dispensers',     component: DispenserComponent },
@@ -22,5 +23,6 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'intakemoments', component: IntakeMomentsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'intakemoments/:id', component: IntakeMomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'medicine', component: MedicineComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
+  {path: 'medicine', component: MedicineComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
+  {path: 'log', component: NotificationsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
 ];

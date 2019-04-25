@@ -21,23 +21,37 @@ export class log {
     })
     message:string;
 
-
     @Column("datetime",{
         nullable:true,
         name:"datetime"
     })
     datetime:Date | null;
 
+    @Column("varchar",{
+        nullable:false,
+        name:"category"
+    })
+    category:string;
 
+    @Column("int",{
+        nullable:false,
+        name:"user_id"
+    })
+    user_id:number;
 
-    @ManyToOne(type=>log_category, log_category=>log_category.logs,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
-    @JoinColumn({ name:'category'})
-    category:log_category | null;
+    @Column("int",{
+        nullable: true,
+        name:"intake_moment_id"
+    })
+    intake_moment_id:number;
 
-
-
-    @ManyToOne(type=>user, user=>user.logs,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
-    @JoinColumn({ name:'user_id'})
-    user_id:user | null;
-
+    // @ManyToOne(type=>log_category, log_category=>log_category.logs,{  nullable:false,onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    // @JoinColumn({ name:'category'})
+    // category:log_category | null;
+    //
+    //
+    //
+    // @ManyToOne(type=>user, user=>user.logs,{ onDelete: 'NO ACTION',onUpdate: 'NO ACTION' })
+    // @JoinColumn({ name:'user_id'})
+    // user_id:user | null;
 }

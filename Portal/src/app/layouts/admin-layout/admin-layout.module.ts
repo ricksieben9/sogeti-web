@@ -18,6 +18,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NotificationsComponent} from '../../pages/notifications/notifications.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -40,7 +41,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReceiversComponent,
     IntakeMomentsComponent,
     IntakeMomentDetailComponent,
-    MedicineComponent
+    MedicineComponent,
+    NotificationsComponent
   ]
 })
 

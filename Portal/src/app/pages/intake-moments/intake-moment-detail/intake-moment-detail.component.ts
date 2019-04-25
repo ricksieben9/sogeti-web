@@ -16,10 +16,10 @@ import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-intakemoment-detail',
-  templateUrl: './intakemoment-detail.component.html',
-  styleUrls: ['./intakemoment-detail.component.scss']
+  templateUrl: './intake-moment-detail.component.html',
+  styleUrls: ['./intake-moment-detail.component.scss']
 })
-export class IntakemomentDetailComponent implements OnInit {
+export class IntakeMomentDetailComponent implements OnInit {
 
   receiver: Receiver;
   medicines: any;
@@ -36,7 +36,7 @@ export class IntakemomentDetailComponent implements OnInit {
   constructor(private intakeMomentService: IntakeMomentService,
               private userService: UsersService,
               private priorityService: PriorityService,
-              private medicinService: MedicinenService,
+              private medicineService: MedicinenService,
               private receiverService: ReceiverService,
               private route: ActivatedRoute,
               private location: Location,
@@ -99,8 +99,8 @@ export class IntakemomentDetailComponent implements OnInit {
     });
 
     // get medicines from Api
-    const medicinObservable = this.medicinService.getAllMedicine();
-    medicinObservable.subscribe((medicinData: any[]) => {
+    const medicineObservable = this.medicineService.getAllMedicine();
+    medicineObservable.subscribe((medicinData: any[]) => {
       this.medicines = medicinData;
     });
   }

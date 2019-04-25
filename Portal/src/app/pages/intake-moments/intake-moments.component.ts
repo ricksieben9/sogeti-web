@@ -3,10 +3,10 @@ import { ReceiverService } from '../../service/receiver.service';
 
 @Component({
   selector: 'app-intakemoments',
-  templateUrl: './intakemoments.component.html',
-  styleUrls: ['./intakemoments.component.scss']
+  templateUrl: './intake-moments.component.html',
+  styleUrls: ['./intake-moments.component.scss']
 })
-export class IntakemomentsComponent implements OnInit {
+export class IntakeMomentsComponent implements OnInit {
 
   receivers: any;
 

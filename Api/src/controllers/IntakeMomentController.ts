@@ -103,9 +103,9 @@ class IntakeMomentController {
         }
 
         //Delete all original medicine from intakeMoment
-        const intakeMomentMecinesRepository = getRepository(intake_moment_medicines);
+        const intakeMomentMedicinesRepository = getRepository(intake_moment_medicines);
         try  {
-            intakeMomentMecinesRepository.delete({intake_moment_id: id});
+            intakeMomentMedicinesRepository.delete({intake_moment_id: id});
         } catch(error){
             res.status(409).send(error);
             return;

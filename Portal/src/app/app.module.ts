@@ -13,8 +13,8 @@ import {UsersService} from './service/users.service';
 import {AuthenticationService} from './service/authentication.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
-import { CommonModule } from '@angular/common';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
   imports: [
@@ -25,12 +25,9 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    routing,
     ModalModule.forRoot(),
-    CommonModule,
-    FormsModule,
-    NgbModalModule,
     ReactiveFormsModule,
+    routing
   ],
   declarations: [
     AppComponent,
@@ -40,11 +37,6 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [UsersService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
-  ],
-  exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })

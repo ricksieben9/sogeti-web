@@ -24,7 +24,6 @@ class IntakeMomentController {
     static getAllIntakeMomentsWithoutDispenser = async (req: Request, res: Response) => {
       const intakeRepository = getRepository(intake_moment);
       const intakeMoments = await intakeRepository.find({relations:["receiver_id"],where:{dispenser: null, intake_start_time: Raw(alias =>`${alias} > NOW()`)}, order:{intake_start_time: "ASC"}});
-
       res.send(intakeMoments);
     };
 
@@ -49,7 +48,7 @@ class IntakeMomentController {
         let IntakeMoment = new intake_moment();
 
 
-        IntakeMoment.dispenser = intakeMomentData['dispenser_id'];
+        IntakeMoment.dispenser = intakeMomentData['dispenser_id'] ? intakeMomentData['dispenser_id'] : null;
         IntakeMoment.receiver_id = req.params.id;
         IntakeMoment.intake_start_time = intakeMomentData['intake_start_time'];
         IntakeMoment.intake_end_time = intakeMomentData['intake_end_time'];
@@ -96,7 +95,7 @@ class IntakeMomentController {
         }
 
         //Validate the new values on model
-        IntakeMoment.dispenser = intakeMomentData['dispenser_id'];
+        IntakeMoment.dispenser = intakeMomentData['dispenser_id'] ? intakeMomentData['dispenser_id'] : null;
         IntakeMoment.receiver_id = req.params.id;
         IntakeMoment.intake_start_time = intakeMomentData['intake_start_time'];
         IntakeMoment.intake_end_time = intakeMomentData['intake_end_time'];

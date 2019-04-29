@@ -7,28 +7,33 @@ import {intake_moment_medicines} from "../entity/intake_moment_medicines";
 
 class ApplicationController {
 
-    static getAllApplications = async (req: Request, res: Response) => {
+    static getAllApplicationsByDispenser = async (req: Request, res: Response) => {
+        const {userId} = res.locals.jwtPayload;
         const intakeMomentRepository = getRepository(intake_moment);
-        //const intakeMoment = await intakeMomentRepository.find({dispenser:userId, id:id});
-        const intakeMoment = await intakeMomentRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"]});
+        const intakeMoment = await intakeMomentRepository.find({
+            relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
+            where: {dispenser: userId}
+        });
 
-        //Send the users object
+        //Send the intake moment object
         res.status(200).send(intakeMoment);
     };
 
     static getApplicationDetail = async (req: Request, res: Response) => {
-        //const { userId } = res.locals.jwtPayload;
+        const {userId} = res.locals.jwtPayload;
         const id: number = req.params.id;
         const intakeMomentRepository = getRepository(intake_moment);
-        //const intakeMoment = await intakeMomentRepository.find({dispenser:userId, id:id});
-        const intakeMoment = await intakeMomentRepository.find({relations:["receiver_id","priority_number","dispenser","intake_moment_medicines"], where:{id: id}});
+        const intakeMoment = await intakeMomentRepository.find({
+            relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
+            where: {dispenser: userId, id: id}
+        });
 
         //Send the users object
         res.status(200).send(intakeMoment);
     };
 
     static setCompleted = async (req: Request, res: Response) => {
-        // const {userId} = res.locals.jwtPayload;
+        const {userId} = res.locals.jwtPayload;
         const id = req.params.id;
         let {medicine_id, completed_at} = req.body;
 
@@ -55,7 +60,7 @@ class ApplicationController {
             res.status(409).send(error);
             return;
         }
-        //Try to safe, if fails, that means username already in use
+        //Try to safe, if fails, that means intake moment medicine already in use
         try {
             await intakeMomentMedicineRepository.save(IntakeMomentMedicine);
 
@@ -72,7 +77,6 @@ class ApplicationController {
         const id = req.params.id;
         let {medicine_id} = req.body;
 
-        console.log(medicine_id);
         const intakeMomentMedicineRepository = getRepository(intake_moment_medicines);
         let IntakeMomentMedicine: intake_moment_medicines;
         try {
@@ -96,62 +100,17 @@ class ApplicationController {
             res.status(409).send(error);
             return;
         }
-        //Try to safe, if fails, that means username already in use
+        //Try to safe, if fails, that means intake moment medicine already in use
         try {
             await intakeMomentMedicineRepository.save(IntakeMomentMedicine);
 
         } catch (e) {
-            console.log(e);
             res.status(409).send({"response": "Bad request!"});
             return;
         }
         //After all send a 204 (no content, but accepted) response
         res.status(204).send({"response": "Intake moment updated"});
     };
-
-    // static editCompleted = async (req: Request, res: Response) => {
-    //     const {userId} = res.locals.jwtPayload;
-    //     const id = req.params.id;
-    //
-    //     //Get values from the body
-    //     let intake_moment_medicine = req.body;
-    //     //Try to find user on database
-    //     const intakeMomentRepository = getRepository(intake_moment);
-    //     let intakeMoment;
-    //     try {
-    //         intakeMoment = await intakeMomentRepository.findOne({dispenser: userId, id: id});
-    //
-    //     } catch (error) {
-    //         //If not found, send a 404 response
-    //         res.status(404).send({"response": "Gebruiker niet gevonden!"});
-    //         return;
-    //     }
-    //     console.log(intakeMoment.intake_moment_medicines);
-    //     //Validate the new values on model
-    //     intakeMoment.intake_moment_medicines = intake_moment_medicine['intake_moment_medicine'];
-    //     console.log(intakeMoment.intake_moment_medicines);
-    //
-    //     //Delete all original medicine from intakeMoment
-    //     const intakeMomentMedicinesRepository = getRepository(intake_moment_medicines);
-    //     try {
-    //         intakeMomentMedicinesRepository.delete({intake_moment_id: id});
-    //     } catch (error) {
-    //         res.status(409).send(error);
-    //         return;
-    //     }
-    //
-    //
-    //     //Try to safe, if fails, that means username already in use
-    //     try {
-    //         await intakeMomentRepository.save(intakeMoment);
-    //
-    //     } catch (e) {
-    //         res.status(409).send({"response": "Bad request!"});
-    //         return;
-    //     }
-    //     //After all send a 204 (no content, but accepted) response
-    //     res.status(204).send({"response": "Intake moment updated"});
-    // };
 }
 
 export default ApplicationController;

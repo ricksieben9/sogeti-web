@@ -5,15 +5,15 @@ import UserController from "../controllers/UserController";
 
 const router = Router();
 // get all application
-router.get("/", ApplicationController.getAllApplications);
+router.get("/", [checkJwt], ApplicationController.getAllApplicationsByDispenser);
 
 // get all details of application
-router.get("/:id([0-9]+)", ApplicationController.getApplicationDetail);
+router.get("/:id([0-9]+)", [checkJwt], ApplicationController.getApplicationDetail);
 
 // set completed
-router.patch("/:id([0-9]+)", ApplicationController.setCompleted);
+router.patch("/:id([0-9]+)", [checkJwt], ApplicationController.setCompleted);
 
 // remove completed
-router.delete("/:id([0-9]+)", ApplicationController.removeCompleted);
+router.delete("/:id([0-9]+)", [checkJwt], ApplicationController.removeCompleted);
 
 export default router;

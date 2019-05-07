@@ -10,10 +10,18 @@ class ApplicationController {
     static getAllApplicationsByDispenser = async (req: Request, res: Response) => {
         const {userId} = res.locals.jwtPayload;
         const intakeMomentRepository = getRepository(intake_moment);
-        const intakeMoment = await intakeMomentRepository.find({
-            relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
-            where: {dispenser: userId}
-        });
+        let intakeMoment;
+        try {
+            intakeMoment = await intakeMomentRepository.find({
+                relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
+                where: {dispenser: userId}
+            });
+        } catch (error) {
+            //If not found, send a 404 response
+            res.status(404).send({"response": "Toedienmoment niet gevonden!"});
+            return;
+        }
+
 
         //Send the intake moment object
         res.status(200).send(intakeMoment);
@@ -23,17 +31,22 @@ class ApplicationController {
         const {userId} = res.locals.jwtPayload;
         const id: number = req.params.id;
         const intakeMomentRepository = getRepository(intake_moment);
-        const intakeMoment = await intakeMomentRepository.find({
-            relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
-            where: {dispenser: userId, id: id}
-        });
-
+        let intakeMoment;
+        try {
+            intakeMoment = await intakeMomentRepository.find({
+                relations: ["receiver_id", "priority_number", "dispenser", "intake_moment_medicines"],
+                where: {dispenser: userId, id: id}
+            });
+        } catch (error) {
+            //If not found, send a 404 response
+            res.status(404).send({"response": "Toedienmoment gegevens niet gevonden!"});
+            return;
+        }
         //Send the users object
         res.status(200).send(intakeMoment);
     };
 
     static setCompleted = async (req: Request, res: Response) => {
-        const {userId} = res.locals.jwtPayload;
         const id = req.params.id;
         let {medicine_id, completed_at} = req.body;
 
@@ -44,10 +57,9 @@ class ApplicationController {
                 intake_moment_id: id,
                 medicine_id: medicine_id.id
             });
-
         } catch (error) {
             //If not found, send a 404 response
-            res.status(404).send({"response": "intake moment medicine niet gevonden!"});
+            res.status(404).send({"response": "Toedienmoment medicijn niet gevonden!"});
             return;
         }
         IntakeMomentMedicine.intake_moment_id = id;
@@ -63,17 +75,15 @@ class ApplicationController {
         //Try to safe, if fails, that means intake moment medicine already in use
         try {
             await intakeMomentMedicineRepository.save(IntakeMomentMedicine);
-
         } catch (e) {
             res.status(409).send({"response": "Bad request!"});
             return;
         }
         //After all send a 204 (no content, but accepted) response
-        res.status(204).send({"response": "Intake moment updated"});
+        res.status(204).send({"response": "Toedienmoment aangepast"});
     };
 
     static removeCompleted = async (req: Request, res: Response) => {
-        // const {userId} = res.locals.jwtPayload;
         const id = req.params.id;
         let {medicine_id} = req.body;
 
@@ -87,7 +97,7 @@ class ApplicationController {
 
         } catch (error) {
             //If not found, send a 404 response
-            res.status(404).send({"response": "intake moment medicine niet gevonden!"});
+            res.status(404).send({"response": "Toedienmoment medicijn niet gevonden!"});
             return;
         }
         IntakeMomentMedicine.intake_moment_id = id;
@@ -109,7 +119,7 @@ class ApplicationController {
             return;
         }
         //After all send a 204 (no content, but accepted) response
-        res.status(204).send({"response": "Intake moment updated"});
+        res.status(204).send({"response": "Toedienmoment aangepast"});
     };
 }
 

@@ -31,7 +31,7 @@ export class UsersService {
   }
 
   insertUser(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.url}/user/`, user)
+    return this.http.post<User>(`${environment.url}/user/`, user);
   }
 
   updateUser(user: User): Observable<User> {

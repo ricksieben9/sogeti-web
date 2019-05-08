@@ -12,18 +12,17 @@ import {intake_moment_medicines} from "./intake_moment_medicines";
 export class intake_moment {
 
     @PrimaryGeneratedColumn({
-        type:"int", 
+        type:"int",
         name:"id"
         })
     id:number;
-        
 
-    @Column("datetime",{ 
+
+    @Column("datetime",{
         nullable:false,
         name:"intake_start_time"
         })
     intake_start_time:Date;
-        
 
     @Column("datetime",{
         name:"intake_end_time"
@@ -36,7 +35,7 @@ export class intake_moment {
     receiver_id:receiver | null;
 
 
-    @Column("longtext",{ 
+    @Column("longtext",{
         nullable:true,
         name:"remark"
         })
@@ -55,5 +54,5 @@ export class intake_moment {
 
     @OneToMany(type=>intake_moment_medicines, intake_moment_medicines=>intake_moment_medicines.intake_moment_id,{  cascade: true })
     intake_moment_medicines:intake_moment_medicines[];
-    
+
 }

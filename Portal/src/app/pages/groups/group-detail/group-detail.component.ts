@@ -12,4 +12,8 @@ export class GroupDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  backToOverview() {
+    this.location.back();
+  }
+
 }

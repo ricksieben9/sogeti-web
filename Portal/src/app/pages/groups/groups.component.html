@@ -27,10 +27,10 @@
               <tbody>
               <tr *ngFor="let group of groups">
                 <td>
-                  {{item.name}}
+                  {{group.name}}
                 </td>
                 <td>
-                  <button class="btn btn-primary" type="button" routerLink="/groups/{{group.id}}">Bekijk groep</button>
+                  <button class="btn btn-primary" type="button" routerLink="/groups/group/{{group.id}}">Bekijk groep</button>
                 </td>
               </tr>
               </tbody>

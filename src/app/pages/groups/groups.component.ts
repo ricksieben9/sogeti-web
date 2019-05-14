@@ -20,6 +20,7 @@ import {UsersService} from '../../service/users.service';
 })
 export class GroupsComponent implements OnInit {
 
+  selectedGroup : Group;
   groups: any;
   receivers: any;
   dispensers: any;
@@ -42,6 +43,11 @@ export class GroupsComponent implements OnInit {
     this.getData();
   }
 
+  onSelect(group) {
+    this.selectedGroup = group;
+    console.log(this.selectedGroup)
+  }
+
   getData() {
     const roles = { roleList: ['Toediener', 'Hoofdtoediener'] };
     // get dispensers from API
@@ -57,6 +63,7 @@ export class GroupsComponent implements OnInit {
     });
   }
 
+  //opens the deletemodal
   openModalDeleteGroup(template: TemplateRef<any>, g: Group) {
     this.errorMsg = new ErrorMsg();
     this.group.id = g.id;
@@ -72,6 +79,7 @@ export class GroupsComponent implements OnInit {
     })
   }
 
+  //deletes a group
   deleteGroup(group: Group){
     this.groupService.deleteGroup(group).subscribe(res => {
       this.getGroups();
@@ -79,7 +87,7 @@ export class GroupsComponent implements OnInit {
     }, error => {
       this.errorMsg.name = error.error['response'];
     });
-    //location.reload(true);
+    this.getGroups();
   }
 
 }

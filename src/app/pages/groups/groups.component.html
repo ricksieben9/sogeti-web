@@ -31,14 +31,16 @@
                   {{group.name}}
                 </td>
                 <td>
-                  <button class="btn btn-primary" type="button" routerLink="/groups/group/{{group.id}}">Bekijk groep</button>
+                  <button class="btn btn-primary" type="button" (click)="onSelect(group)">Bekijk groep</button>
                   <button class="btn btn-danger" (click)="openModalDeleteGroup(delete, group)">Verwijderen</button>
                 </td>
               </tr>
               </tbody>
             </table>
-          </div>
-          <div class="card-footer py-4">
+
+            <!-- Views the group-detail component.html of the selected group on the right side of the page -->
+            <app-group-detail [group]="selectedGroup"></app-group-detail>
+
           </div>
         </div>
       </div>

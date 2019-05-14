@@ -1,38 +1,27 @@
-<div class="header bg-gradient-sogeti pb-8 pt-5 pt-md-8">
-  <div class="container-fluid">
-    <div class="header-body">
-      <!-- Card stats -->
+<!-- If a group exists -->
+<div *ngIf="group">  
+  
+  <!-- Page content -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header bg-transparent">
+            <h3 class="mb-0 float-left" *ngIf="group">{{group.name}}</h3>
+            <button (click)="(alter)" class="btn btn-info float-right">Groep aanpassen</button>
+          </div>
+          <div class="card-body">
+            <h5 class="mb-0 float-left" *ngIf="group">Naam: {{group.name}}</h5>
+            <div *ngIf="dispener">
+              <p>Toedieners: {{dispener.name}}</p> 
+            </div>
+            <div *ngIf="receiver">
+              <p>Ontvangers: {{receiver.name}} </p>
+            </div>
 
-    </div>
-  </div>
-</div>
-<!-- Page content -->
-<div class="container-fluid mt--7">
-  <!-- Table -->
-  <div class="row">
-    <div class="col">
-      <div class="card shadow">
-        <div class="card-header bg-transparent">
-          <h3 class="mb-0 float-left" *ngIf="group">Groep: {{group.name}}</h3>
-          <button (click)="(alter)" class="btn btn-info float-right">Groep aanpassen</button>
-        </div>
-        <div class="card-body">
-          <h5 class="mb-0 float-left" *ngIf="group">Naam: {{group.name}}</h5>
-          <!-- <div *ngIf="dispener">
-            <p>
-              Toedieners: {{dispener.name}}</p> 
-          </div> -->
-          <!-- <div *ngIf="receiver">
-            <p>Ontvangers: {{receiver.name}} </p>
-          </div> -->
-
-        </div>
-        <div class="card-footer bg-transparent">
-          <button (click)="backToOverview()" class="btn btn-primary float-right">Terug naar vorige pagina</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <ng-template #alter>
@@ -45,12 +34,14 @@
   <div class="modal-body">
     <form [formGroup]="intakeMomentEditForm" (ngSubmit)="onAlter()">
       <label for="intake_start_time_edit">Starttijd</label>
-      <input formControlName="intakeStartTime" type="datetime-local" class="form-control" id="intake_start_time_edit" required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.intakeStartTime.errors }">
+      <input formControlName="intakeStartTime" type="datetime-local" class="form-control" id="intake_start_time_edit"
+        required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.intakeStartTime.errors }">
       <div *ngIf="submitted && intakeEditForm.intakeStartTime.errors" class="invalid-feedback">
         <div *ngIf="intakeEditForm.intakeStartTime.errors.required">Starttijd is vereist</div>
       </div>
       <label for="priority_edit">Prioriteit</label>
-      <select formControlName="priorityNumber" id="priority_edit" class="form-control" required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.priorityNumber.errors }">
+      <select formControlName="priorityNumber" id="priority_edit" class="form-control" required
+        [ngClass]="{ 'is-invalid': submitted && intakeEditForm.priorityNumber.errors }">
         <option *ngFor="let priority of priorities" value="{{priority.number}}">{{priority.number}}</option>
       </select>
       <div *ngIf="submitted && intakeEditForm.priorityNumber.errors" class="invalid-feedback">
@@ -61,11 +52,12 @@
         <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
       </select>
 
-      <hr> 
+      <hr>
 
       <div>
         <h3 class="modal-title pull-left">Medicijnen</h3>
-        <div formArrayName="medicines" *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
+        <div formArrayName="medicines"
+          *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
           <hr *ngIf="i>0">
           <div [formGroupName]="i">
             <label for="medicine_id_edit">Medicijn</label>
@@ -77,9 +69,11 @@
             <label for="dosage_edit">Dosis</label>
             <input type="text" class="form-control" id="dosage_edit" formControlName="dosage">
           </div>
-          <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
+          <button *ngIf="i > 0;" type="button" class="btn btn-danger"
+            (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
         </div>
-      <button type="button" class="btn btn-primary" (click)="addMedicineEditButtonClick()" [disabled]="intakeMomentEditForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
+        <button type="button" class="btn btn-primary" (click)="addMedicineEditButtonClick()"
+          [disabled]="intakeMomentEditForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
       </div>
       <div *ngIf="submitted && intakeMomentEditForm.get('medicines').invalid" class="invalid-feedback">
         <div *ngIf="intakeMomentEditForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
@@ -89,7 +83,7 @@
 
       <label for="remark_edit">Opmerking</label>
       <textarea type="text" class="form-control" id="remark_edit" formControlName="remark"></textarea>
-      <button class="btn btn-primary" type="submit" >Opslaan</button>
+      <button class="btn btn-primary" type="submit">Opslaan</button>
     </form>
   </div>
 </ng-template>
@@ -106,7 +100,7 @@
       <label>Weet u zeker dat u het indienmoment voor {{intakeMoment.receiver_id.name}} wilt verwijderen?</label>
       <br>
       <button class="btn btn-primary" (click)="modalRef.hide()">Anuleren</button>
-      <button class="btn btn-danger" (click)="deleteIntakeMoment(intakeMoment)" >Verwijderen</button>
+      <button class="btn btn-danger" (click)="deleteIntakeMoment(intakeMoment)">Verwijderen</button>
     </form>
   </div>
 </ng-template>

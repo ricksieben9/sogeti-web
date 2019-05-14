@@ -11,9 +11,9 @@ export class GroupService {
 
   constructor(private http: HttpClient) { }
 
-  getReceiversOfGroups(receiver: string) {
-    return this.http.get<Group[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
-  }
+  // getReceiversOfGroups(receiver: string) {
+  //   return this.http.get<Group[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
+  // }
 
   getAllGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(`${environment.url}` + '/group/');

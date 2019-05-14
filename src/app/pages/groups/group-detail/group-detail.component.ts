@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Location} from '@angular/common';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {FormGroup, FormArray, Validators, FormBuilder} from '@angular/forms';
@@ -20,7 +20,7 @@ import {UsersService} from '../../../service/users.service';
 })
 export class GroupDetailComponent implements OnInit {
 
-  group: Group;
+  @Input() group: Group;
   groups: any;
   receivers: any;
   dispensers: any;
@@ -37,7 +37,7 @@ export class GroupDetailComponent implements OnInit {
               private modal: NgbModal) { }
 
   ngOnInit() {
-    this.getGroup();
+    //this.getGroup();
     this.getData();
   }
 
@@ -72,10 +72,5 @@ export class GroupDetailComponent implements OnInit {
       this.receivers = receiverData;
     });
   }
-
-  backToOverview() {
-    this.location.back();
-  }
-  
 
 }

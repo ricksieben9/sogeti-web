@@ -12,7 +12,7 @@ import {Location} from '@angular/common';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Receiver} from '../../../_models/receiver';
 import {ReceiverService} from '../../../service/receiver.service';
-import { formatDate } from '@angular/common';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-intakemoment-detail',

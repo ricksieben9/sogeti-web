@@ -11,17 +11,18 @@ export class GroupService {
 
   constructor(private http: HttpClient) { }
 
-  // getReceiversOfGroups(receiver: string) {
-  //   return this.http.get<Group[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
-  // }
-
   getAllGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(`${environment.url}` + '/group/');
   }
 
-  getGroup(id: number) {
+  getGroup(id: string){
+    console.log("selected group id: " + id);
     return this.http.get<Group[]>(`${environment.url}` + '/group/' + id);
   }
+
+  // getGroup(id: number) {
+  //   return this.http.get<Group[]>(`${environment.url}` + '/group/' + id);
+  // }
   
   addGroup(group: Group): Observable<Group> {
     return this.http.post<Group>(`${environment.url}` + '/group', group);

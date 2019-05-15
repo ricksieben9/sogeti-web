@@ -15,10 +15,6 @@ export class ReceiverService {
 
   constructor(private http: HttpClient) { }
 
-  // getIntakeMomentOfReceiver(receiver: string) {
-  //   return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
-  // }
-
   getAllReceivers(): Observable<Receiver[]> {
     return this.http.get<Receiver[]>(`${environment.url}` + '/receiver/');
   }

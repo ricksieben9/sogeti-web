@@ -20,6 +20,7 @@ import {UsersService} from '../../../service/users.service';
 })
 export class GroupDetailComponent implements OnInit {
 
+  selectedGroupId: string;
   @Input() group: Group;
   groups: any;
   receivers: any;
@@ -37,17 +38,25 @@ export class GroupDetailComponent implements OnInit {
               private modal: NgbModal) { }
 
   ngOnInit() {
-    //this.getGroup();
+    this.getSelectedGroup();
     this.getData();
   }
 
-  // get the selected group
-  getGroup() {
-    const id = +this.route.snapshot.paramMap.get('id');
+  getGroup(id){
     this.groupService.getGroup(id)
       .subscribe(group => {
         this.group = group[0];
       });
+  }
+
+  // get the selected group
+  getSelectedGroup() { 
+    console.log("GETSELECTEDGROUP method");   
+    this.groupService.getGroup(this.selectedGroupId)
+      .subscribe(group => {
+        this.group = group[0];
+      });
+    console.log(this.group);
   }
 
   // get the receivers of the selected group

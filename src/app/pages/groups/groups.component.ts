@@ -12,6 +12,7 @@ import {Receiver} from '../../_models/receiver';
 import {ReceiverService} from '../../service/receiver.service';
 import {Dispenser} from '../../_models/dispenser';
 import {UsersService} from '../../service/users.service';
+import {GroupDetailComponent} from '../../pages/groups/group-detail/group-detail.component'
 
 @Component({
   selector: 'app-groups',
@@ -20,7 +21,7 @@ import {UsersService} from '../../service/users.service';
 })
 export class GroupsComponent implements OnInit {
 
-  selectedGroup : Group;
+  selectedGroup: Group;
   groups: any;
   receivers: any;
   dispensers: any;
@@ -36,6 +37,7 @@ export class GroupsComponent implements OnInit {
               private modalService: BsModalService,
               private fb: FormBuilder,
               @Inject(LOCALE_ID) private locale: string,
+              private detailComponent: GroupDetailComponent, 
               private modal: NgbModal) { }
 
   ngOnInit() {
@@ -46,6 +48,8 @@ export class GroupsComponent implements OnInit {
   onSelect(group) {
     this.selectedGroup = group;
     console.log(this.selectedGroup)
+
+    this.detailComponent.getGroup(this.selectedGroup.id);
   }
 
   getData() {

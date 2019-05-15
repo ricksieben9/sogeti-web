@@ -6,16 +6,17 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header bg-transparent">
-            <h3 class="mb-0 float-left" *ngIf="group">{{group.name}}</h3>
+            <h3 class="mb-0 float-left">{{group.name}}</h3>
             <button (click)="(alter)" class="btn btn-info float-right">Groep aanpassen</button>
           </div>
           <div class="card-body">
-            <h5 class="mb-0 float-left" *ngIf="group">Naam: {{group.name}}</h5>
-            <div *ngIf="dispener">
-              <p>Toedieners: {{dispener.name}}</p> 
+            <h5 class="mb-0 float-left">Naam: {{group.name}}</h5>
+          <br>
+            <div >
+              <p>Toedieners: </p> 
             </div>
-            <div *ngIf="receiver">
-              <p>Ontvangers: {{receiver.name}} </p>
+            <div >
+              <p>Ontvangers: </p>
             </div>
 
           </div>

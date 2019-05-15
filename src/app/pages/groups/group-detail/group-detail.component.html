@@ -6,17 +6,19 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header bg-transparent">
-            <h3 class="mb-0 float-left">{{group.name}}</h3>
+            <h2 class="mb-0 float-left">{{group.name}}</h2>
             <button (click)="(alter)" class="btn btn-info float-right">Groep aanpassen</button>
           </div>
           <div class="card-body">
-            <h5 class="mb-0 float-left">Naam: {{group.name}}</h5>
-          <br>
-            <div >
-              <p>Toedieners: </p> 
+            <h3 class="mb-0 float-left">Groepsnaam: {{group.name}}</h3>
+          <hr>
+            <h3>Toedieners</h3>
+            <div *ngFor="let g of group.group_dispensers">
+              <p>{{g.user_id.name}}</p>
             </div>
-            <div >
-              <p>Ontvangers: </p>
+            <h3>Ontvangers</h3>
+            <div *ngFor="let g of group.receivers">
+              <p>{{g.name}}</p>
             </div>
 
           </div>

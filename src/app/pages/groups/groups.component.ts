@@ -37,6 +37,7 @@ export class GroupsComponent implements OnInit {
   onSelect(group) {
     this.selectedGroup = group;
     this.groupDetailComponent.getGroup(this.selectedGroup.id);
+    this.groupDetailComponent.getData();
   }
 
   // opens the deletemodal

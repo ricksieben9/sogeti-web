@@ -26,7 +26,7 @@ export class GroupDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData();
+    //this.getData();
   }
 
   getGroup(id) {
@@ -34,6 +34,7 @@ export class GroupDetailComponent implements OnInit {
       .subscribe(group => {
         this.group = group[0];
       });
+      console.log(this.group);
   }
 
   getData() {

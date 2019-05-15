@@ -15,15 +15,10 @@ export class GroupService {
     return this.http.get<Group[]>(`${environment.url}` + '/group/');
   }
 
-  getGroup(id: string){
-    console.log("selected group id: " + id);
+  getGroup(id: string) {
     return this.http.get<Group[]>(`${environment.url}` + '/group/' + id);
   }
 
-  // getGroup(id: number) {
-  //   return this.http.get<Group[]>(`${environment.url}` + '/group/' + id);
-  // }
-  
   addGroup(group: Group): Observable<Group> {
     return this.http.post<Group>(`${environment.url}` + '/group', group);
   }

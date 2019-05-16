@@ -12,13 +12,13 @@ export class IntakeMomentService {
   constructor(private http: HttpClient) { }
 
   getIntakeMomentOfReceiver(receiver: string) {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments');
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/receiver/' + receiver);
   }
 
   getIncompleteIntakeMoments() {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/97' + '/intakeMoments/incomplete');
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/incomplete');
   }
-  
+
   addIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {
     return this.http.post<IntakeMoment>(`${environment.url}` + '/receiver/' + receiverId + '/intakeMoments', intakeMoment);
   }

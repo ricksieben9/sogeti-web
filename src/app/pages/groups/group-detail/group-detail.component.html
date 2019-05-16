@@ -1,109 +1,57 @@
-<!-- If a group exists -->
-<div *ngIf="group">  
-  
-  <!-- Page content -->
-    <div class="row">
-      <div class="col">
-        <div class="card shadow">
-          <div class="card-header bg-transparent">
-            <h2 class="mb-0 float-left">{{group.name}}</h2>
-            <button (click)="(alter)" class="btn btn-info float-right">Groep aanpassen</button>
-          </div>
-          <div class="card-body">
-            <h3 class="mb-0 float-left">Groepsnaam: {{group.name}}</h3>
-          <hr>
-            <h3>Toedieners</h3>
-            <div *ngFor="let g of group.group_dispensers">
-              <p>{{g.user_id.name}}</p>
-            </div>
-            <h3>Ontvangers</h3>
-            <div *ngFor="let g of group.receivers">
-              <p>{{g.name}}</p>
-            </div>
-
-          </div>
-        </div>
+<div>
+<form [formGroup]="groupForm" (ngSubmit)="onAlter()">
+      <label for="group_name">Naam</label>
+      <input type="text" formControlName="groupName" class="form-control" id="group_name"
+        required [ngClass]="{ 'is-invalid': submitted && groupForm.name.errors }">
+      <div *ngIf="submitted && groupForm.name.errors" class="invalid-feedback">
+        <div *ngIf="groupForm.name.errors.required">Naam is vereist</div>
       </div>
-    </div>
-</div>
-
-<ng-template #alter>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Aanpassen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="intakeMomentEditForm" (ngSubmit)="onAlter()">
-      <label for="intake_start_time_edit">Starttijd</label>
-      <input formControlName="intakeStartTime" type="datetime-local" class="form-control" id="intake_start_time_edit"
-        required [ngClass]="{ 'is-invalid': submitted && intakeEditForm.intakeStartTime.errors }">
-      <div *ngIf="submitted && intakeEditForm.intakeStartTime.errors" class="invalid-feedback">
-        <div *ngIf="intakeEditForm.intakeStartTime.errors.required">Starttijd is vereist</div>
-      </div>
-      <label for="priority_edit">Prioriteit</label>
-      <select formControlName="priorityNumber" id="priority_edit" class="form-control" required
-        [ngClass]="{ 'is-invalid': submitted && intakeEditForm.priorityNumber.errors }">
-        <option *ngFor="let priority of priorities" value="{{priority.number}}">{{priority.number}}</option>
-      </select>
-      <div *ngIf="submitted && intakeEditForm.priorityNumber.errors" class="invalid-feedback">
-        <div *ngIf="intakeEditForm.priorityNumber.errors.required">Prioriteit is vereist</div>
-      </div>
-      <label for="dispenser_edit">Toediener</label>
-      <select formControlName="dispenser" id="dispenser_edit" class="form-control">
-        <option *ngFor="let dispenser of dispensers" value="{{dispenser.id}}">{{dispenser.name}}</option>
-      </select>
 
       <hr>
 
       <div>
-        <h3 class="modal-title pull-left">Medicijnen</h3>
-        <div formArrayName="medicines"
-          *ngFor="let medicine of intakeMomentEditForm.get('medicines').controls; let i = index">
+        <h3 class="modal-title pull-left">Toedieners</h3>
+        <div formArrayName="dispensers"
+          *ngFor="let dispenser of groupForm.get('dispensers').controls; let i = index">
           <hr *ngIf="i>0">
           <div [formGroupName]="i">
-            <label for="medicine_id_edit">Medicijn</label>
-            <select formControlName="medicine_id" id="medicine_id_edit" class="form-control" required>
-              <option *ngFor="let option of medicines" value="{{option.id}}">{{option.name}}</option>
+            <label for="dispenser_id">Toediener</label>
+            <select formControlName="dispenser_id" id="dispenser_id" class="form-control" required>
+              <option *ngFor="let option of dispensers" value="{{option.id}}">{{option.name}}</option>
             </select>
-            <label for="time_window_edit">Aantal minuten om medicijn toe te dienen</label>
-            <input type="text" class="form-control" id="time_window_edit" formControlName="time_window">
-            <label for="dosage_edit">Dosis</label>
-            <input type="text" class="form-control" id="dosage_edit" formControlName="dosage">
+            <label for="priority_id">Prioriteit van toediener</label>
+            <select formControlName="priority_id" id="priority_id" class="form-control" required>
+              <option *ngFor="let option of priorities" value="{{option.number}}">{{option.number}}</option>
+            </select>
           </div>
           <button *ngIf="i > 0;" type="button" class="btn btn-danger"
-            (click)="deleteMedicineEditButtonClick(i)">Verwijder medicijn</button>
+            (click)="deleteDispenserButtonClick(i)">Verwijder Toediener</button>
         </div>
-        <button type="button" class="btn btn-primary" (click)="addMedicineEditButtonClick()"
-          [disabled]="intakeMomentEditForm.get('medicines').invalid">Voeg nog een medicijn toe</button>
+        <button type="button" class="btn btn-primary" (click)="addDispenserButtonClick()"
+          [disabled]="groupForm.get('dispensers').invalid">Voeg nog een toediener toe</button>
       </div>
-      <div *ngIf="submitted && intakeMomentEditForm.get('medicines').invalid" class="invalid-feedback">
-        <div *ngIf="intakeMomentEditForm.get('medicines').invalid">Medicijn, dosering en tijdvak zijn vereist</div>
+      <div *ngIf="submitted && groupForm.get('dispensers').invalid" class="invalid-feedback">
+        <div *ngIf="groupForm.get('dispensers').invalid">Toediener en Prioriteit zijn vereist</div>
       </div>
 
       <hr>
 
-      <label for="remark_edit">Opmerking</label>
-      <textarea type="text" class="form-control" id="remark_edit" formControlName="remark"></textarea>
+      <h3 class="modal-title pull-left">Ontvangers</h3>
+      <div formArrayName="receivers"
+           *ngFor="let receiver of groupForm.get('receivers').controls; let i = index">
+        <hr *ngIf="i>0">
+        <div [formGroupName]="i">
+          <label for="receiver_id">Ontvanger</label>
+          <select formControlName="receiver_id" id="receiver_id" class="form-control" required>
+            <option *ngFor="let option of receivers" value="{{option.id}}">{{option.name}}</option>
+          </select>
+        </div>
+        <button *ngIf="i > 0;" type="button" class="btn btn-danger"
+                (click)="deleteReceiverButtonClick(i)">Verwijder Ontvanger</button>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addReceiverButtonClick()"
+              [disabled]="groupForm.get('receivers').invalid">Voeg nog een ontvanger toe</button>
+
       <button class="btn btn-primary" type="submit">Opslaan</button>
     </form>
-  </div>
-</ng-template>
-
-<ng-template #delete>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Verwijderen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <label>Weet u zeker dat u het indienmoment voor {{intakeMoment.receiver_id.name}} wilt verwijderen?</label>
-      <br>
-      <button class="btn btn-primary" (click)="modalRef.hide()">Anuleren</button>
-      <button class="btn btn-danger" (click)="deleteIntakeMoment(intakeMoment)">Verwijderen</button>
-    </form>
-  </div>
-</ng-template>
+</div>

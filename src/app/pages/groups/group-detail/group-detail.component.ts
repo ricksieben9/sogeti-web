@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output, ChangeDetectorRef} from '@angular/core';
 import {ErrorMsg} from '../../../_models/errorMsg';
 import {Group} from '../../../_models/group';
 import {GroupService} from '../../../service/group.service';
@@ -15,6 +15,7 @@ import {PriorityService} from '../../../service/priority.service';
 export class GroupDetailComponent implements OnInit {
 
   @Input() group: Group;
+  @Output() saveEvent = new EventEmitter<string>();
   groups: any;
   receivers: any;
   dispensers: any;
@@ -27,12 +28,12 @@ export class GroupDetailComponent implements OnInit {
               private receiverService: ReceiverService,
               private userService: UsersService,
               private priorityService: PriorityService,
-              private fb: FormBuilder
-  ) { }
+              private fb: FormBuilder,
+              private cdRef: ChangeDetectorRef
+  ) { this.createForm();  }
 
   ngOnInit() {
     this.getData();
-    this.createForm();
   }
 
   createForm() {
@@ -46,6 +47,12 @@ export class GroupDetailComponent implements OnInit {
         this.addReceiverFormGroup()
       ])
     });
+
+    // default no receivers and dispensers in group
+    let control = <FormArray>this.groupForm.controls.group_dispensers;
+    control.controls = [];
+    control = <FormArray>this.groupForm.controls.receivers;
+    control.controls = [];
   }
 
   getGroup(id) {
@@ -79,14 +86,14 @@ export class GroupDetailComponent implements OnInit {
 
   addDispenserFormGroup(): FormGroup {
     return this.fb.group({
-      user_id: [''],
-      priority: ['']
+      user_id: [],
+      priority: []
     });
   }
 
   addReceiverFormGroup(): FormGroup {
     return this.fb.group({
-      id: ['']
+      id: []
     });
   }
 
@@ -100,6 +107,7 @@ export class GroupDetailComponent implements OnInit {
   }
 
   clearGroupForm() {
+    this.submitted = false;
     this.createForm();
   }
 
@@ -116,12 +124,12 @@ export class GroupDetailComponent implements OnInit {
   setReceivers() {
     const control = <FormArray>this.groupForm.controls.receivers;
     control.controls = [];
-    this.group.receivers.forEach(x => {
-      if (x.receiver_id) {
-      control.push(this.fb.group({receiver_id: x.receiver_id.id}));
-      }
-    });
-  }
+      this.group.receivers.forEach(x => {
+        if (x.id) {
+          control.push(this.fb.group({id: x.id}));
+        }
+      });
+    }
 
   deleteDispenserButtonClick(index: number) {
     (<FormArray>this.groupForm.get('group_dispensers')).removeAt(index);
@@ -129,6 +137,7 @@ export class GroupDetailComponent implements OnInit {
 
   addDispenserButtonClick() {
     (<FormArray>this.groupForm.get('group_dispensers')).push(this.addDispenserFormGroup());
+    this.cdRef.detectChanges();
   }
 
   deleteReceiverButtonClick(index: number) {
@@ -137,6 +146,7 @@ export class GroupDetailComponent implements OnInit {
 
   addReceiverButtonClick() {
     (<FormArray>this.groupForm.get('receivers')).push(this.addReceiverFormGroup());
+    this.cdRef.detectChanges();
   }
 
   get groupFormControls() { return this.groupForm.controls; }
@@ -146,23 +156,54 @@ export class GroupDetailComponent implements OnInit {
     if (!this.groupForm.get('id').value) { this.group = new Group(); }
     this.group.name = this.groupForm.get('name').value;
     this.group.group_dispensers = this.groupForm.get('group_dispensers').value;
+    this.groupForm.get('receivers').value.forEach(receiver => receiver.id = parseInt(receiver.id, 10) );
     this.group.receivers = this.groupForm.get('receivers').value;
     if (this.groupForm.invalid) {
       return;
     } else {
       if (this.groupForm.get('id').value) {
         this.groupService.updateGroup(this.group).subscribe(res => {
-
+          this.submitted = false;
+          this.createForm();
+          this.saveEvent.next();
         }, error => {
           this.errorMsg.name = error.error['response'];
         });
       } else {
         this.groupService.addGroup(this.group).subscribe(res => {
-
+          this.submitted = false;
+          this.createForm();
+          this.saveEvent.next();
         }, error => {
           this.errorMsg.name = error.error['response'];
         });
       }
     }
+  }
+
+  checkDuplicateDispenser(id: any) {
+    if (this.groupForm) {
+        for ( let i = 0; i < this.groupForm.get('group_dispensers').value.length; i++) {
+          if (this.groupForm.get('group_dispensers').value[i].user_id) {
+            if ( id.toString() === this.groupForm.get('group_dispensers').value[i].user_id.toString()) {
+              return true;
+            }
+          }
+        }
+    }
+    return false;
+  }
+
+  checkDuplicateReceiver(id: any) {
+    if (this.groupForm) {
+        for ( let i = 0; i < this.groupForm.get('receivers').value.length; i++) {
+          if (this.groupForm.get('receivers').value[i].id) {
+            if ( id.toString() === this.groupForm.get('receivers').value[i].id.toString()) {
+              return true;
+            }
+          }
+        }
+    }
+    return false;
   }
 }

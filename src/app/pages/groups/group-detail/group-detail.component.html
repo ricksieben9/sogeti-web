@@ -16,24 +16,22 @@
         <div [formGroupName]="i">
           <label for="user_id">Toediener</label>
           <select formControlName="user_id" id="user_id" class="form-control" required>
-            <option *ngFor="let option of dispensers" value="{{option.id}}">{{option.name}}</option>
+            <option *ngFor="let option of dispensers" value="{{option.id}}" [disabled]="checkDuplicateDispenser(option.id)">{{option.name}}</option>
           </select>
           <label for="priority">Prioriteit van toediener</label>
           <select formControlName="priority" id="priority" class="form-control" required>
             <option *ngFor="let option of priorities" value="{{option.number}}">{{option.number}}</option>
           </select>
         </div>
-        <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)">Verwijder
+        <button type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)">Verwijder
           Toediener
         </button>
       </div>
       <button type="button" class="btn btn-primary" (click)="addDispenserButtonClick()"
-        [disabled]="groupForm.get('group_dispensers').invalid">Voeg nog een toediener toe</button>
+        [disabled]="groupForm.get('group_dispensers').invalid">Voeg een toediener toe</button>
     </div>
-    <div *ngIf="submitted && groupForm.get('group_dispensers').invalid" class="invalid-feedback">
-      <div *ngIf="groupForm.get('group_dispensers').invalid; else noPriority">Toediener en Prioriteit zijn vereist</div>
-      <!-- <div #noPriority>Prioriteit is vereist</div> -->
-      <div *ngIf="groupForm.get('group_dispensers').invalid">Prioriteit is vereist</div>
+    <div *ngIf="submitted" class="invalid-feedback">
+      <div *ngIf="groupForm.get('group_dispensers').invalid">Toediener en prioriteit zijn vereist</div>
     </div>
 
     <hr>
@@ -44,14 +42,14 @@
       <div [formGroupName]="i">
         <label for="id">Ontvanger</label>
         <select formControlName="id" id="id" class="form-control" required>
-          <option *ngFor="let option of receivers" value="{{option.id}}">{{option.name}}</option>
+          <option *ngFor="let option of receivers" value="{{option.id}}" [disabled]="checkDuplicateReceiver(option.id)">{{option.name}}</option>
         </select>
       </div>
-      <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)">Verwijder
+      <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)">Verwijder
         Ontvanger</button>
     </div>
     <button type="button" class="btn btn-primary" (click)="addReceiverButtonClick()"
-      [disabled]="groupForm.get('receivers').invalid">Voeg nog een ontvanger toe</button>
+      [disabled]="groupForm.get('receivers').invalid">Voeg een ontvanger toe</button>
 
     <button class="btn btn-primary" type="submit">Opslaan</button>
   </form>

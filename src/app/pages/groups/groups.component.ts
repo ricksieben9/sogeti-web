@@ -68,6 +68,7 @@ export class GroupsComponent implements OnInit {
       this.errorMsg.name = error.error['response'];
     });
     this.getGroups();
+    this.groupDetailComponent.createForm();
   }
 
 }

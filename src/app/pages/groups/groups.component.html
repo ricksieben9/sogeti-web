@@ -44,12 +44,12 @@
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <h3 class="mb-0 float-left">Groepen</h3>
-          <button class="btn btn-info float-right" type="button" (click)="onClear()">Maak formulier leeg</button>
+          <button class="btn btn-info float-right" type="button" (click)="onClear()">Maak nieuwe groep</button>
         </div>
         <div class="card-body">
 
             <!-- Views the group-detail component.html of the selected group on the right side of the page -->
-            <app-group-detail [group]="selectedGroup"></app-group-detail>
+            <app-group-detail [group]="selectedGroup" (saveEvent)="getGroups()"></app-group-detail>
 
           </div>
         </div>

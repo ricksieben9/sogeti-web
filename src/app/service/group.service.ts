@@ -24,6 +24,7 @@ export class GroupService {
   }
 
   updateGroup(group: Group): Observable<Group> {
+    console.log('update');
     return this.http.patch<Group>(
       `${environment.url}` + '/group/' + group.id,
       group

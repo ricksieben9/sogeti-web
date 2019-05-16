@@ -4,6 +4,6 @@ export class Group {
     groups_id: string;
     user_id: string;
     priority: string;
-    dispensers: any;
+    group_dispensers: any;
     receivers: any;
 }

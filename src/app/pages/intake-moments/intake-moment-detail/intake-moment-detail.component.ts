@@ -149,10 +149,11 @@ export class IntakeMomentDetailComponent implements OnInit {
     this.intakeMoment.dispenser_id = this.intakeMomentForm.get('dispenser').value;
     this.intakeMoment.remark = this.intakeMomentForm.get('remark').value;
     this.intakeMoment.intake_moment_medicines = this.intakeMomentForm.get('medicines').value;
+    this.intakeMoment.receiver_id = this.receiver.id;
     if (this.intakeMomentForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.addIntakeMoment(this.intakeMoment, this.receiver.id).subscribe(res => {
+      this.intakeMomentService.addIntakeMoment(this.intakeMoment).subscribe(res => {
         this.getIntakeMomentsOfReceiver();
         this.intakeMomentForm.reset();
         this.modalRef.hide();
@@ -169,10 +170,11 @@ export class IntakeMomentDetailComponent implements OnInit {
     this.intakeMoment.dispenser_id = this.intakeMomentEditForm.get('dispenser').value;
     this.intakeMoment.remark = this.intakeMomentEditForm.get('remark').value;
     this.intakeMoment.intake_moment_medicines = this.intakeMomentEditForm.get('medicines').value;
+    this.intakeMoment.receiver_id = this.receiver.id;
     if (this.intakeMomentEditForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.updateIntakeMoment(this.intakeMoment, this.receiver.id).subscribe(res => {
+      this.intakeMomentService.updateIntakeMoment(this.intakeMoment).subscribe(res => {
         this.getIntakeMomentsOfReceiver();
         this.modalRef.hide();
       }, error => {

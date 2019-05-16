@@ -19,18 +19,18 @@ export class IntakeMomentService {
     return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/incomplete');
   }
 
-  addIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {
-    return this.http.post<IntakeMoment>(`${environment.url}` + '/receiver/' + receiverId + '/intakeMoments', intakeMoment);
+  addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
+    return this.http.post<IntakeMoment>(`${environment.url}` + '/intakeMoment', intakeMoment);
   }
 
-  updateIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {
+  updateIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
     return this.http.patch<IntakeMoment>(
-      `${environment.url}` + '/receiver/' + receiverId + '/intakeMoments/' + intakeMoment.id,
+      `${environment.url}` + '/intakeMoment/' + intakeMoment.id,
       intakeMoment
     );
   }
 
   deleteIntakeMoment(receiver: string, intakeMoment: IntakeMoment) {
-    return this.http.delete(`${environment.url}` + '/receiver/' + receiver + '/intakeMoments/' + intakeMoment.id);
+    return this.http.delete(`${environment.url}` + '/intakeMoment/' + intakeMoment.id);
   }
 }

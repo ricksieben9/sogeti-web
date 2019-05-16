@@ -46,9 +46,10 @@ export class GroupDetailComponent implements OnInit {
   getGroup(id) {
     this.groupService.getGroup(id)
       .subscribe(group => {
-        this.group = group[0];
+        this.group = group[0];        
+        console.log(this.group);
+        this.patchGroupEditForm();
       });
-      console.log(this.group);
   }
 
   getData() {
@@ -82,6 +83,34 @@ export class GroupDetailComponent implements OnInit {
   addReceiverFormGroup(): FormGroup {
     return this.fb.group({
       receiver_id: ['']
+    });
+  }
+
+  patchGroupEditForm() {
+    this.groupForm.patchValue({      
+      name: this.group.name
+    });
+    this.setDispensers();
+    this.setReceivers();
+  }
+
+  setDispensers(){
+    const control = <FormArray>this.groupForm.controls.dispensers;
+    control.controls = [];
+    this.group.dispensers.forEach(x => {
+      if (x.user_id) {
+      control.push(this.fb.group({dispenser_id: x.user_id.id}));
+      }
+    });
+  }
+
+  setReceivers(){
+    const control = <FormArray>this.groupForm.controls.receivers;
+    control.controls = [];
+    this.group.receivers.forEach(x => {
+      if (x.receiver_id) {
+      control.push(this.fb.group({receiver_id: x.receiver_id.id}));
+      }
     });
   }
 

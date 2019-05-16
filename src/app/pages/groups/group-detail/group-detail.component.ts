@@ -124,11 +124,11 @@ export class GroupDetailComponent implements OnInit {
   }
 
   deleteDispenserButtonClick(index: number) {
-    (<FormArray>this.groupForm.get('dispensers')).removeAt(index);
+    (<FormArray>this.groupForm.get('group_dispensers')).removeAt(index);
   }
 
   addDispenserButtonClick() {
-    (<FormArray>this.groupForm.get('dispensers')).push(this.addDispenserFormGroup());
+    (<FormArray>this.groupForm.get('group_dispensers')).push(this.addDispenserFormGroup());
   }
 
   deleteReceiverButtonClick(index: number) {

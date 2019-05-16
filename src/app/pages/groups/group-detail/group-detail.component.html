@@ -24,13 +24,16 @@
           </select>
         </div>
         <button *ngIf="i > 0;" type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)">Verwijder
-          Toediener</button>
+          Toediener
+        </button>
       </div>
       <button type="button" class="btn btn-primary" (click)="addDispenserButtonClick()"
         [disabled]="groupForm.get('group_dispensers').invalid">Voeg nog een toediener toe</button>
     </div>
     <div *ngIf="submitted && groupForm.get('group_dispensers').invalid" class="invalid-feedback">
-      <div *ngIf="groupForm.get('group_dispensers').invalid">Toediener en Prioriteit zijn vereist</div>
+      <div *ngIf="groupForm.get('group_dispensers').invalid; else noPriority">Toediener en Prioriteit zijn vereist</div>
+      <!-- <div #noPriority>Prioriteit is vereist</div> -->
+      <div *ngIf="groupForm.get('group_dispensers').invalid">Prioriteit is vereist</div>
     </div>
 
     <hr>

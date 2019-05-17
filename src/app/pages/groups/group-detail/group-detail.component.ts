@@ -181,29 +181,29 @@ export class GroupDetailComponent implements OnInit {
     }
   }
 
-  checkDuplicateDispenser(id: any) {
+  checkDuplicateDispenser(id: any, index: number) {
     if (this.groupForm) {
         for ( let i = 0; i < this.groupForm.get('group_dispensers').value.length; i++) {
           if (this.groupForm.get('group_dispensers').value[i].user_id) {
             if ( id.toString() === this.groupForm.get('group_dispensers').value[i].user_id.toString()) {
-              return true;
+              return index === i;
             }
           }
         }
     }
-    return false;
+    return true;
   }
 
-  checkDuplicateReceiver(id: any) {
+  checkDuplicateReceiver(id: any, index: number) {
     if (this.groupForm) {
         for ( let i = 0; i < this.groupForm.get('receivers').value.length; i++) {
           if (this.groupForm.get('receivers').value[i].id) {
             if ( id.toString() === this.groupForm.get('receivers').value[i].id.toString()) {
-              return true;
+              return index === i;
             }
           }
         }
     }
-    return false;
+    return true;
   }
 }

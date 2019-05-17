@@ -18,7 +18,9 @@
             <div class="dispenser_name">
               <label for="user_id">Toediener</label>
               <select formControlName="user_id" id="user_id" class="form-control" required>
-                <option *ngFor="let option of dispensers" value="{{option.id}}" [disabled]="checkDuplicateDispenser(option.id)">{{option.name}}</option>
+                <ng-container *ngFor="let option of dispensers">
+                  <option *ngIf="checkDuplicateDispenser(option.id, i)"  value="{{option.id}}">{{option.name}}</option>
+                </ng-container>
               </select>
             </div>
             <div class="dispenser_priority">
@@ -52,7 +54,9 @@
           <div class="receiver">
             <label for="id">Ontvanger</label>
             <select formControlName="id" id="id" class="form-control" required>
-              <option *ngFor="let option of receivers" value="{{option.id}}" [disabled]="checkDuplicateReceiver(option.id)">{{option.name}}</option>
+              <ng-container *ngFor="let option of receivers">
+                <option *ngIf="checkDuplicateReceiver(option.id, i)"  value="{{option.id}}">{{option.name}}</option>
+              </ng-container>
             </select>
             <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)">Verwijder ontvanger
             </button>

@@ -8,7 +8,6 @@ import { ClipboardModule } from 'ngx-clipboard';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UsersComponent } from '../../pages/users/users.component';
 import { ReceiversComponent } from '../../pages/receivers/receivers.component';
 import { IntakeMomentsComponent } from '../../pages/intake-moments/intake-moments.component';
 import { IntakeMomentDetailComponent } from '../../pages/intake-moments/intake-moment-detail/intake-moment-detail.component';
@@ -34,7 +33,6 @@ import {NotificationsComponent} from '../../pages/notifications/notifications.co
     DashboardComponent,
     UserProfileComponent,
     TablesComponent,
-    UsersComponent,
     DispenserComponent,
     ReceiversComponent,
     IntakeMomentsComponent,

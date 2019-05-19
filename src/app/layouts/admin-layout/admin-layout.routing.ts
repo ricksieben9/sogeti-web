@@ -1,7 +1,6 @@
 import {Routes} from '@angular/router';
 
 import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
-import {UsersComponent} from '../../pages/users/users.component';
 import {UserProfileComponent} from '../../pages/user-profile/user-profile.component';
 import {IntakeMomentsComponent} from '../../pages/intake-moments/intake-moments.component';
 import {IntakeMomentDetailComponent} from '../../pages/intake-moments/intake-moment-detail/intake-moment-detail.component';
@@ -17,7 +16,6 @@ export const AdminLayoutRoutes: Routes = [
   {path: 'dispensers',     component: DispenserComponent },
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'tables', component: TablesComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'intakemoments', component: IntakeMomentsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
   {path: 'intakemoments/:id', component: IntakeMomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},

@@ -16,7 +16,7 @@ export class IntakeMomentService {
   }
 
   getIncompleteIntakeMoments() {
-    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/receiver/97' + '/intakeMoments/incomplete');
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/incomplete');
   }
   
   addIntakeMoment(intakeMoment: IntakeMoment, receiverId: string): Observable<IntakeMoment> {

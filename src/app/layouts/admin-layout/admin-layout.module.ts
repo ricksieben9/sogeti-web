@@ -14,9 +14,7 @@ import { IntakeMomentDetailComponent } from '../../pages/intake-moments/intake-m
 import { MedicineComponent} from '../../pages/medicine/medicine.component';
 import { GroupsComponent } from '../../pages/groups/groups.component';
 import { GroupDetailComponent } from '../../pages/groups/group-detail/group-detail.component';
-import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NotificationsComponent} from '../../pages/notifications/notifications.component';
 // import { ToastrModule } from 'ngx-toastr';
@@ -33,8 +31,6 @@ import {NotificationsComponent} from '../../pages/notifications/notifications.co
   ],
   declarations: [
     DashboardComponent,
-    UserProfileComponent,
-    TablesComponent,
     DispenserComponent,
     ReceiversComponent,
     IntakeMomentsComponent,

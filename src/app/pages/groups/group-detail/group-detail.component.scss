@@ -1,0 +1,43 @@
+.group_add hr{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dispenser {
+    display: flow-root;
+}
+
+.receiver{
+    display: flow-root;
+}
+
+.dispenser_add .dispenser_name {
+    width: 55%;
+    float: left;
+    margin-right: 15px;
+}
+    
+.dispenser_add .dispenser_priority {
+    float: right;
+}
+
+.dispenser_add button{
+    margin-top: 7px;
+}
+
+.dispenser_add select #user_id{
+    width: 75%;
+}
+
+.receiver_add button{
+    margin-top: 7px;
+}
+
+.dispenser_add .delete_dispenser button{
+    float: right;
+}
+
+.receiver button{
+    float: right;
+}
+

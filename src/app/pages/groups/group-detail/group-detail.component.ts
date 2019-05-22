@@ -17,6 +17,7 @@ export class GroupDetailComponent implements OnInit {
   @Input() group: Group;
   @Output() saveEvent = new EventEmitter<string>();
   groups: any;
+  groupReceivers: any;
   receivers: any;
   dispensers: any;
   priorities: any;
@@ -59,6 +60,16 @@ export class GroupDetailComponent implements OnInit {
     this.groupService.getGroup(id)
       .subscribe(group => {
         this.group = group[0];
+        this.patchGroupForm();
+      });
+  }
+
+  getGroupReceivers(id) {
+    console.log(this.groupService.getGroupReceivers(id));
+    this.groupService.getGroupReceivers(id)
+      .subscribe(groupReceivers => {
+        console.log("komt ie!");
+        this.groupReceivers = groupReceivers;
         this.patchGroupForm();
       });
   }

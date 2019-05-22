@@ -66,7 +66,18 @@
       <button type="button" class="btn btn-primary" (click)="addReceiverButtonClick()"
         [disabled]="groupForm.get('receivers').invalid">Voeg een ontvanger toe</button>
     </div>
-
+    <table>
+    <tr *ngFor="let moment of groupReceivers">
+      <td>
+        {{moment.groupId}}
+      </td>
+      <td>
+        {{moment.receiverId}}
+      </td>
+      <td>
+      </td>
+    </tr>
+    </table>
     <hr>
     
     <button class="btn btn-primary float-right" type="submit">Opslaan</button>

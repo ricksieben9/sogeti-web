@@ -19,6 +19,10 @@ export class GroupService {
     return this.http.get<Group[]>(`${environment.url}` + '/group/' + id);
   }
 
+  getGroupReceivers(id: string) {
+    return this.http.get<Group[]>(`${environment.url}` + '/group/' + id + '/receivers')
+  }
+
   addGroup(group: Group): Observable<Group> {
     return this.http.post<Group>(`${environment.url}` + '/group', group);
   }

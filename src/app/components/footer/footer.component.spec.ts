@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {SidebarComponent} from '../sidebar/sidebar.component';
+import {NavbarComponent} from '../navbar/navbar.component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -8,8 +13,15 @@ describe('FooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
-    })
+      imports:      [RouterTestingModule,
+        NgbModule,
+        HttpClientTestingModule
+      ],
+      declarations: [ FooterComponent,
+        SidebarComponent,
+        NavbarComponent,
+        FooterComponent
+      ]    })
     .compileComponents();
   }));
 

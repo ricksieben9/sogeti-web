@@ -1,12 +1,30 @@
-import { TestBed } from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 
 import { IntakeMomentService } from './intake-moment.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClient} from '@angular/common/http';
 
 describe('IntakeMomentService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let httpClientSpy: { get: jasmine.Spy };
+  let service: IntakeMomentService;
 
+  beforeEach(async(() => {
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+
+    TestBed.configureTestingModule({
+      imports:      [
+        RouterTestingModule
+      ],
+      declarations: [
+      ],
+      providers: [
+        IntakeMomentService,
+        {provide: HttpClient, useValue: httpClientSpy}
+      ]})
+      .compileComponents();
+  }));
   it('should be created', () => {
-    const service: IntakeMomentService = TestBed.get(IntakeMomentService);
+    service = TestBed.get(IntakeMomentService);
     expect(service).toBeTruthy();
   });
 });

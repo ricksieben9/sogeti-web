@@ -4,7 +4,6 @@ import { UsersService } from 'src/app/service/users.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ErrorMsg } from '../../_models/errorMsg';
-// import * as cryptoRandomString  from 'crypto-random-string';
 import * as randomstring from 'randomstring-ng';
 
 @Component({

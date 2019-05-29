@@ -25,8 +25,6 @@ export class GroupsComponent implements OnInit {
   private groupDetailComponent: GroupDetailComponent;
 
   constructor(private groupService: GroupService,
-              private receiverService: ReceiverService,
-              private userService: UsersService,
               private modalService: BsModalService,
              ) { }
 

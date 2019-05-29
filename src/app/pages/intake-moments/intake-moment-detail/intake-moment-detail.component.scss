@@ -1,0 +1,20 @@
+.intake-moment hr{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.medicine {
+  display: flow-root;
+}
+
+.medicine-add button{
+  margin-top: 7px;
+}
+
+.medicine-add select #medicine_id{
+  width: 75%;
+}
+
+.medicine-add .delete-medicine button{
+  float: right;
+}

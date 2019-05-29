@@ -20,7 +20,7 @@ export class IntakeMomentService {
   }
 
   getIntakeMoment(id: string) {
-    return this.http.get<IntakeMoment>(`${environment.url}` + '/intakeMoment/' + id);
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/' + id);
   }
 
   addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
@@ -34,7 +34,7 @@ export class IntakeMomentService {
     );
   }
 
-  deleteIntakeMoment(receiver: string, intakeMoment: IntakeMoment) {
+  deleteIntakeMoment(intakeMoment: IntakeMoment) {
     return this.http.delete(`${environment.url}` + '/intakeMoment/' + intakeMoment.id);
   }
 }

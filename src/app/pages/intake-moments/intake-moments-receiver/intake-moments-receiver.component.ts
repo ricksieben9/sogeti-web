@@ -1,18 +1,11 @@
-import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit, Inject, LOCALE_ID} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, Inject, LOCALE_ID} from '@angular/core';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
-import {UsersService} from '../../../service/users.service';
-import {PriorityService} from '../../../service/priority.service';
-import {MedicinenService} from '../../../service/medicinen.service';
-import {FormGroup, FormArray, Validators, FormBuilder} from '@angular/forms';
 import {IntakeMoment} from '../../../_models/intakeMoment';
 import {ErrorMsg} from '../../../_models/errorMsg';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Receiver} from '../../../_models/receiver';
 import {ReceiverService} from '../../../service/receiver.service';
-import {formatDate} from '@angular/common';
 import {IntakeMomentDetailComponent} from '../intake-moment-detail/intake-moment-detail.component';
 
 @Component({
@@ -24,7 +17,6 @@ export class IntakeMomentsReceiverComponent implements OnInit {
 
   @ViewChild(IntakeMomentDetailComponent)
   private intakeMomentDetailComponent: IntakeMomentDetailComponent;
-  receiver: Receiver;
   intakemoments: any;
   intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
@@ -36,11 +28,9 @@ export class IntakeMomentsReceiverComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private modalService: BsModalService,
-              @Inject(LOCALE_ID) private locale: string,
-              private modal: NgbModal) { }
+              @Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit() {
-    this.getReceiver();
     this.getIntakeMomentsOfReceiver();
   }
 
@@ -55,15 +45,6 @@ export class IntakeMomentsReceiverComponent implements OnInit {
 
   backToOverview() {
     this.location.back();
-  }
-
-  // get the selected receiver
-  getReceiver() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.receiverService.getReceiver(id)
-      .subscribe(receiver => {
-        this.receiver = receiver[0];
-      });
   }
 
   // get the intakemoments of the selected receiver
@@ -82,7 +63,7 @@ export class IntakeMomentsReceiverComponent implements OnInit {
   }
 
   deleteIntakeMoment(intake: IntakeMoment) {
-    this.intakeMomentService.deleteIntakeMoment(this.receiver.id, intake).subscribe(res => {
+    this.intakeMomentService.deleteIntakeMoment(intake).subscribe(res => {
       this.getIntakeMomentsOfReceiver();
        this.modalRef.hide();
     }, error => {

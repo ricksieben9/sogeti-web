@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/service/users.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ErrorMsg } from '../../_models/errorMsg';
+import * as randomstring from 'randomstring-ng';
 
 @Component({
   selector: 'app-dispenser',
@@ -86,6 +88,7 @@ export class DispenserComponent implements OnInit {
         this.errorMsg.email = error.error.response;
       }
     });
+
   }
 
   editRole() {
@@ -126,15 +129,8 @@ class User {
   password: string;
 
   constructor() {
-    // default password
-    this.password = "Ab12345";
+     this.password = randomstring.generate(8);
   }
 }
 
-class ErrorMsg {
-  name: string;
-  email: string;
-  roles_role: string;
-}
- 
 

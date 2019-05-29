@@ -16,7 +16,6 @@ export class GroupDetailComponent implements OnInit {
 
   @Input() group: Group;
   @Output() saveEvent = new EventEmitter<string>();
-  groups: any;
   receivers: any;
   dispensers: any;
   priorities: any;

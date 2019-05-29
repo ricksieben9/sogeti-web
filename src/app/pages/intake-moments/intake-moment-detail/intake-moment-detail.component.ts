@@ -1,37 +1,34 @@
-import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit, Inject, LOCALE_ID} from '@angular/core';
-import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
+import {Component, EventEmitter, Inject, Input, LOCALE_ID, OnInit, Output} from '@angular/core';
+import {IntakeMoment} from '../../../_models/intakeMoment';
+import {Receiver} from '../../../_models/receiver';
+import {ErrorMsg} from '../../../_models/errorMsg';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
 import {UsersService} from '../../../service/users.service';
 import {PriorityService} from '../../../service/priority.service';
 import {MedicinenService} from '../../../service/medicinen.service';
-import {FormGroup, FormArray, Validators, FormBuilder} from '@angular/forms';
-import {IntakeMoment} from '../../../_models/intakeMoment';
-import {ErrorMsg} from '../../../_models/errorMsg';
-import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Receiver} from '../../../_models/receiver';
 import {ReceiverService} from '../../../service/receiver.service';
-import {formatDate} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
+import {formatDate, Location} from '@angular/common';
 
 @Component({
-  selector: 'app-intakemoment-detail',
+  selector: 'app-intake-moment-detail',
   templateUrl: './intake-moment-detail.component.html',
   styleUrls: ['./intake-moment-detail.component.scss']
 })
 export class IntakeMomentDetailComponent implements OnInit {
-
+  @Input() intakeMoment: IntakeMoment;
+  @Output() saveEvent = new EventEmitter<string>();
   receiver: Receiver;
   medicines: any;
   intakemoments: any;
   dispensers: any;
   priorities: any;
-  intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
   intakeMomentForm: FormGroup;
-  intakeMomentEditForm: FormGroup;
-  submitted = false;
+  private submitted: boolean;
 
   constructor(private intakeMomentService: IntakeMomentService,
               private userService: UsersService,
@@ -42,46 +39,24 @@ export class IntakeMomentDetailComponent implements OnInit {
               private location: Location,
               private modalService: BsModalService,
               private fb: FormBuilder,
-              @Inject(LOCALE_ID) private locale: string,
-              private modal: NgbModal) { }
+              @Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit() {
-    this.getReceiver();
-    this.intakeMomentForm = this.fb.group({
-      intakeStartTime: ['', [Validators.required]],
-      priorityNumber: ['', [Validators.required]],
-      dispenser: [''],
-      medicines: this.fb.array([
-        this.addMedicineFormGroup()
-      ]),
-      remark: ['']
-    });
-    this.intakeMomentEditForm = this.fb.group({
-      intakeStartTime: ['', [Validators.required]],
-      priorityNumber: ['', [Validators.required]],
-      dispenser: [''],
-      medicines: this.fb.array([]),
-      remark: ['']
-    });
+    this.createForm();
     this.getData();
-    this.getIntakeMomentsOfReceiver();
   }
 
-  // get the selected receiver
-  getReceiver() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.receiverService.getReceiver(id)
-      .subscribe(receiver => {
-        this.receiver = receiver[0];
+  getIntakeMoment(id: string) {
+    this.intakeMomentService.getIntakeMoment(id)
+      .subscribe( intakeMoment => {
+        this.intakeMoment = intakeMoment[0];
+        this.patchIntakeMomentForm();
       });
   }
 
-  // get the intakemoments of the selected receiver
-  getIntakeMomentsOfReceiver() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.intakeMomentService.getIntakeMomentOfReceiver('' + id)
-      .subscribe(intakemoments => {
-                  this.intakemoments = intakemoments; });
+  clearIntakeMomentForm() {
+    this.submitted = false;
+    this.createForm();
   }
 
   getData() {
@@ -103,6 +78,13 @@ export class IntakeMomentDetailComponent implements OnInit {
     medicineObservable.subscribe((medicinData: any[]) => {
       this.medicines = medicinData;
     });
+
+    // get receiver
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.receiverService.getReceiver(id)
+      .subscribe(receiver => {
+        this.receiver = receiver[0];
+      });
   }
 
   addMedicineFormGroup(): FormGroup {
@@ -113,36 +95,24 @@ export class IntakeMomentDetailComponent implements OnInit {
     });
   }
 
-  openModalAddIntakemoment(template: TemplateRef<any>) {
-    this.submitted = false;
-    this.errorMsg = new ErrorMsg();
-    this.intakeMoment = new IntakeMoment();
-    this.modalRef = this.modalService.show(template);
+  private createForm() {
+    this.intakeMomentForm = this.fb.group({
+      id: [''],
+      intakeStartTime: ['', [Validators.required]],
+      priorityNumber: ['', [Validators.required]],
+      dispenser: [''],
+      medicines: this.fb.array([
+        this.addMedicineFormGroup()
+      ]),
+      remark: ['']
+    });
+
+    // default no medicines in intake moment
+    const control = <FormArray>this.intakeMomentForm.controls.medicines;
+    control.controls = [];
   }
 
-  openModalEditIntakemoment(template: TemplateRef<any>, intake: any) {
-    this.submitted = false;
-    this.errorMsg = new ErrorMsg();
-    this.intakeMoment = new IntakeMoment();
-    this.intakeMoment.id = intake.id;
-    this.intakeMoment.intake_start_time = intake.intake_start_time;
-    this.intakeMoment.intake_end_time = intake.intake_end_time;
-    this.intakeMoment.priority_number = intake.priority_number.number;
-    this.intakeMoment.dispenser_id = intake.dispenser ? intake.dispenser.id : '';
-    this.intakeMoment.remark = intake.remark;
-    this.intakeMoment.intake_moment_medicines = intake.intake_moment_medicines;
-    this.patchIntakeMomentEditForm();
-    this.modalRef = this.modalService.show(template);
-  }
-
-  openModalDeleteIntakemoment(template: TemplateRef<any>, intake: IntakeMoment) {
-    this.errorMsg = new ErrorMsg();
-    this.intakeMoment.id = intake.id;
-    this.intakeMoment.receiver_id = intake.receiver_id;
-    this.modalRef = this.modalService.show(template);
-  }
-
-  onSave() {
+  saveIntakeMoment() {
     this.submitted = true;
     this.intakeMoment.intake_start_time = this.intakeMomentForm.get('intakeStartTime').value;
     this.intakeMoment.priority_number = this.intakeMomentForm.get('priorityNumber').value;
@@ -153,86 +123,80 @@ export class IntakeMomentDetailComponent implements OnInit {
     if (this.intakeMomentForm.invalid) {
       return;
     } else {
-      this.intakeMomentService.addIntakeMoment(this.intakeMoment).subscribe(res => {
-        this.getIntakeMomentsOfReceiver();
-        this.intakeMomentForm.reset();
-        this.modalRef.hide();
-      }, error => {
-         this.errorMsg.name = error.error['response'];
-       });
+      if (this.intakeMomentForm.get('id').value) {
+        this.intakeMomentService.updateIntakeMoment(this.intakeMoment).subscribe(res => {
+          this.submitted = false;
+          this.createForm();
+          this.saveEvent.next();
+        }, error => {
+          this.errorMsg.name = error.error['response'];
+        });
+      } else {
+        this.intakeMomentService.addIntakeMoment(this.intakeMoment).subscribe(res => {
+          this.submitted = false;
+          this.createForm();
+          this.saveEvent.next();
+        }, error => {
+          this.errorMsg.name = error.error['response'];
+        });
+      }
     }
   }
 
-  onAlter() {
-    this.submitted = true;
-    this.intakeMoment.intake_start_time = this.intakeMomentEditForm.get('intakeStartTime').value;
-    this.intakeMoment.priority_number = this.intakeMomentEditForm.get('priorityNumber').value;
-    this.intakeMoment.dispenser_id = this.intakeMomentEditForm.get('dispenser').value;
-    this.intakeMoment.remark = this.intakeMomentEditForm.get('remark').value;
-    this.intakeMoment.intake_moment_medicines = this.intakeMomentEditForm.get('medicines').value;
-    this.intakeMoment.receiver_id = this.receiver.id;
-    if (this.intakeMomentEditForm.invalid) {
-      return;
-    } else {
-      this.intakeMomentService.updateIntakeMoment(this.intakeMoment).subscribe(res => {
-        this.getIntakeMomentsOfReceiver();
-        this.modalRef.hide();
-      }, error => {
-        this.errorMsg.name = error.error['response'];
-      });
-    }
-  }
+  get intakeMomentFormControls() {return this.intakeMomentForm.controls; }
 
-  deleteIntakeMoment(intake: IntakeMoment) {
-    this.intakeMomentService.deleteIntakeMoment(this.receiver.id, intake).subscribe(res => {
-      this.getIntakeMomentsOfReceiver();
-       this.modalRef.hide();
-    }, error => {
-      this.errorMsg.name = error.error['response'];
-    });
-  }
-
-  addMedicineButtonClick(): void {
-    (<FormArray>this.intakeMomentForm.get('medicines')).push(this.addMedicineFormGroup());
-  }
-
-  addMedicineEditButtonClick() {
-    (<FormArray>this.intakeMomentEditForm.get('medicines')).push(this.addMedicineFormGroup());
-  }
-
-  deleteMedicineButtonClick(index: number): void {
+  deleteMedicineButtonClick(index: number) {
     (<FormArray>this.intakeMomentForm.get('medicines')).removeAt(index);
   }
 
-  deleteMedicineEditButtonClick(i: number) {
-    (<FormArray>this.intakeMomentEditForm.get('medicines')).removeAt(i);
+  addMedicineButtonClick() {
+    (<FormArray>this.intakeMomentForm.get('medicines')).push(this.addMedicineFormGroup());
   }
 
-  patchIntakeMomentEditForm() {
-    this.intakeMomentEditForm.patchValue({
+  private patchIntakeMomentForm() {
+    this.intakeMomentForm.patchValue({
+      id: this.intakeMoment.id,
       intakeStartTime: formatDate(new Date(this.intakeMoment.intake_start_time), 'yyyy-MM-ddThh:mm', this.locale),
-      priorityNumber: this.intakeMoment.priority_number,
-      dispenser: this.intakeMoment.dispenser_id,
+      priorityNumber: this.intakeMoment.priority_number.number,
+      dispenser: this.intakeMoment.dispenser.id,
       remark: this.intakeMoment.remark,
     });
     this.setMedicines();
   }
 
-  setMedicines() {
-    const control = <FormArray>this.intakeMomentEditForm.controls.medicines;
+  private setMedicines() {
+    const control = <FormArray>this.intakeMomentForm.controls.medicines;
     control.controls = [];
     this.intakeMoment.intake_moment_medicines.forEach(x => {
       if (x.medicine_id) {
-      control.push(this.fb.group({medicine_id: x.medicine_id.id, time_window: x.time_window, dosage: x.dosage}));
+        control.push(this.fb.group({medicine_id: x.medicine_id.id, time_window: x.time_window, dosage: x.dosage}));
       }
     });
   }
 
-  get intakeAddForm() { return this.intakeMomentForm.controls; }
-  get intakeEditForm() {return this.intakeMomentEditForm.controls; }
+  checkDuplicateMedicine(id: any, index: number) {
+    if (this.intakeMomentForm) {
+      for ( let i = 0; i < this.intakeMomentForm.get('medicines').value.length; i++) {
+        if (this.intakeMomentForm.get('medicines').value[i].medicine_id) {
+          if ( id.toString() === this.intakeMomentForm.get('medicines').value[i].medicine_id.toString()) {
+            return index === i;
+          }
+        }
+      }
+    }
+    return true;
+  }
 
-  backToOverview() {
-    this.location.back();
+  getCurrentMedicineDosageType(index: number) {
+    if (this.intakeMomentForm) {
+      for ( let i = 0; i < this.medicines.length; i++) {
+        if (this.intakeMomentForm.get('medicines').value[index].medicine_id) {
+          if ( this.medicines[i].id.toString() === this.intakeMomentForm.get('medicines').value[index].medicine_id) {
+            return this.medicines[i].unit;
+          }
+        }
+      }
+    }
+    return 'mg';
   }
 }
-

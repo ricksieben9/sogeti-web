@@ -1,20 +1,20 @@
-
-.modal-title{
-    margin-bottom: 10px;
+.intake-moment hr{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-hr{
-    border: 1px solid silver;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+.medicine {
+  display: flow-root;
 }
 
-td button{
-    margin-top: 0px;
-    margin-bottom: 0px;
+.medicine-add button{
+  margin-top: 7px;
 }
 
-button{
-    margin-top: 5px;
-    margin-bottom: 5px;
+.medicine-add select #medicine_id{
+  width: 75%;
+}
+
+.medicine-add .delete-medicine button{
+  float: right;
 }

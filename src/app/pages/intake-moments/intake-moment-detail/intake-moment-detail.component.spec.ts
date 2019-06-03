@@ -9,6 +9,7 @@ import {NavbarComponent} from '../../../components/navbar/navbar.component';
 import {FooterComponent} from '../../../components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
+import {By} from '@angular/platform-browser';
 
 describe('IntakeMomentDetailComponent', () => {
   let component: IntakeMomentDetailComponent;
@@ -38,5 +39,19 @@ describe('IntakeMomentDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  // it('should render th in ***', () => {
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   expect(compiled.querySelector('th')).toContain('Toediener');
+  // });
+
+  it('should call backToOverview', () => {
+    spyOn(component, 'backToOverview');
+    fixture.detectChanges();
+    const element = fixture.debugElement.query(By.css('button.btn-primary')).nativeElement; //WAAROM, MEERDERE BTN-PRIMARY IN HTML
+    element.click();
+    expect(component.backToOverview).toHaveBeenCalled();
+
   });
 });

@@ -8,6 +8,7 @@ import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -37,6 +38,13 @@ describe('ResetPasswordComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-
   });
+
+  it('should call logout() on click', () => {
+    spyOn(component, 'logout');
+    fixture.detectChanges();
+    const element = fixture.debugElement.query(By.css('button.btn-outline-danger')).nativeElement;
+    element.click();
+    expect(component.logout).toHaveBeenCalled();
+  })
 });

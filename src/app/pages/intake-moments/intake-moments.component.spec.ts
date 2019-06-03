@@ -7,6 +7,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
+import {By} from '@angular/platform-browser';
 
 describe('IntakeMomentsComponent', () => {
   let component: IntakeMomentsComponent;
@@ -34,5 +35,12 @@ describe('IntakeMomentsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call getReceivers() on init', () => {
+    spyOn(component, 'getReceivers');
+    fixture.detectChanges();
+    component.ngOnInit();
+    expect(component.getReceivers).toHaveBeenCalled();
   });
 });

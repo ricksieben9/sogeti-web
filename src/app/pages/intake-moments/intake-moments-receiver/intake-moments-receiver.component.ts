@@ -21,7 +21,7 @@ export class IntakeMomentsReceiverComponent implements OnInit {
   intakeMoment: IntakeMoment = new IntakeMoment();
   errorMsg: ErrorMsg = new  ErrorMsg();
   modalRef: BsModalRef;
-  selectedIntakeMoment: IntakeMoment;
+  selectedIntakeMoment: IntakeMoment = new IntakeMoment();
 
   constructor(private intakeMomentService: IntakeMomentService,
               private receiverService: ReceiverService,

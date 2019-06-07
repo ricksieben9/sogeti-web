@@ -156,9 +156,9 @@ export class IntakeMomentDetailComponent implements OnInit {
   private patchIntakeMomentForm() {
     this.intakeMomentForm.patchValue({
       id: this.intakeMoment.id,
-      intakeStartTime: formatDate(new Date(this.intakeMoment.intake_start_time), 'yyyy-MM-ddThh:mm', this.locale),
+      intakeStartTime: formatDate(new Date(this.intakeMoment.intake_start_time), 'yyyy-MM-ddTHH:mm', this.locale),
       priorityNumber: this.intakeMoment.priority_number.number,
-      dispenser: this.intakeMoment.dispenser.id,
+      dispenser: this.intakeMoment.dispenser ? this.intakeMoment.dispenser : '',
       remark: this.intakeMoment.remark,
     });
     this.setMedicines();

@@ -2,14 +2,11 @@
   <div class="container-fluid">
     <div class="header-body">
       <!-- Card stats -->
-      <h1>testt</h1>
-
     </div>
   </div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  testt
   <!-- Table -->
   <div class="row">
     <div class="col">
@@ -23,10 +20,10 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                 <tr>
-                  <th scope="col">Starttijd</th>
-                  <th scope="col">Eindtijd</th>
-                  <th scope="col">Prioriteit</th>
-                  <th scope="col">Toediener</th>
+                  <th id="colStartTime" scope="col">Starttijd</th>
+                  <th id="colEndTime" scope="col">Eindtijd</th>
+                  <th id="colPriority" scope="col">Prioriteit</th>
+                  <th id="colDispenser" scope="col">Toediener</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
@@ -53,7 +50,7 @@
             </div>
         </div>
         <div class="card-footer bg-transparent">
-          <button (click)="backToOverview()" class="btn btn-primary float-right">Terug naar vorige pagina</button>
+          <button (click)="backToOverview()" id="btnBackToOverview" class="btn btn-primary float-right">Terug naar vorige pagina</button>
         </div>
       </div>
     </div>
@@ -63,7 +60,7 @@
 <ng-template #add>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Toedienmoment toevoegen</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right closeButton" id="closeAddButton" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

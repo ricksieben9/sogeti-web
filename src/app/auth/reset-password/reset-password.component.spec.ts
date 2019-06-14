@@ -46,5 +46,6 @@ describe('ResetPasswordComponent', () => {
     const element = fixture.debugElement.query(By.css('button.btn-outline-danger')).nativeElement;
     element.click();
     expect(component.logout).toHaveBeenCalled();
+    expect(component.logout).not.toThrow();
   })
 });

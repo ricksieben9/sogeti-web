@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url : 'https://sogeti.herokuapp.com'
+  url : 'http://localhost:3000'
 };
 
 /*

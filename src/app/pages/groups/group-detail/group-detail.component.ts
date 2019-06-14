@@ -151,7 +151,6 @@ export class GroupDetailComponent implements OnInit {
     this.groupForm.get('receivers').value.forEach(receiver => receiver.id = parseInt(receiver.id, 10) );
     this.group.receivers = this.groupForm.get('receivers').value;
     if (this.groupForm.invalid) {
-      console.log(this.groupForm);
       return;
     } else {
       if (this.groupForm.get('id').value) {

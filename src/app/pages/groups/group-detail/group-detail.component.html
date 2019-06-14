@@ -30,7 +30,9 @@
               </select>
             </div>
             <div class="delete_dispenser">
-              <button type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)">Verwijder toediener
+              <button type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)"
+                      [disabled]="i === 0 && groupForm.get('group_dispensers').controls.length === 1">
+                Verwijder toediener
               </button>
             </div>
           </div>
@@ -40,8 +42,8 @@
       <button type="button" class="btn btn-primary" (click)="addDispenserButtonClick()"
         [disabled]="groupForm.get('group_dispensers').invalid">Voeg een toediener toe</button>
     </div>
-    <div *ngIf="submitted" class="invalid-feedback">
-      <div *ngIf="groupForm.get('group_dispensers').invalid">Toediener en prioriteit zijn vereist</div>
+    <div *ngIf="submitted && groupForm.get('group_dispensers').invalid" class="invalid-feedback">
+      Toediener is vereist
     </div>
 
     <hr>
@@ -58,7 +60,9 @@
                 <option *ngIf="checkDuplicateReceiver(option.id, i)"  value="{{option.id}}">{{option.name}}</option>
               </ng-container>
             </select>
-            <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)">Verwijder ontvanger
+            <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)"
+                    [disabled]="i === 0 && groupForm.get('receivers').controls.length === 1">
+              Verwijder ontvanger
             </button>
           </div>          
         </div>        
@@ -66,7 +70,9 @@
       <button type="button" class="btn btn-primary" (click)="addReceiverButtonClick()"
         [disabled]="groupForm.get('receivers').invalid">Voeg een ontvanger toe</button>
     </div>
-
+    <div *ngIf="submitted && groupForm.get('receivers').invalid" class="invalid-feedback">
+      Ontvanger is vereist
+    </div>
     <hr>
     
     <button class="btn btn-primary float-right" type="submit">Opslaan</button>

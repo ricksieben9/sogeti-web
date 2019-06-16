@@ -48,11 +48,6 @@ describe('IntakeMomentDetailComponent', () => {
 
   });
 
-  // it('should render th in ***', () => {
-  //   const compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('th')).toContain('Toediener');
-  // });
-
   it('should call backToOverview', () => {
     spyOn(component, 'backToOverview');
     fixture.detectChanges();

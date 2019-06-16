@@ -3,10 +3,10 @@
     <label for="name">Naam</label>
     <input type="text" formControlName="name" class="form-control" id="name" required
       [ngClass]="{ 'is-invalid': submitted && groupFormControls.name.errors }">
-    <div *ngIf="submitted && groupFormControls.name.errors" class="invalid-feedback">
+
+<div *ngIf="submitted && groupFormControls.name.errors" class="invalid-feedback">
       <div *ngIf="groupFormControls.name.errors.required">Naam is vereist</div>
     </div>
-
     <hr>
 
     <div class="dispenser_add">
@@ -17,20 +17,30 @@
           <div class="dispenser">
             <div class="dispenser_name">
               <label for="user_id">Toediener</label>
-              <select formControlName="user_id" id="user_id" class="form-control" required>
+              <select formControlName="user_id" id="user_id" class="form-control" required
+                      [ngClass]="{ 'is-invalid': submitted && groupForm.get('group_dispensers').controls[i].controls.user_id.invalid }">
                 <ng-container *ngFor="let option of dispensers">
                   <option *ngIf="checkDuplicateDispenser(option.id, i)"  value="{{option.id}}">{{option.name}}</option>
                 </ng-container>
               </select>
+              <div *ngIf="submitted && groupForm.get('group_dispensers').controls[i].controls.user_id.invalid" class="invalid-feedback">
+                Toediener is vereist
+              </div>
             </div>
             <div class="dispenser_priority">
               <label for="priority">Prioriteit van toediener</label>
-              <select formControlName="priority" id="priority" class="form-control" required>
+              <select formControlName="priority" id="priority" class="form-control" required
+                      [ngClass]="{ 'is-invalid': submitted && groupForm.get('group_dispensers').controls[i].controls.priority.invalid }">
                 <option *ngFor="let option of priorities" value="{{option.number}}">{{option.number}}</option>
               </select>
+              <div *ngIf="submitted && groupForm.get('group_dispensers').controls[i].controls.priority.invalid" class="invalid-feedback">
+                Prioriteit is vereist
+              </div>
             </div>
             <div class="delete_dispenser">
-              <button type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)">Verwijder toediener
+              <button type="button" class="btn btn-danger" (click)="deleteDispenserButtonClick(i)"
+                      [disabled]="i === 0 && groupForm.get('group_dispensers').controls.length === 1">
+                Verwijder toediener
               </button>
             </div>
           </div>
@@ -39,9 +49,6 @@
       </div>
       <button type="button" class="btn btn-primary" (click)="addDispenserButtonClick()"
         [disabled]="groupForm.get('group_dispensers').invalid">Voeg een toediener toe</button>
-    </div>
-    <div *ngIf="submitted" class="invalid-feedback">
-      <div *ngIf="groupForm.get('group_dispensers').invalid">Toediener en prioriteit zijn vereist</div>
     </div>
 
     <hr>
@@ -53,12 +60,18 @@
         <div [formGroupName]="i">
           <div class="receiver">
             <label for="id">Ontvanger</label>
-            <select formControlName="id" id="id" class="form-control" required>
+            <select formControlName="id" id="id" class="form-control" required
+                    [ngClass]="{ 'is-invalid': submitted && groupForm.get('receivers').controls[i].invalid }">
               <ng-container *ngFor="let option of receivers">
                 <option *ngIf="checkDuplicateReceiver(option.id, i)"  value="{{option.id}}">{{option.name}}</option>
               </ng-container>
             </select>
-            <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)">Verwijder ontvanger
+            <div *ngIf="submitted && groupForm.get('receivers').controls[i].invalid" class="invalid-feedback">
+              Ontvanger is vereist
+            </div>
+            <button type="button" class="btn btn-danger" (click)="deleteReceiverButtonClick(i)"
+                    [disabled]="i === 0 && groupForm.get('receivers').controls.length === 1">
+              Verwijder ontvanger
             </button>
           </div>          
         </div>        
@@ -66,7 +79,6 @@
       <button type="button" class="btn btn-primary" (click)="addReceiverButtonClick()"
         [disabled]="groupForm.get('receivers').invalid">Voeg een ontvanger toe</button>
     </div>
-
     <hr>
     
     <button class="btn btn-primary float-right" type="submit">Opslaan</button>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import {environment} from "../../environments/environment";
 
 interface Medicine {
   id: string;
@@ -13,25 +14,25 @@ interface Medicine {
   providedIn: 'root'
 })
 
-export class MedicinenService {
+export class MedicineService {
 
   constructor(private http: HttpClient) { }
 
   getAllMedicine(): Observable<Medicine[]> {
-    return this.http.get<Medicine[]>('http://localhost:3000/medicine/');
+    return this.http.get<Medicine[]>(`${environment.url}` + '/medicine/');
   }
 
   addMedicine(med: Medicine): Observable<Medicine> {
-    return this.http.post<Medicine>('http://localhost:3000/medicine/', med);
+    return this.http.post<Medicine>(`${environment.url}` + '/medicine/', med);
   }
 
   updateMedicine(med: Medicine): Observable<Medicine> {
     return this.http.patch<Medicine>(
-      'http://localhost:3000/medicine/' + med.id,
+      `${environment.url}` + '/medicine/' + med.id,
       med
     );
   }
   deleteMedicine(med: Medicine) {
-    return this.http.delete('http://localhost:3000/medicine/' + med.id);
+    return this.http.delete(`${environment.url}` + '/medicine/' + med.id);
   }
 }

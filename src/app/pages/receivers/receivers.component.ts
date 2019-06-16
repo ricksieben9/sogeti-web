@@ -44,7 +44,7 @@ export class ReceiversComponent implements OnInit {
   }
 
   onSave() {
-    !this.receiver.name ? this.errorMsg.name = 'Naam vereist' : '';
+    this.errorMsg.name = !this.receiver.name ? 'Naam vereist' : '';
     if (!this.receiver.name) {
       return;
     } else {
@@ -62,7 +62,7 @@ export class ReceiversComponent implements OnInit {
   }
 
   onAlter() {
-    !this.receiver.name ? this.errorMsg.name = 'Naam vereist' : '';
+    this.errorMsg.name = !this.receiver.name ? 'Naam vereist' : '';
     if (!this.receiver.name) {
       return;
     } else {

@@ -1,9 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AdminLayoutComponent } from './admin-layout.component';
+import {AdminLayoutComponent} from './admin-layout.component';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
-import {RouterLink} from '@angular/router';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';

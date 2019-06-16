@@ -1,9 +1,8 @@
-import {async, inject, TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 
-import { MedicinenService } from './medicinen.service';
+import {MedicinenService} from './medicinen.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClient} from '@angular/common/http';
-import {HttpTestingController} from '@angular/common/http/testing';
 
 describe('MedicinenService', () => {
   let httpClientSpy: { get: jasmine.Spy };

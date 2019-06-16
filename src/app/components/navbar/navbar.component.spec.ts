@@ -1,15 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NavbarComponent } from './navbar.component';
+import {NavbarComponent} from './navbar.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {DashboardComponent} from '../../pages/dashboard/dashboard.component';
 import {SidebarComponent} from '../sidebar/sidebar.component';
 import {FooterComponent} from '../footer/footer.component';
 import {User} from '../../_models/user';
-import {AppModule} from '../../app.module';
-import {UsersService} from '../../service/users.service';
 import {AdminLayoutModule} from '../../layouts/admin-layout/admin-layout.module';
 
 describe('NavbarComponent', () => {
@@ -39,7 +36,6 @@ describe('NavbarComponent', () => {
 
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
   }));
 
   it('should create', () => {

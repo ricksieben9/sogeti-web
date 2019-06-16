@@ -1,7 +1,6 @@
 import {async, TestBed} from '@angular/core/testing';
 
-import { ReceiverService } from './receiver.service';
-import {GroupService} from './group.service';
+import {ReceiverService} from './receiver.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClient} from '@angular/common/http';
 

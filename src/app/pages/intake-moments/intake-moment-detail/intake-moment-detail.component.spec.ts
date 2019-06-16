@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { IntakeMomentDetailComponent } from './intake-moment-detail.component';
+import {IntakeMomentDetailComponent} from './intake-moment-detail.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -8,7 +8,7 @@ import {SidebarComponent} from '../../../components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../../components/navbar/navbar.component';
 import {FooterComponent} from '../../../components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BsModalRef, BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
+import {BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
 import {By} from '@angular/platform-browser';
 import {HttpClient} from '@angular/common/http';
 

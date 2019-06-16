@@ -25,6 +25,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // setup reset password form
     this.resetPasswordForm = this.formBuilder.group({
       currentPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
@@ -57,7 +58,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         data => {
           this.authenticationService.logout();
           this.router.navigate(['/login']);
-          // this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error.error['response'];

@@ -18,7 +18,6 @@ import { DispenserComponent } from '../../pages/dispenser/dispenser.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NotificationsComponent} from '../../pages/notifications/notifications.component';
 import {IntakeMomentDetailComponent} from '../../pages/intake-moments/intake-moment-detail/intake-moment-detail.component';
-// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [

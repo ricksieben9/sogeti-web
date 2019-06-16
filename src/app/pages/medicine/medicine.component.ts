@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {MedicinenService} from '../../service/medicinen.service';
+import {MedicineService} from '../../service/medicine.service';
 
 @Component({
   selector: 'app-medicine',
@@ -14,7 +14,7 @@ export class MedicineComponent implements OnInit {
   errorMsg: ErrorMsg = new  ErrorMsg();
   medicine: Medicine = new Medicine();
 
-  constructor(private medicineService: MedicinenService, private modalService: BsModalService) { }
+  constructor(private medicineService: MedicineService, private modalService: BsModalService) { }
 
   openModalAdd(template: TemplateRef<any>) {
     this.errorMsg = new ErrorMsg();
@@ -48,8 +48,8 @@ export class MedicineComponent implements OnInit {
   }
 
   onSave() {
-    !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
-    !this.medicine.unit ? this.errorMsg.unit = 'Eenheid vereist' : '';
+    this.errorMsg.name = !this.medicine.name ? 'Naam vereist' : '';
+    this.errorMsg.unit = !this.medicine.unit ? 'Eenheid vereist' : '';
     if (!this.medicine.name || !this.medicine.unit) {
       return;
     } else {
@@ -63,8 +63,8 @@ export class MedicineComponent implements OnInit {
   }
 
   onAlter() {
-    !this.medicine.name ? this.errorMsg.name = 'Naam vereist' : '';
-    !this.medicine.unit ? this.errorMsg.unit = 'Eenheid vereist' : '';
+    this.errorMsg.name = !this.medicine.name ? 'Naam vereist' : '';
+    this.errorMsg.unit = !this.medicine.unit ? 'Eenheid vereist' : '';
     if (!this.medicine.name || !this.medicine.unit) {
       return;
     } else {

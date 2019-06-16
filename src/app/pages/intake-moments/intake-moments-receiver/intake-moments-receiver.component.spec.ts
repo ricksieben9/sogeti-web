@@ -1,26 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {IntakeMomentDetailComponent} from './intake-moment-detail.component';
+import {IntakeMomentsReceiverComponent} from './intake-moments-receiver.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {IntakeMomentDetailComponent} from '../intake-moment-detail/intake-moment-detail.component';
 import {SidebarComponent} from '../../../components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../../components/navbar/navbar.component';
 import {FooterComponent} from '../../../components/footer/footer.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
-import {By} from '@angular/platform-browser';
-import {HttpClient} from '@angular/common/http';
 
-class MockedUserService {
-  private http: HttpClient;
-
-
-}
-
-describe('IntakeMomentDetailComponent', () => {
-  let component: IntakeMomentDetailComponent;
-  let fixture: ComponentFixture<IntakeMomentDetailComponent>;
+describe('IntakeMomentsReceiverComponent', () => {
+  let component: IntakeMomentsReceiverComponent;
+  let fixture: ComponentFixture<IntakeMomentsReceiverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,25 +23,16 @@ describe('IntakeMomentDetailComponent', () => {
         ReactiveFormsModule,
         FormsModule
       ],
-      declarations: [ IntakeMomentDetailComponent,
+      declarations: [ IntakeMomentsReceiverComponent,
         SidebarComponent,
         NavbarComponent,
         FooterComponent
       ],
       providers: [BsModalService, ComponentLoaderFactory, PositioningService]})
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(IntakeMomentDetailComponent);
+    fixture = TestBed.createComponent(IntakeMomentsReceiverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-
-  });
-
-  it('should fill list', () => {
-    component.dispensers
-  });
 });

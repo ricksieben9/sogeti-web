@@ -9,7 +9,7 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {FooterComponent} from '../../components/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
-import {MedicinenService} from '../../service/medicinen.service';
+import {MedicineService} from '../../service/medicine.service';
 
 describe('MedicineComponent', () => {
   let component: MedicineComponent;
@@ -28,7 +28,7 @@ describe('MedicineComponent', () => {
         NavbarComponent,
         FooterComponent
       ],
-    providers: [BsModalService, ComponentLoaderFactory, PositioningService, MedicinenService]})
+    providers: [BsModalService, ComponentLoaderFactory, PositioningService, MedicineService]})
     .compileComponents();
 
     fixture = TestBed.createComponent(MedicineComponent);

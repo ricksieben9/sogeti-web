@@ -14,7 +14,6 @@ import {AuthenticationService} from './service/authentication.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -31,7 +30,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
   ],
   providers: [UsersService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

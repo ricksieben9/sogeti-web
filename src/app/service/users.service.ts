@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
-import { HttpClient, HttpHeaders} from '@angular/common/http'
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 interface User {
-  name: string,
-  id: string,
-  roles_role: string,
-  email: string
+  name: string;
+  id: string;
+  roles_role: string;
+  email: string;
 }
 
 
@@ -18,16 +18,8 @@ export class UsersService {
   users: User[];
 
   getUsersByRoles(roles): Observable<User[]> {
-    let url = `${environment.url}/user/roles/?roles=` + JSON.stringify(roles);
+    const url = `${environment.url}/user/roles/?roles=` + JSON.stringify(roles);
     return this.http.get<User[]>(url);
-  }
-
-  getAll() {
-    return this.http.get<User[]>(`${environment.url}/user`);
-  }
-  
-  getUserById(id: any): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.url}/user/` + id);
   }
 
   insertUser(user: User): Observable<User> {

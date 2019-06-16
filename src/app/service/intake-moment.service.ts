@@ -19,6 +19,10 @@ export class IntakeMomentService {
     return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/incomplete');
   }
 
+  getIntakeMoment(id: string) {
+    return this.http.get<IntakeMoment[]>(`${environment.url}` + '/intakeMoment/' + id);
+  }
+
   addIntakeMoment(intakeMoment: IntakeMoment): Observable<IntakeMoment> {
     return this.http.post<IntakeMoment>(`${environment.url}` + '/intakeMoment', intakeMoment);
   }
@@ -30,7 +34,7 @@ export class IntakeMomentService {
     );
   }
 
-  deleteIntakeMoment(receiver: string, intakeMoment: IntakeMoment) {
+  deleteIntakeMoment(intakeMoment: IntakeMoment) {
     return this.http.delete(`${environment.url}` + '/intakeMoment/' + intakeMoment.id);
   }
 }

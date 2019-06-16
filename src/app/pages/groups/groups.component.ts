@@ -3,8 +3,6 @@ import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {ErrorMsg} from '../../_models/errorMsg';
 import {Group} from '../../_models/group';
 import {GroupService} from '../../service/group.service';
-import {ReceiverService} from '../../service/receiver.service';
-import {UsersService} from '../../service/users.service';
 import {GroupDetailComponent} from './group-detail/group-detail.component';
 
 @Component({

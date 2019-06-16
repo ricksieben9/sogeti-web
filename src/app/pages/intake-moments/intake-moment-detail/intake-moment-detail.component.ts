@@ -7,7 +7,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IntakeMomentService} from '../../../service/intake-moment.service';
 import {UsersService} from '../../../service/users.service';
 import {PriorityService} from '../../../service/priority.service';
-import {MedicinenService} from '../../../service/medicinen.service';
+import {MedicineService} from '../../../service/medicine.service';
 import {ReceiverService} from '../../../service/receiver.service';
 import {ActivatedRoute} from '@angular/router';
 import {formatDate, Location} from '@angular/common';
@@ -33,7 +33,7 @@ export class IntakeMomentDetailComponent implements OnInit {
   constructor(private intakeMomentService: IntakeMomentService,
               private userService: UsersService,
               private priorityService: PriorityService,
-              private medicineService: MedicinenService,
+              private medicineService: MedicineService,
               private receiverService: ReceiverService,
               private route: ActivatedRoute,
               private location: Location,

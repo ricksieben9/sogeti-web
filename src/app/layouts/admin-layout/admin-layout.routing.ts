@@ -16,12 +16,12 @@ import {IntakeMomentDetailComponent} from '../../pages/intake-moments/intake-mom
 export const AdminLayoutRoutes: Routes = [
   {path: 'dispensers',  component: DispenserComponent },
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'groups', component: GroupsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'groups/group/:id', component: GroupDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'intakemoments', component: IntakeMomentsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'intakemoments/:id', component: IntakeMomentsReceiverComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'intakemoments/detail/:id', component: IntakeMomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'medicine', component: MedicineComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}},
-  {path: 'log', component: NotificationsComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin]}}
+  {path: 'groups', component: GroupsComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}},
+  {path: 'groups/group/:id', component: GroupDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}},
+  {path: 'receivers', component: ReceiversComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin, Role.HeadDispenser]}},
+  {path: 'intakemoments', component: IntakeMomentsComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}},
+  {path: 'intakemoments/:id', component: IntakeMomentsReceiverComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}},
+  {path: 'intakemoments/detail/:id', component: IntakeMomentDetailComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}},
+  {path: 'medicine', component: MedicineComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin, Role.HeadDispenser]}},
+  {path: 'log', component: NotificationsComponent, canActivate: [AuthGuard], data: {roles: [Role.HeadDispenser]}}
 ];

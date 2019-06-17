@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getIncompleteIntakeMoments();
+    if (!this.isAdmin) { this.getIncompleteIntakeMoments(); }
   }
 
   get isAdmin() {

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '../service/authentication.service';
+import {tap} from 'rxjs/internal/operators/tap';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -20,5 +21,26 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     return next.handle(request);
+  }
+}
+
+@Injectable()
+export class JwtResponseInterceptor implements HttpInterceptor {
+  constructor(private authenticationService: AuthenticationService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
+      const currentUser = this.authenticationService.currentUserValue;
+      if (currentUser) {
+        if (event instanceof HttpResponse) {
+          if (event.headers.get('token')) {
+            currentUser.token = event.headers.get('token');
+          }
+        }
+      }
+      return event;
+    }));
+
   }
 }

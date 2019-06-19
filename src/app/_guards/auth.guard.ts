@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
       {
         if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
           // role not authorised so redirect to home page
-          console.log('hier');
           currentUser.role === Role.Admin ? this.router.navigate(['/dispensers']) : this.router.navigate(['/dashboard']);
           return false;
         }

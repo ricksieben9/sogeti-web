@@ -12,7 +12,8 @@ import {ComponentsModule} from './components/components.module';
 import {UsersService} from './service/users.service';
 import {AuthenticationService} from './service/authentication.service';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {JwtInterceptor} from './_helpers/jwt.interceptor';
+import {JwtInterceptor, JwtResponseInterceptor} from './_helpers/jwt.interceptor';
+import {ErrorInterceptor} from "./_helpers/error.interceptor";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
   ],
   providers: [UsersService, AuthenticationService,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtResponseInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

@@ -36,6 +36,7 @@ export class JwtResponseInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           if (event.headers.get('token')) {
             currentUser.token = event.headers.get('token');
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
           }
         }
       }

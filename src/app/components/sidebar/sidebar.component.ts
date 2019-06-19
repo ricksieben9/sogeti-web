@@ -12,14 +12,14 @@ declare interface RouteInfo {
     permitted: Role[];
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Portaal',  icon: 'ni-tv-2 text-primary', class: '', permitted: [Role.Admin, Role.HeadDispenser] },
+    { path: '/dashboard', title: 'Portaal',  icon: 'ni-tv-2 text-primary', class: '', permitted: [Role.HeadDispenser] },
     { path: '/dispensers', title: 'Toedieners',  icon: 'ni-circle-08 text-blue', class: '' , permitted: [Role.Admin, Role.HeadDispenser]},
-    { path: '/intakemoments', title: 'Toedienmomenten', icon: 'ni-single-02 text-blue', class: '',
+    { path: '/intakemoments', title: 'Toedienmomenten', icon: 'ni-watch-time text-blue', class: '',
       permitted: [Role.HeadDispenser]},
     { path: '/receivers', title: 'Ontvangers', icon: 'ni-single-02 text-blue', class: '', permitted: [Role.Admin, Role.HeadDispenser]},
-    { path: '/groups', title: 'Groepen', icon: 'ni-single-02 text-blue', class: '', permitted: [Role.HeadDispenser]},
+    { path: '/groups', title: 'Groepen', icon: 'ni-collection text-blue', class: '', permitted: [Role.HeadDispenser]},
     { path: '/medicine', title: 'Medicijnen', icon: 'ni-atom text-blue', class: '', permitted: [Role.Admin, Role.HeadDispenser]},
-    { path: '/log', title: 'Notificaties', icon: 'ni-atom text-blue', class: '', permitted: [Role.HeadDispenser]},
+    { path: '/log', title: 'Notificaties', icon: 'ni-chat-round text-blue', class: '', permitted: [Role.HeadDispenser]},
 ];
 
 @Component({

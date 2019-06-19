@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute} from '@angular/router';
 
 import {AuthenticationService} from '../service/authentication.service';
+import {Role} from '../_models/role';
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
@@ -22,14 +23,15 @@ export class AuthGuard implements CanActivate {
       }
       // check if is not first time reset password
       if (route.url[0].path === 'reset-password' && !currentUser.isFirst) {
-        this.router.navigate(['/dashboard']);
+        currentUser.role === Role.Admin ? this.router.navigate(['/dispensers']) : this.router.navigate(['/dashboard']);
         return false;
       }
       // check if route is restricted by role
       {
         if (route.data.roles && route.data.roles.indexOf(currentUser.role) === -1) {
           // role not authorised so redirect to home page
-          this.router.navigate(['/dashboard']);
+          console.log('hier');
+          currentUser.role === Role.Admin ? this.router.navigate(['/dispensers']) : this.router.navigate(['/dashboard']);
           return false;
         }
       }

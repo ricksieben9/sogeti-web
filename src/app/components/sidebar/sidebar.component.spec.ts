@@ -1,6 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SidebarComponent } from './sidebar.component';
+import {SidebarComponent} from './sidebar.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {NavbarComponent} from '../navbar/navbar.component';
+import {FooterComponent} from '../footer/footer.component';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -8,7 +13,15 @@ describe('SidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ]
+      imports:      [RouterTestingModule,
+        NgbModule,
+        HttpClientTestingModule
+      ],
+      declarations: [ SidebarComponent,
+        SidebarComponent,
+        NavbarComponent,
+        FooterComponent
+      ]
     })
     .compileComponents();
   }));

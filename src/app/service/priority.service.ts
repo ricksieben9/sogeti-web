@@ -20,19 +20,4 @@ export class PriorityService {
   getAllPriorities(): Observable<Priority[]> {
     return this.http.get<Priority[]>(`${environment.url}` + '/priority/');
   }
-
-  addPriority(priority: Priority): Observable<Priority> {
-    return this.http.post<Priority>(`${environment.url}` + '/priority/', priority);
-  }
-
-  updatePriority(priority: Priority): Observable<Priority> {
-    return this.http.patch<Priority>(
-      `${environment.url}` + '/priority/' + priority.old_number,
-      priority
-    );
-  }
-
-  deletePriority(rec: Priority) {
-    return this.http.delete(`${environment.url}` + '/priority/' + rec.number);
-  }
 }

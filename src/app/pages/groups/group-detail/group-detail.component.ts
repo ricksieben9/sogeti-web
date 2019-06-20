@@ -14,7 +14,7 @@ import {PriorityService} from '../../../service/priority.service';
 })
 export class GroupDetailComponent implements OnInit {
 
-  @Input() group: Group;
+  @Input() group: Group = new Group();
   @Output() saveEvent = new EventEmitter<string>();
   receivers: any;
   dispensers: any;
@@ -46,18 +46,13 @@ export class GroupDetailComponent implements OnInit {
         this.addReceiverFormGroup()
       ])
     });
-
-    // default no receivers and dispensers in group
-    let control = <FormArray>this.groupForm.controls.group_dispensers;
-    control.controls = [];
-    control = <FormArray>this.groupForm.controls.receivers;
-    control.controls = [];
   }
 
   getGroup(id) {
     this.groupService.getGroup(id)
       .subscribe(group => {
         this.group = group[0];
+        this.getPossibleReceivers();
         this.patchGroupForm();
       });
   }
@@ -70,11 +65,7 @@ export class GroupDetailComponent implements OnInit {
       this.dispensers = userData;
     });
 
-    // get receivers from Api
-    const receiverObservable = this.receiverService.getAllReceivers();
-    receiverObservable.subscribe((receiverData: any[]) => {
-      this.receivers = receiverData;
-    });
+    this.getPossibleReceivers();
 
     // get priorities from Api
     const priorityObservable = this.priorityService.getAllPriorities();
@@ -107,7 +98,9 @@ export class GroupDetailComponent implements OnInit {
 
   clearGroupForm() {
     this.submitted = false;
+    this.group = new Group();
     this.createForm();
+    this.getPossibleReceivers();
   }
 
   setDispensers() {
@@ -204,5 +197,15 @@ export class GroupDetailComponent implements OnInit {
         }
     }
     return true;
+  }
+
+  private getPossibleReceivers() {
+// get receivers from Api
+    const receiverObservable = this.receiverService.getAllReceivers();
+    receiverObservable.subscribe((receiverData: any[]) => {
+      this.receivers = receiverData.filter(
+        receiver => receiver.groups.length === 0 ? true
+          : this.group ? receiver.groups[0].id === this.group.id : false);
+    });
   }
 }

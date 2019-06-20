@@ -1,7 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { expect } from 'chai';
 
 import { DispenserComponent } from './dispenser.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {SidebarComponent} from '../../components/sidebar/sidebar.component';
+import {NavbarComponent} from '../../components/navbar/navbar.component';
+import {FooterComponent} from '../../components/footer/footer.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {BsModalService, ComponentLoaderFactory, PositioningService} from 'ngx-bootstrap';
 
 describe('DispenserComponent', () => {
   let component: DispenserComponent;
@@ -9,8 +17,23 @@ describe('DispenserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DispenserComponent ]
-    })
+      imports:[
+        RouterTestingModule,
+        NgbModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserModule
+      ],
+      declarations:[
+        DispenserComponent,
+        SidebarComponent,
+        NavbarComponent,
+        FooterComponent
+      ],
+      providers: [BsModalService,
+        ComponentLoaderFactory,
+        PositioningService]})
     .compileComponents();
   }));
 
@@ -22,5 +45,6 @@ describe('DispenserComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
   });
 });

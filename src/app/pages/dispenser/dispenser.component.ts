@@ -13,7 +13,19 @@ import * as randomstring from 'randomstring-ng';
 })
 export class DispenserComponent implements OnInit {
 
-  constructor(private usersService: UsersService, private modalService: BsModalService, private route: ActivatedRoute, private router: Router) { }
+  form: FormGroup;
+  user: User = new User();
+  errorMsg: ErrorMsg = new ErrorMsg();
+  roleOptions: any = ['Hoofdtoediener', 'Toediener'];
+  dispensers: any;
+  modalRef: BsModalRef;
+  newUser: User;
+  selectedRole: string;
+
+  constructor(private usersService: UsersService,
+              private modalService: BsModalService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.getDispensers();
@@ -23,17 +35,9 @@ export class DispenserComponent implements OnInit {
     });
   }
 
-  form: FormGroup;
-  user: User = new User();
-  errorMsg: ErrorMsg = new ErrorMsg();
-  roleOptions: any = ["Hoofdtoediener", "Toediener"];
-  dispensers: any;
-  modalRef: BsModalRef;
-  newUser: User;
-  selectedRole: string;
 
   getDispensers() {
-    let roles = { roleList: ["Toediener", "Hoofdtoediener"] };
+    const roles = { roleList: ['Toediener', 'Hoofdtoediener'] };
 
     const userObservable = this.usersService.getUsersByRoles(roles);
     userObservable.subscribe((userData: any[]) => {
@@ -48,7 +52,7 @@ export class DispenserComponent implements OnInit {
   openModalEditDispenser(template: TemplateRef<any>, u: User) {
     this.errorMsg = new ErrorMsg();
     this.user.id = u.id;
-    this.user.name = u.name;    
+    this.user.name = u.name;
     this.user.roles_role = u.roles_role;
     this.modalRef = this.modalService.show(template);
   }
@@ -62,29 +66,27 @@ export class DispenserComponent implements OnInit {
 
   SaveDispenser() {
     this.errorMsg.name = this.errorMsg.email = '';
-    !this.newUser.name ? this.errorMsg.name = 'Naam vereist' : '';
-    !this.newUser.email ? this.errorMsg.email = 'E-mail vereist' : '';
+    this.errorMsg.name = !this.newUser.name ? 'Naam vereist' : '';
+    this.errorMsg.email = !this.newUser.email ?  'E-mail vereist' : '';
     if (!this.newUser.name || !this.newUser.email) {
       return;
     }
 
-    var element = <HTMLInputElement> document.getElementById("isMainDispenser");
-    var isChecked = element.checked;
+    const element = <HTMLInputElement> document.getElementById('isMainDispenser');
+    const isChecked = element.checked;
     if (isChecked) {
-      this.newUser.roles_role = "Hoofdtoediener";
+      this.newUser.roles_role = 'Hoofdtoediener';
     } else {
-      this.newUser.roles_role = "Toediener";
+      this.newUser.roles_role = 'Toediener';
     }
     this.usersService.insertUser(this.newUser).subscribe(res => {
     this.getDispensers();
     this.modalRef.hide();
     this.newUser = new User();
     }, error => {
-      if (error.error.type == 'username') {
+      if (error.error.type === 'username') {
         this.errorMsg.name = error.error.response;
-      }
-        else
-      {
+      } else {
         this.errorMsg.email = error.error.response;
       }
     });
@@ -92,7 +94,7 @@ export class DispenserComponent implements OnInit {
   }
 
   editRole() {
-    !this.selectedRole ? this.errorMsg.roles_role = 'Rol vereist' : '';
+    this.errorMsg.roles_role = !this.selectedRole ? 'Rol vereist' : '';
     if (!this.selectedRole) {
       return;
     } else {
@@ -104,7 +106,7 @@ export class DispenserComponent implements OnInit {
         this.errorMsg.roles_role = error.error['response'];
       });
     }
-  
+
   }
 
   deleteDispenser(user: User) {
@@ -114,10 +116,6 @@ export class DispenserComponent implements OnInit {
     }, error => {
       this.errorMsg.name = error.error['response'];
     });
-  }
-
-  back(){
-    this.router.navigate(['/dispensers']);
   }
 }
 

@@ -4,7 +4,6 @@ import {Component, OnInit} from '@angular/core';
 import {Role} from '../../_models/role';
 import {User} from '../../_models/user';
 import {IntakeMomentService} from '../../service/intake-moment.service';
-import {LogService} from "../../service/log.service";
 
 import {AuthenticationService} from '../../service/authentication.service';
 
@@ -36,14 +35,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getIncompleteIntakeMoments();
+    if (!this.isAdmin) { this.getIncompleteIntakeMoments(); }
   }
 
-
-  public updateOptions() {
-    this.salesChart.data.datasets[0].data = this.data;
-    this.salesChart.update();
-  }
   get isAdmin() {
     return this.currentUser && this.currentUser.role === Role.Admin;
   }}
